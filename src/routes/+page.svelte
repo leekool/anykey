@@ -1,5 +1,5 @@
 <div class="border position-centre">
-    <div class="main ">
+    <div class="main">
         <div class="navbar main-item">
             <div class="navbar-text">layout_gen</div>
             <div class="navbar-buttons">
@@ -99,6 +99,7 @@
   display: flex;
   flex: 1 1 auto;
   max-height: calc(100% - 29.5px);
+  background-color: #1d1f21;
 }
 
 .position-centre {
