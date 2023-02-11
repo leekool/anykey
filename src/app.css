@@ -7,5 +7,10 @@
 }
 
 body {
-    background-color: #000;
+    margin: 0;
+    background-image: url('images/bg.png');
+    background-color: #ffd6d4;
+    background-repeat: repeat-x;
+    background-size: auto;
+    background-attachment: fixed;
 }
