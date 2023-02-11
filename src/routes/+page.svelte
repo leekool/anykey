@@ -59,7 +59,7 @@
 .navbar {
   display: flex;
   height: 25px;
-  color: #e4e3d5;
+  color: #000;
   justify-content: flex-end;
   background-repeat: repeat;
   background-image: url('src/assets/images/pixmaps/navbar-tile.png');
