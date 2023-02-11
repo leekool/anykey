@@ -17,6 +17,9 @@
     </div>
 </div>
 
+<script>
+</script>
+
 <style>
 @import url("../../static/fonts/real-icons.css");
 
