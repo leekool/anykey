@@ -42,9 +42,9 @@
   width: 100%;
   flex-direction: column;
   height: calc(100% - 30px); /* 30px to account for taskbar */
-  box-shadow: 0 0 0 1px #494b46 inset,
-              0 0 0 3px #686d62 inset,
-              0 0 0 6px #494b46 inset,
+  box-shadow: 0 0 0 1px #000 inset,
+              0 0 0 3px #a59f80 inset,
+              0 0 0 6px #000 inset,
               0 3px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -62,7 +62,7 @@
   color: #000;
   justify-content: flex-end;
   background-repeat: repeat;
-  background-image: url('src/assets/images/pixmaps/navbar-tile.png');
+  background-image: url('images/navbar-tile.svg');
   box-shadow: 0 -1px 0 0 #5c6057 inset;
   user-select: none;
 }
