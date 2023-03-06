@@ -1,7 +1,11 @@
 with open("testmap.c", "r") as f:
+    flag = False
     for line in f:
         if "MATRIX_COLS" in line:
-            result = line.split("MATRIX_COLS", 1)[1]
-            print(result)
+            flag = True
+        if flag:
+            print(line)
+        if flag == True and "};" in line:
+            break
 
 f.close()
