@@ -1,13 +1,15 @@
-keys = ()
+keys = []
 
 with open("testmap.c", "r") as f:
     flag = False
     for line in f:
-        if "MATRIX_COLS" in line:
+        if line.strip().startswith('//') == False:
+            continue
+        if "MATRIX" in line:
             flag = True
-        if flag and line.strip().startswith('//') == False:
+        if flag:
             print(line)
-        if flag == True and "};" in line:
+        if flag and "};" in line:
             break
 
 f.close()
