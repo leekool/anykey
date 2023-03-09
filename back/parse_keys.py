@@ -9,13 +9,16 @@ import re
 # #             setattr(self, name, keys)
 
 class Layer:
-    def __init__(self, name, *keys):
+    keys = []
+
+    def __init__(self, name):
         self.name = name
-        self.keys = []
 
     def push_key(self, key):
         self.keys.append(key)
 
+    def return_layer(self):
+        return {self.name: self.keys}
 
 # with open("testmap.c", "r") as f:
 #     flag = False
@@ -60,14 +63,12 @@ for line in lines:
         current_result.push_key(line)
 
     if ')' in line:
-        results.append(current_result)
+        results.append(current_result.return_layer())
         found_opening_bracket = False
 
     if flag and '};' in line:
         break
 
 # Append the final result after we have finished iterating over all the lines
-if current_result:
-    results.append(current_result)
 
 print(results)
