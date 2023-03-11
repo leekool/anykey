@@ -39,8 +39,8 @@ for line in lines:
         line_keys = line.split(',')
 
         for key in line_keys:
-            # if key contains '\n' or ')'
-            if any(x in key for x in ['\n', ')']):
+            invalid_keys = {'\n', '('}
+            if any(x in key for x in invalid_keys):
                 continue
 
             key = key.strip()
