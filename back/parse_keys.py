@@ -18,8 +18,7 @@ with open('testmap.c', 'r') as f:
 layers = []
 current_layer = []
 
-found_opening_bracket = False
-
+layer_open = False
 flag = False
 
 for line in lines:
@@ -33,17 +32,24 @@ for line in lines:
         continue
 
     if line.strip().startswith('['):
-        found_opening_bracket = True
+        layer_open = True
         current_layer = Layer(re.search(r'\[(.*?)\]', line).group(1))
 
-    elif found_opening_bracket:
-        current_layer.push_key(line)
+    elif layer_open:
+        line_keys = line.split(',')
+
+        for key in line_keys:
+            if '\n' in key:
+                continue
+
+            key = key.strip()
+            current_layer.push_key(key)
 
     if ')' in line:
         layers.append(current_layer.return_layer())
-        found_opening_bracket = False
+        layer_open = False
 
     if flag and '};' in line:
         break
 
-print(results)
+print(layers)
