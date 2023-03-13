@@ -39,7 +39,7 @@ for line in lines:
         line_keys = line.split(',')
 
         for key in line_keys:
-            invalid_keys = {'\n', '('}
+            invalid_keys = {'\n', '(', ')'}
             if any(x in key for x in invalid_keys):
                 continue
 
