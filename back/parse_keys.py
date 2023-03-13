@@ -1,25 +1,22 @@
 import re
 
 class Layer:
-    keys = []
-
     def __init__(self, name):
         self.name = name
+        self.keys = []
 
     def push_key(self, key):
         self.keys.append(key)
 
     def return_layer(self):
-        return {'name': self.name,
-                'keys': self.keys}
+        return {'name': self.name, 'keys': self.keys}
+
+layers = []
+current_layer = None
 
 with open('testmap.c', 'r') as f:
     lines = f.readlines()
 
-layers = []
-current_layer = []
-
-layer_open = False
 flag = False
 
 for line in lines:
@@ -29,18 +26,17 @@ for line in lines:
     if 'MATRIX' in line:
         flag = True
 
-    if flag == False:
+    if not flag:
         continue
 
     if line.strip().startswith('['):
-        layer_open = True
         current_layer = Layer(re.search(r'\[(.*?)\]', line).group(1))
-
-    elif layer_open:
+    elif current_layer:
         line_keys = line.split(',')
 
         for key in line_keys:
             invalid_keys = {'\n', '(', ')'}
+
             if any(x in key for x in invalid_keys):
                 continue
 
@@ -49,7 +45,7 @@ for line in lines:
 
     if ')' in line:
         layers.append(current_layer.return_layer())
-        layer_open = False
+        current_layer = None
 
     if flag and '};' in line:
         break
