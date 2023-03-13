@@ -10,7 +10,8 @@ class Layer:
         self.keys.append(key)
 
     def return_layer(self):
-        return {self.name: self.keys}
+        return {'name': self.name,
+                'keys': self.keys}
 
 with open('testmap.c', 'r') as f:
     lines = f.readlines()
