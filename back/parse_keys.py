@@ -5,9 +5,6 @@ class Layer:
         self.name = name
         self.keys = []
 
-    def push_key(self, key):
-        self.keys.append(key)
-
     def return_layer(self):
         return {'name': self.name, 'keys': self.keys}
 
@@ -36,12 +33,11 @@ for line in lines:
 
         for key in line_keys:
             invalid_keys = {'\n', '(', ')'}
-
             if any(x in key for x in invalid_keys):
                 continue
 
             key = key.strip()
-            current_layer.push_key(key)
+            current_layer.keys.append(key)
 
     if ')' in line:
         layers.append(current_layer.return_layer())
