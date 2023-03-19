@@ -1,4 +1,5 @@
 import re
+import pprint # for testing
 
 # key_dict = {
 #     'XXXXXXX': '',
@@ -105,4 +106,4 @@ for line in lines:
     if flag and '};' in line:
         break
 
-print(layers)
+pprint.pprint(layers)
