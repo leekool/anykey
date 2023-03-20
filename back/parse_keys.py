@@ -1,5 +1,5 @@
 import re
-from pprint import pprint
+from pprint import pprint # for testing
 
 # key_dict = {
 #     'XXXXXXX': '',
@@ -64,7 +64,7 @@ class Layer:
 layers = []
 current_layer = None
 
-with open('back/testmap.c', 'r') as f:
+with open('./testmap.c', 'r') as f:
     lines = f.readlines()
 
 flag = False
