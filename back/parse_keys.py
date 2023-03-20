@@ -56,7 +56,6 @@ key_dict = {
     '<': ['KC_LEFT_ANGLE_BRACKET', 'KC_LABK', 'KC_LT'],
     '<': ['KC_RIGHT_ANGLE_BRACKET', 'KC_RABK', 'KC_GT'],
     '?': ['KC_QUESTION', 'KC_QUES'],
-
 }
 
 # creates a new dict containing individual key/value pairs for each item in key_dict's keys
@@ -95,6 +94,7 @@ for line in lines:
     elif current_layer:
         line_keys = line.split(',')
 
+        # todo: refactor into switch handling function
         for switch_index, switch_dirty in enumerate(line_keys):
             invalid_keys = {'\n', '(', ')'}
             if any(x in switch_dirty for x in invalid_keys):
