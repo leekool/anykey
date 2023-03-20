@@ -93,15 +93,12 @@ for line in lines:
 
             key = key_dirty.strip()
 
-            # if key in key_dict:
-            #     key = key_dict[key]
+            # todo: handle layer names that aren't sequential numbers
+            if any(x in key for x in {'KC_TRANSPARENT', 'KC_TRNS', '_______'}) and layer_num > 0:
+                key = layers[layer_num - 1]['keys'][key_index]
 
             if 'KC_' in key:
                 key = key.replace('KC_', '')
-
-            # todo: handle layer names that aren't sequential numbers
-            if key.count('_') > 1 and layer_num > 0:
-                key = layers[layer_num - 1]['keys'][key_index]
 
             current_layer.keys.append(key)
 
@@ -111,5 +108,4 @@ for line in lines:
 
     if flag and '};' in line:
         break
-
 pprint(layers, sort_dicts = False)
