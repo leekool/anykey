@@ -37,6 +37,9 @@ key_dict = {
     'NUM LOCK': ['KC_NUM_LOCK', 'KC_NUM'],
 }
 
+# creates a new dict containing individual key/value pairs for each item in key_dict's keys
+inverted_key_dict = {value: key for key, values in key_dict.items() for value in values}
+
 class Layer:
     def __init__(self, name):
         self.name = name
@@ -70,21 +73,26 @@ for line in lines:
     elif current_layer:
         line_keys = line.split(',')
 
-        for key_index, key_dirty in enumerate(line_keys):
+        for switch_index, switch_dirty in enumerate(line_keys):
             invalid_keys = {'\n', '(', ')'}
-            if any(x in key_dirty for x in invalid_keys):
+            if any(x in switch_dirty for x in invalid_keys):
                 continue
 
-            key = key_dirty.strip()
+            switch = switch_dirty.strip()
 
             # todo: handle layer names that aren't sequential numbers
-            if any(x in key for x in {'KC_TRANSPARENT', 'KC_TRNS', '_______'}) and layer_num > 0:
-                key = layers[layer_num - 1]['keys'][key_index]
+            if any(x in switch for x in {'KC_TRANSPARENT', 'KC_TRNS', '_______'}) and layer_num > 0:
+                switch = layers[layer_num - 1]['keys'][switch_index]
 
-            if 'KC_' in key:
-                key = key.replace('KC_', '')
+            # check if switch's value matches any key in inverted_key_dict
+            # if it does, switch becomes that key
+            if switch in inverted_key_dict:
+                switch = inverted_key_dict[switch]
 
-            current_layer.keys.append(key)
+            if 'KC_' in switch:
+                switch = switch.replace('KC_', '')
+
+            current_layer.keys.append(switch)
 
     if ')' in line:
         layers.append(current_layer.return_layer())
@@ -92,4 +100,5 @@ for line in lines:
 
     if flag and '};' in line:
         break
+
 pprint(layers, sort_dicts = False)
