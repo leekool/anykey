@@ -86,7 +86,7 @@ for line in lines:
     elif current_layer:
         line_keys = line.split(',')
 
-        for key_loop, key_dirty in enumerate(line_keys):
+        for key_index, key_dirty in enumerate(line_keys):
             invalid_keys = {'\n', '(', ')'}
             if any(x in key_dirty for x in invalid_keys):
                 continue
@@ -101,7 +101,7 @@ for line in lines:
 
             # todo: handle layer names that aren't sequential numbers
             if key.count('_') > 1 and layer_num > 0:
-                key = layers[layer_num - 1]['keys'][key_loop]
+                key = layers[layer_num - 1]['keys'][key_index]
 
             current_layer.keys.append(key)
 
