@@ -1,5 +1,5 @@
 import re
-import pprint # for testing
+from pprint import pprint
 
 # key_dict = {
 #     'XXXXXXX': '',
@@ -64,7 +64,7 @@ class Layer:
 layers = []
 current_layer = None
 
-with open('testmap.c', 'r') as f:
+with open('back/testmap.c', 'r') as f:
     lines = f.readlines()
 
 flag = False
@@ -80,22 +80,28 @@ for line in lines:
         continue
 
     if line.strip().startswith('['):
-        current_layer = Layer(re.search(r'\[(.*?)\]', line).group(1))
+        layer_index = re.search(r'\[(.*?)\]', line).group(1)
+        layer_num = int(layer_index)
+        current_layer = Layer(layer_index)
     elif current_layer:
         line_keys = line.split(',')
 
-        for key in line_keys:
+        for key_loop, key_dirty in enumerate(line_keys):
             invalid_keys = {'\n', '(', ')'}
-            if any(x in key for x in invalid_keys):
+            if any(x in key_dirty for x in invalid_keys):
                 continue
 
-            key = key.strip()
+            key = key_dirty.strip()
 
             # if key in key_dict:
             #     key = key_dict[key]
 
             if 'KC_' in key:
                 key = key.replace('KC_', '')
+
+            # todo: handle layer names that aren't sequential numbers
+            if key.count('_') > 1 and layer_num > 0:
+                key = layers[layer_num - 1]['keys'][key_loop]
 
             current_layer.keys.append(key)
 
@@ -106,4 +112,4 @@ for line in lines:
     if flag and '};' in line:
         break
 
-pprint.pprint(layers)
+pprint(layers, sort_dicts = False)
