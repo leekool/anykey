@@ -6,7 +6,7 @@ front: sveltekit
 back: python
 
 ** build/run:
-- cd /front
+- cd front
 - npm install
 - npm run dev
 - https://localhost:5173
