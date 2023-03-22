@@ -77,10 +77,7 @@ with open('./testmap.c', 'r') as f:
 
 flag = False
 
-# todo: gathering layers and processing keys need to be separated
-# into separate functions. at the moment they both happen at the
-# same time in the same for loop
-
+# --- process layers ---
 for line in lines:
     if line.strip().startswith('//'):
         continue
@@ -93,7 +90,7 @@ for line in lines:
 
     if line.strip().startswith('['):
         layer_index = re.search(r'\[(.*?)\]', line).group(1)
-        layer_num = int(layer_index)
+        # layer_num = int(layer_index)
         current_layer = Layer(layer_index)
     elif current_layer:
         line_keys = line.split(',')
@@ -106,18 +103,6 @@ for line in lines:
 
             switch = switch_dirty.strip()
 
-            # todo: handle layer names that aren't sequential numbers
-            if any(x in switch for x in {'KC_TRANSPARENT', 'KC_TRNS', '_______'}) and layer_num > 0:
-                switch = layers[layer_num - 1]['keys'][switch_index]
-
-            # check if switch's value matches any key in inverted_key_dict
-            # if it does, switch becomes that key
-            if switch in inverted_key_dict:
-                switch = inverted_key_dict[switch]
-
-            if 'KC_' in switch:
-                switch = switch.replace('KC_', '')
-
             current_layer.keys.append(switch)
 
     if ')' in line:
@@ -126,5 +111,22 @@ for line in lines:
 
     if flag and '};' in line:
         break
+
+# --- process switches ---
+for layer_idx, layer in enumerate(layers):
+    for switch_idx, switch in enumerate(layer['keys']):
+
+        # todo: handle layer names that aren't sequential numbers
+        if any(x in switch for x in {'KC_TRANSPARENT', 'KC_TRNS', '_______'}) and layer_idx > 0:
+            layer['keys'][switch_idx] = layers[layer_idx - 1]['keys'][switch_idx]
+            continue
+
+        # check if switch's value matches any key in inverted_key_dict
+        # if it does, switch becomes that key
+        if switch in inverted_key_dict:
+            layer['keys'][switch_idx] = inverted_key_dict[switch]
+
+        if 'KC_' in layer['keys'][switch_idx]:
+            layer['keys'][switch_idx] = switch.replace('KC_', '')
 
 pprint(layers, sort_dicts = False)
