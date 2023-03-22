@@ -78,7 +78,7 @@ with open('./testmap.c', 'r') as f:
 flag = False
 
 # todo: gathering layers and processing keys need to be separated
-# into separte functions. at the moment they both happen at the
+# into separate functions. at the moment they both happen at the
 # same time in the same for loop
 
 for line in lines:
