@@ -1,6 +1,7 @@
 import re
 from pprint import pprint # for testing
 
+# todo: separate key_dict into separate file
 key_dict = {
     '': ['XXXXXXX', 'KC_NO'],
     '_______': ['_______', 'KC_TRANSPARENT', 'KC_TRNS'],
