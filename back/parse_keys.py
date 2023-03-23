@@ -1,6 +1,5 @@
 import re
 from key_dict import get_dict
-
 from pprint import pprint # for testing
 
 key_dict = get_dict()
