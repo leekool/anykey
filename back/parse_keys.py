@@ -1,4 +1,5 @@
 import re
+import json
 import pprint # for testing
 
 # key_dict = {
@@ -64,7 +65,7 @@ class Layer:
 layers = []
 current_layer = None
 
-with open('testmap.c', 'r') as f:
+with open('back/testmap.c', 'r') as f:
     lines = f.readlines()
 
 flag = False
@@ -107,3 +108,7 @@ for line in lines:
         break
 
 pprint.pprint(layers)
+
+with open('parsed_keys.json', 'w') as file:
+    file.write(json.dumps(layers))
+    file.close()
