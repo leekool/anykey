@@ -32,13 +32,25 @@ key_dict = {
     'PAGE DOWN': ['KC_PAGE_DOWN', 'KC_PGDN'],
     'END': ['KC_END'],
     'DELETE': ['KC_DELETE', 'KC_DEL'],
+    'NUM LOCK': ['KC_NUM_LOCK', 'KC_NUM'],
     # arrow keys
     'RIGHT': ['KC_RIGHT'],
     'LEFT': ['KC_LEFT'],
     'DOWN': ['KC_DOWN'],
     'UP': ['KC_UP'],
-    # -----
-    'NUM LOCK': ['KC_NUM_LOCK', 'KC_NUM'],
+    # mouse keys
+    'MOUSE RIGHT': ['KC_MS_RIGHT', 'KC_MS_R'],
+    'MOUSE LEFT': ['KC_MS_LEFT', 'KC_MS_L'],
+    'MOUSE DOWN': ['KC_MS_DOWN', 'KC_MS_D'],
+    'MOUSE UP': ['KC_MS_UP', 'KC_MS_U'],
+    'MWHEEL RIGHT': ['KC_MS_WH_RIGHT', 'KC_WH_R'],
+    'MWHEEL LEFT': ['KC_MS_WH_LEFT', 'KC_WH_L'],
+    'MWHEEL DOWN': ['KC_MS_WH_DOWN', 'KC_WH_D'],
+    'MWHEEL UP': ['KC_MS_WH_UP', 'KC_WH_U'],
+    'LEFT CLICK': ['KC_MS_BTN1', 'KC_BTN1'],
+    'RWHEEL CLICK': ['KC_MS_WH_BTN2', 'KC_BWH2'],
+    'MIDDLE CLICK': ['KC_MS_BTN3', 'KC_BTN3'],
+    # symbols
     '~': ['KC_TILDE', 'KC_TILD'],
     '!': ['KC_EXCLAIM', 'KC_EXLM'],
     '@': ['KC_AT'],
@@ -54,8 +66,20 @@ key_dict = {
     ':': ['KC_COLON', 'KC_COLN'],
     '\"': ['KC_DOUBLE_QUOTE', 'KC_DQUO', 'KC_DQT'],
     '<': ['KC_LEFT_ANGLE_BRACKET', 'KC_LABK', 'KC_LT'],
-    '<': ['KC_RIGHT_ANGLE_BRACKET', 'KC_RABK', 'KC_GT'],
+    '>': ['KC_RIGHT_ANGLE_BRACKET', 'KC_RABK', 'KC_GT'],
     '?': ['KC_QUESTION', 'KC_QUES'],
+    # modifiers - possibly separate left & right later
+    'CTRL': ['KC_LEFT_CTRL', 'KC_LCTL', 'KC_RIGHT_CTRL', 'KC_RCTL'],
+    'ALT': ['KC_LEFT_ALT', 'KC_LALT', 'KC_LOPT', 'KC_RIGHT_ALT', 'KC_RALT', 'KC_ROPT', 'KC_ALGR'],
+    'SHIFT': ['KC_LEFT_SHIFT', 'KC_LSFT', 'KC_RIGHT_SHIFT', 'KC_RSFT'],
+    'GUI': ['KC_LEFT_GUI', 'KC_LGUI', 'KC_LCMD', 'KC_LWIN', 'KC_RIGHT_GUI', 'KC_RGUI', 'KC_RCMD', 'KC_RWIN'],
+    # -----
+    'POWER': ['KC_SYSTEM_POWER', 'KC_PWR'],
+    'SLEEP': ['KC_SYSTEM_SLEEP', 'KC_SLEP'],
+    'WAKE': ['KC_SYSTEM_WAKE', 'KC_WAKE'],
+    'MUTE': ['KC_AUDIO_MUTE', 'KC_MUTE'],
+    'VOL +': ['KC_AUDIO_VOL_UP', 'KC_VOLU'],
+    'VOL -': ['KC_AUDIO_VOL_DOWN', 'KC_VOLD'],
 }
 
 # creates a new dict containing individual key/value pairs for each item in key_dict's keys
