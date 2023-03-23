@@ -89,14 +89,14 @@ for line in lines:
         continue
 
     if line.strip().startswith('['):
-        layer_index = re.search(r'\[(.*?)\]', line).group(1)
-        # layer_num = int(layer_index)
-        current_layer = Layer(layer_index)
+        layer_name = re.search(r'\[(.*?)\]', line).group(1)
+        current_layer = Layer(layer_name)
     elif current_layer:
+        # split line into list of keys
         line_keys = line.split(',')
 
         # todo: refactor into switch handling function
-        for switch_index, switch_dirty in enumerate(line_keys):
+        for switch_dirty in line_keys:
             invalid_keys = {'\n', '(', ')'}
             if any(x in switch_dirty for x in invalid_keys):
                 continue
