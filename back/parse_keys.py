@@ -115,8 +115,6 @@ for line in lines:
 # --- process switches ---
 for layer_idx, layer in enumerate(layers):
     for switch_idx, switch in enumerate(layer['keys']):
-
-        # todo: handle layer names that aren't sequential numbers
         if any(x in switch for x in {'KC_TRANSPARENT', 'KC_TRNS', '_______'}) and layer_idx > 0:
             layer['keys'][switch_idx] = layers[layer_idx - 1]['keys'][switch_idx]
             continue
