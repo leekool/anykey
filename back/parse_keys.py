@@ -48,7 +48,7 @@ key_dict = {
     'MWHEEL DOWN': ['KC_MS_WH_DOWN', 'KC_WH_D'],
     'MWHEEL UP': ['KC_MS_WH_UP', 'KC_WH_U'],
     'LEFT CLICK': ['KC_MS_BTN1', 'KC_BTN1'],
-    'RWHEEL CLICK': ['KC_MS_WH_BTN2', 'KC_BWH2'],
+    'RIGHT CLICK': ['KC_MS_BTN2', 'KC_BTN2'],
     'MIDDLE CLICK': ['KC_MS_BTN3', 'KC_BTN3'],
     # symbols
     '~': ['KC_TILDE', 'KC_TILD'],
