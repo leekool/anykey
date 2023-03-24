@@ -1,7 +1,6 @@
 import re
 import json
 from key_dict import get_dict
-from key_dict import inverted_key_dict
 from pprint import pprint # for testing
 
 key_dict = get_dict()
@@ -66,8 +65,8 @@ for layer_idx, layer in enumerate(layers):
 
         # check if switch's value matches any key in inverted_key_dict
         # if it does, switch becomes that key
-        if switch in inverted_key_dict:
-            layer['keys'][switch_idx] = inverted_key_dict[switch]
+        if switch in key_dict:
+            layer['keys'][switch_idx] = key_dict[switch]
 
         if 'KC_' in layer['keys'][switch_idx]:
             layer['keys'][switch_idx] = switch.replace('KC_', '')
