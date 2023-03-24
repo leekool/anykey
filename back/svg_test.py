@@ -19,7 +19,7 @@ font_color = ['red', 'green', 'yellow', 'blue', 'pink', 'white']
 
 with open('parsed_keys.json', 'r') as f:
 
-    with open('layout_name_svg.svg', 'w') as file:
+    with open('layout.svg', 'w') as file:
         full_layout = f.readlines()
 
         file.write(svg_open)
@@ -56,7 +56,7 @@ with open('parsed_keys.json', 'r') as f:
 
 
                         file.write('<rect x="{0}px" y="{1}px" width="{2}px" height="{3}px" stroke="{4}" fill="transparent" stroke-width="1" />'.format(row_x, row_y, key_h, key_w, font_color[index]))
-                        file.write('<text x="{0}px" y="{1}px" font-size="7" dominant-baseline="middle" text-anchor="middle" fill="white">{2}</text>'.format(key_text_x, key_text_y, key_cap))
+                        file.write('<text x="{0}px" y="{1}px" font-size="8" dominant-baseline="middle" text-anchor="middle" fill="white">{2}</text>'.format(key_text_x, key_text_y, key_cap))
                 row_y += 45
 
             row_y += 500
