@@ -1,5 +1,7 @@
 import re
+import json
 from key_dict import get_dict
+from key_dict import inverted_key_dict
 from pprint import pprint # for testing
 
 key_dict = get_dict()
@@ -71,3 +73,7 @@ for layer_idx, layer in enumerate(layers):
             layer['keys'][switch_idx] = switch.replace('KC_', '')
 
 pprint(layers, sort_dicts = False)
+
+with open('parsed_keys.json', 'w') as file:
+    file.write(json.dumps(layers))
+    file.close()
