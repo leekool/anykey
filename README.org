@@ -17,3 +17,4 @@ back: python
 - function to parse tap holds
 - front-end buttons/logic
 - image generation
+- custom symbols i.e. arrow keys ???

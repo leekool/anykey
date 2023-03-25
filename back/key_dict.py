@@ -1,3 +1,6 @@
+# dictionary's "keys" are what will appear in the svg
+# current max char count: 9
+
 key_dict = {
     '': ['XXXXXXX', 'KC_NO'],
     '_______': ['_______', 'KC_TRANSPARENT', 'KC_TRNS'],
@@ -21,7 +24,7 @@ key_dict = {
     '.': ['KC_DOT', 'KC_KP_DOT', 'KC_KP_DOT', 'KC_PDOT'],
     '/': ['KC_SLASH', 'KC_SLSH', 'KC_KP_SLASH', 'KC_PSLS'],
     'CAPS': ['KC_CAPS_LOCK', 'KC_CAPS'],
-    'PRINT SCREEN': ['KC_PRINT_SCREEN', 'KC_PSCR'],
+    'PRT SC': ['KC_PRINT_SCREEN', 'KC_PSCR'],
     'PAUSE': ['KC_PAUSE', 'KC_PAUS', 'KC_BRK', 'KC_BRMU'],
     'INSERT': ['KC_INSERT', 'KC_INS'],
     'HOME': ['KC_HOME'],
@@ -31,22 +34,22 @@ key_dict = {
     'DELETE': ['KC_DELETE', 'KC_DEL'],
     'NUM LOCK': ['KC_NUM_LOCK', 'KC_NUM'],
     # arrow keys
-    'RIGHT': ['KC_RIGHT'],
-    'LEFT': ['KC_LEFT'],
-    'DOWN': ['KC_DOWN'],
-    'UP': ['KC_UP'],
+    '→': ['KC_RIGHT', 'KC_RGHT'],
+    '←': ['KC_LEFT'],
+    '↓': ['KC_DOWN'],
+    '↑': ['KC_UP'],
     # mouse keys
-    'MOUSE RIGHT': ['KC_MS_RIGHT', 'KC_MS_R'],
-    'MOUSE LEFT': ['KC_MS_LEFT', 'KC_MS_L'],
-    'MOUSE DOWN': ['KC_MS_DOWN', 'KC_MS_D'],
-    'MOUSE UP': ['KC_MS_UP', 'KC_MS_U'],
-    'MWHEEL RIGHT': ['KC_MS_WH_RIGHT', 'KC_WH_R'],
-    'MWHEEL LEFT': ['KC_MS_WH_LEFT', 'KC_WH_L'],
-    'MWHEEL DOWN': ['KC_MS_WH_DOWN', 'KC_WH_D'],
-    'MWHEEL UP': ['KC_MS_WH_UP', 'KC_WH_U'],
-    'LEFT CLICK': ['KC_MS_BTN1', 'KC_BTN1'],
-    'RIGHT CLICK': ['KC_MS_BTN2', 'KC_BTN2'],
-    'MIDDLE CLICK': ['KC_MS_BTN3', 'KC_BTN3'],
+    'MOUSE →': ['KC_MS_RIGHT', 'KC_MS_R'],
+    'MOUSE ←': ['KC_MS_LEFT', 'KC_MS_L'],
+    'MOUSE ↓': ['KC_MS_DOWN', 'KC_MS_D'],
+    'MOUSE ↑': ['KC_MS_UP', 'KC_MS_U'],
+    'MWHEEL →': ['KC_MS_WH_RIGHT', 'KC_WH_R'],
+    'MWHEEL ←': ['KC_MS_WH_LEFT', 'KC_WH_L'],
+    'MWHEEL ↓': ['KC_MS_WH_DOWN', 'KC_WH_D'],
+    'MWHEEL ↑': ['KC_MS_WH_UP', 'KC_WH_U'],
+    'LEFT BTN': ['KC_MS_BTN1', 'KC_BTN1'],
+    'RIGHT BTN': ['KC_MS_BTN2', 'KC_BTN2'],
+    'THIRD BTN': ['KC_MS_BTN3', 'KC_BTN3'],
     # symbols
     '~': ['KC_TILDE', 'KC_TILD'],
     '!': ['KC_EXCLAIM', 'KC_EXLM'],
