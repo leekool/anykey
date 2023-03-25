@@ -1,5 +1,4 @@
 import re
-import json
 from key_dict import get_dict
 from pprint import pprint # for testing
 
@@ -16,7 +15,7 @@ class Layer:
 layers = []
 current_layer = None
 
-with open('./kurtmap.c', 'r') as f:
+with open('./testmap.c', 'r') as f:
     lines = f.readlines()
 
 flag = False
@@ -73,6 +72,5 @@ for layer_idx, layer in enumerate(layers):
 
 pprint(layers, sort_dicts = False)
 
-with open('parsed_keys.json', 'w') as file:
-    file.write(json.dumps(layers))
-    file.close()
+def get_layout():
+    return layers
