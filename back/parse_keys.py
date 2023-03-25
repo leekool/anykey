@@ -23,7 +23,7 @@ flag = False
 
 # --- process layers ---
 for line in lines:
-    if line.strip().startswith('//'):
+    if line.strip().startswith(('//', '/*', '*', '*/')):
         continue
 
     if 'MATRIX' in line:
@@ -49,9 +49,9 @@ for line in lines:
 
             current_layer.keys.append(switch)
 
-    if ')' in line:
-        layers.append(current_layer.return_layer())
-        current_layer = None
+        if ')' in line:
+            layers.append(current_layer.return_layer())
+            current_layer = None
 
     if flag and '};' in line:
         break
