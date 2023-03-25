@@ -23,7 +23,7 @@ split_x = 0
 font_color = ['red', 'green', 'yellow', 'blue', 'pink', 'white']
 
 def getKeyboardCoords():
-    with open("keymap_layouts/crkbd.json", 'r') as j:
+    with open("keymap_layouts/lily58.json", 'r') as j:
         contents = json.loads(j.read())
         print(next(iter(contents['layouts'])))
         return contents['layouts'][next(iter(contents['layouts']))]['layout']

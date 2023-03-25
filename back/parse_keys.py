@@ -15,7 +15,7 @@ class Layer:
 layers = []
 current_layer = None
 
-with open('./testmap.c', 'r') as f:
+with open('./kurtmap.c', 'r') as f:
     lines = f.readlines()
 
 flag = False
