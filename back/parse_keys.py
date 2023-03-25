@@ -37,7 +37,7 @@ for line in lines:
         current_layer = Layer(layer_name)
     elif current_layer:
         # split line into list of keys
-        line_keys = line.split(',')
+        line_keys = filter(None, line.strip().split(','))
 
         # todo: refactor into switch handling function
         for switch_dirty in line_keys:
