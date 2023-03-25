@@ -58,7 +58,7 @@ key_dict = {
     '$': ['KC_DOLLAR', 'KC_DLR'],
     '%': ['KC_PERCENT', 'KC_PERC'],
     '^': ['KC_CIRCUMFLEX', 'KC_CIRC'],
-    '&': ['KC_AMPERSAND', 'KC_AMPR'],
+    '&amp;': ['KC_AMPERSAND', 'KC_AMPR'], # to avoid XML recognising '&' as syntax
     '*': ['KC_ASTERISK', 'KC_ASTR', 'KC_KP_ASTERISK', 'KC_PAST'],
     '_': ['KC_UNDERSCORE', 'KC_UNDS'],
     '+': ['KC_PLUS', 'KC_UNDS', 'KC_KP_PLUS', 'KC_PPLS'],
