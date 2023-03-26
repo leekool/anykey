@@ -36,7 +36,13 @@ with open('layout.svg', 'w') as file:
     coords = getKeyboardCoords()
 
     file.write(svg_open)
-    file.write('<style>rect {transform-origin: center; transform-box: fill-box;} text {transform-origin: center; transform-box: fill-box; font-family: sans-serif; font-size: 14;}</style>')
+    file.write('<style>' +
+                'rect {transform-origin: center; transform-box: fill-box;}'
+                'text {transform-origin: center; transform-box: fill-box; font-family: sans-serif; font-size: 14;}' +
+                '.key-base {stroke: black; fill: #C3C3C3; stroke-width=1;}' +
+                '.key-cap {stroke: #BFBBBB; fill: white; stroke-width=1;}' +
+                '.key-text {fill=black;}' +
+               '</style>')
     file.write('<rect fill="transparent" />')
 
     for index, layer in enumerate(full_layout):
@@ -60,9 +66,9 @@ with open('layout.svg', 'w') as file:
             key_text_y = row_inner_y + key_h / 2
 
             # transform="rotate({4})"
-            file.write('<rect x="{0}" y="{1}" width="{2}" height="{3}" transform="rotate({4})" rx="8" ry="8" stroke="black" fill="#C3C3C3" stroke-width="1" />'.format(row_x, row_y, key_w, key_h, key_r))
-            file.write('<rect x="{0}" y="{1}" width="{2}" height="{3}" transform="rotate({4})" rx="3" ry="3" stroke="#BFBBBB" fill="white" stroke-width="1" />'.format(row_inner_x, row_inner_y, key_inner_w, key_inner_h, key_r))
-            file.write('<text x="{0}" y="{1}" transform="rotate({2})" fill="black">{3}</text>'.format(key_text_x, key_text_y, key_r, key_cap))
+            file.write('<rect class="key-base" x="{0}" y="{1}" width="{2}" height="{3}" transform="rotate({4})" rx="8" ry="8" />'.format(row_x, row_y, key_w, key_h, key_r))
+            file.write('<rect class="key-cap" x="{0}" y="{1}" width="{2}" height="{3}" transform="rotate({4})" rx="3" ry="3" />'.format(row_inner_x, row_inner_y, key_inner_w, key_inner_h, key_r))
+            file.write('<text class="key-text" x="{0}" y="{1}" transform="rotate({2})">{3}</text>'.format(key_text_x, key_text_y, key_r, key_cap))
 
             key_h = 100
             key_w = 100
