@@ -11,10 +11,10 @@ back: python
 - npm run dev
 - https://localhost:5173
 
-** todo:
+** todo (no priority):
 - extensive key dictionary
 - function to parse combos
 - function to parse tap holds
+- function to parse encoders
 - front-end buttons/logic
-- image generation
-- custom symbols i.e. arrow keys ???
+- custom SVG symbols/font i.e. arrow keys ???
