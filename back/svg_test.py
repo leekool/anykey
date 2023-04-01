@@ -22,14 +22,16 @@ split_count = 0
 split_x = 0
 font_color = ['red', 'green', 'yellow', 'blue', 'pink', 'white']
 
+
 def getKeyboardCoords():
-    with open("keymap_layouts/lily58.json", 'r') as j:
+    with open("keymap_layouts/liliums/Lily58.json", 'r') as j:
         contents = json.loads(j.read())
         print(next(iter(contents['layouts'])))
         return contents['layouts'][next(iter(contents['layouts']))]['layout']
 
     # print(contents['layouts'][next(iter(contents['layouts']))]['layout'])
     # print(type(contents['layouts'][next(iter(contents['layouts']))]))
+
 
 with open('layout.svg', 'w') as file:
     full_layout = get_layout()

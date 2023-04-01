@@ -1,8 +1,9 @@
 import re
 from key_dict import get_dict
-from pprint import pprint # for testing
+from pprint import pprint  # for testing
 
 key_dict = get_dict()
+
 
 class Layer:
     def __init__(self, name):
@@ -11,6 +12,7 @@ class Layer:
 
     def return_layer(self):
         return {'name': self.name, 'keys': self.keys}
+
 
 layers = []
 current_layer = None
@@ -70,7 +72,8 @@ for layer_idx, layer in enumerate(layers):
         if 'KC_' in layer['keys'][switch_idx]:
             layer['keys'][switch_idx] = switch.replace('KC_', '')
 
-pprint(layers, sort_dicts = False)
+pprint(layers, sort_dicts=False)
+
 
 def get_layout():
     return layers

@@ -58,7 +58,7 @@ key_dict = {
     '$': ['KC_DOLLAR', 'KC_DLR'],
     '%': ['KC_PERCENT', 'KC_PERC'],
     '^': ['KC_CIRCUMFLEX', 'KC_CIRC'],
-    '&amp;': ['KC_AMPERSAND', 'KC_AMPR'], # to avoid XML recognising '&' as syntax
+    '&amp;': ['KC_AMPERSAND', 'KC_AMPR'],  # to avoid XML recognising '&' as syntax
     '*': ['KC_ASTERISK', 'KC_ASTR', 'KC_KP_ASTERISK', 'KC_PAST'],
     '_': ['KC_UNDERSCORE', 'KC_UNDS'],
     '+': ['KC_PLUS', 'KC_UNDS', 'KC_KP_PLUS', 'KC_PPLS'],
@@ -80,10 +80,12 @@ key_dict = {
     'MUTE': ['KC_AUDIO_MUTE', 'KC_MUTE'],
     'VOL +': ['KC_AUDIO_VOL_UP', 'KC_VOLU'],
     'VOL -': ['KC_AUDIO_VOL_DOWN', 'KC_VOLD'],
+    'CALC': ['KC_CALCULATOR', 'KC_CALC']
 }
 
 # creates a new dict containing individual key/value pairs for each item in key_dict's keys
 inverted_key_dict = {value: key for key, values in key_dict.items() for value in values}
+
 
 def get_dict():
     return inverted_key_dict
