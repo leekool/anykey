@@ -43,7 +43,7 @@
   flex-direction: column;
   height: calc(100% - 30px); /* 30px to account for taskbar */
   box-shadow: 0 0 0 1px #000 inset,
-              0 0 0 3px #a59f80 inset,
+              0 0 0 3px #c0c0c0 inset,
               0 0 0 6px #000 inset,
               0 3px 15px rgba(0, 0, 0, 0.3);
 }
@@ -99,7 +99,7 @@
   display: flex;
   flex: 1 1 auto;
   max-height: calc(100% - 29.5px);
-  background-color: #1d1f21;
+  background-color: #c7c9c7;
 }
 
 .position-centre {
