@@ -13,15 +13,65 @@
         </div>
         <div class="content main-item">
             <!-- content -->
+            <div class="form">
+                <form action="submit">
+                    <label class="select-button">
+                        <input type="file" id="file" />
+                        select keymap
+                    </label>
+
+                    <label class="submit-button">
+                        <input type="submit" />
+                        submit
+                    </label>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
+<script lang="ts">
+ // var fullPath = (document.getElementById('file') as HTMLInputElement)?.value;
+ // if (fullPath) {
+ //   var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+ //   var filename = fullPath.substring(startIndex);
+ //   if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+ //     filename = filename.substring(1);
+ //   }
+ //   alert(filename);
+ // }
 </script>
 
 <style>
 @import url("../../static/fonts/real-icons.css");
+
+.form {
+  display: block;
+  /* width: 80%; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+input[type=file],
+input[type=submit] {
+  display: none;
+}
+
+.select-button,
+.submit-button {
+  border: 1px solid #ccc;
+  /* display: inline-block; */
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+}
 
 .main {
   display: flex;
@@ -42,9 +92,9 @@
   width: 100%;
   flex-direction: column;
   height: calc(100% - 30px); /* 30px to account for taskbar */
-  box-shadow: 0 0 0 1px #000 inset,
-              0 0 0 3px #c0c0c0 inset,
-              0 0 0 6px #000 inset,
+  box-shadow: 0 0 0 1px #1F1F1E inset,
+              0 0 0 3px #30302f inset,
+              0 0 0 6px #1F1F1E inset,
               0 3px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -59,11 +109,11 @@
 .navbar {
   display: flex;
   height: 25px;
-  color: #000;
+  color: #e9e5d8;
   justify-content: flex-end;
   background-repeat: repeat;
   background-image: url('images/navbar-tile.svg');
-  box-shadow: 0 -1px 0 0 #5c6057 inset;
+  box-shadow: 0 -1px 0 0 #30302f inset;
   user-select: none;
 }
 
@@ -99,7 +149,7 @@
   display: flex;
   flex: 1 1 auto;
   max-height: calc(100% - 29.5px);
-  background-color: #c7c9c7;
+  background-color: #c6bb9b;
 }
 
 .position-centre {
