@@ -1,46 +1,45 @@
 <div class="border position-centre">
-  <div class="main">
-    <div class="navbar main-item">
-      <div class="navbar-text">layout_gen</div>
-      <div class="navbar-buttons">
-        <span class="ri-minimise">
-        </span>
-        <span class="ri-maximise">
-        </span>
-        <span class="ri-close">
-        </span>
-      </div>
-    </div>
-
-    <div class="content main-item">
-      <div class="form">
-        <!-- <form action=""> -->
-        <div class="form-contents">
-          <label>
-            <input type="file"
-                   accept=".c"
-                   on:change="{ (e) => onFileSelected(e) }">
-            select keymap
-          </label>
-
-          <span>{fileName}</span>
-
-          <div class="submit-button">
-            <label>
-              <input type="submit">
-              submit
-            </label>
-          </div>
+    <div class="main">
+        <div class="navbar main-item">
+            <div class="navbar-text">layout_gen</div>
+            <div class="navbar-buttons">
+                <span class="ri-minimise">
+                </span>
+                <span class="ri-maximise">
+                </span>
+                <span class="ri-close">
+                </span>
+            </div>
         </div>
-        <!-- </form> -->
-      </div>
-    </div>
 
-  </div>
+        <div class="content main-item">
+            <div class="form">
+                <!-- <form action=""> -->
+                <div class="form-contents">
+                    <label>
+                        <input type="file"
+                               accept=".c"
+                               on:change="{ (e) => onFileSelected(e) }">
+                        select keymap
+                    </label>
+
+                    <span>{fileName}</span>
+
+                    <div class="submit-button">
+                        <label>
+                            <input type="submit">
+                            submit
+                        </label>
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <script lang="ts">
-
  let file: File;
  let fileName: string = '';
 
