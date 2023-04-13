@@ -18,7 +18,7 @@
                 <div class="form-contents">
                     <label>
                         <input type="file"
-                               accept=".c"
+                               accept=".json"
                                on:change="{ (e) => onFileSelected(e) }">
                         select keymap
                     </label>
@@ -31,6 +31,8 @@
                             submit
                         </label>
                     </div>
+
+                    <span>{layoutResponse}</span>
                 </div>
                 <!-- </form> -->
             </div>
@@ -42,13 +44,27 @@
 <script lang="ts">
  let file: File;
  let fileName: string = '';
+ let layoutResponse: string = '';
 
  const onFileSelected = (e: { currentTarget: HTMLInputElement }) => {
    if (e.currentTarget.files) {
      file = e.currentTarget.files[0];
      fileName = file.name;
+     postLayout(fileName)
    }
  }
+
+ async function postLayout(fileName: string) {
+  const response = await fetch('http://localhost:5000/api/layout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ fileName })
+  });
+  const json = await response.json();
+  layoutResponse = json.message;
+}
 </script>
 
 <style>
