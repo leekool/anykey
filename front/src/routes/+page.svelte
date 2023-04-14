@@ -12,58 +12,105 @@
             </div>
         </div>
 
-        <div class="content main-item">
-            <div class="form">
-                <!-- <form action=""> -->
-                <div class="form-contents">
-                    <label>
-                        <input type="file"
-                               accept=".json"
-                               on:change="{ (e) => onFileSelected(e) }">
-                        select keymap
-                    </label>
+        {#if options && options.length > 1}
+          <div class="content main-item">
+              <div class="form">
+                  <form on:submit="{ (e) => submitForm(e) }">
+                      <div class="form-contents">
+                          <div class="select-keyboard">
+                            <label>
+                                Keyboard
+                            </label>
+                            <select on:change={handleSelect}>
+                              <option value='select keyboard'>Select Keyboard</option>
+                              {#each options as option}
+                                <option value={option['path']}>{option['name']}</option>
+                              {/each}
+                            </select>
+                          </div>
 
-                    <span>{fileName}</span>
+                          <div class="select-map">
+                            <label>
+                                <input type="file"
+                                      accept=".c"
+                                      on:change="{ (e) => onFileSelected(e) }">
+                                select keymap
+                            </label>
 
-                    <div class="submit-button">
-                        <label>
-                            <input type="submit">
-                            submit
-                        </label>
-                    </div>
+                            <span>{fileName}</span>
+                          </div>
 
-                    <span>{layoutResponse}</span>
-                </div>
-                <!-- </form> -->
-            </div>
-        </div>
-
+                          <div class="submit-button">
+                              <label class={btnState}>
+                                  <input type="submit" disabled={submitDisabled}>
+                                  submit
+                              </label>
+                          </div>
+                          
+                          <div class='map-svg'>
+                            {@html layoutResponse}
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+        {/if}
     </div>
 </div>
 
 <script lang="ts">
- let file: File;
- let fileName: string = '';
- let layoutResponse: string = '';
+ import { onMount } from 'svelte';
+  let file: File;
+  let formData = new FormData();
+  let fileName: string = '';
+  let layoutResponse: string = '';
+
+  let selectedOption = '';
+  let options: [] = [];
+  let submitDisabled = true
+  let btnState = 'btn-invalid'
+
+    // This is a watcher
+    $: if (fileName && selectedOption !== '') {
+      btnState = 'btn-valid'
+      submitDisabled = false
+    }
+  
+onMount(async () => {
+  // fetch some data from the server when the component is mounted
+  const response = await fetch('http://localhost:5000/api/keyboards');
+  options = await response.json();
+  console.log(options)
+});
 
  const onFileSelected = (e: { currentTarget: HTMLInputElement }) => {
    if (e.currentTarget.files) {
      file = e.currentTarget.files[0];
      fileName = file.name;
-     postLayout(fileName)
    }
  }
 
- async function postLayout(fileName: string) {
+ function handleSelect(event: any) {
+    selectedOption = event.target.value;
+    console.log(selectedOption)
+  }
+
+  function submitForm(event: any) {
+    event.preventDefault(); // prevent default form submission behavior
+    console.log("Form submitted!");
+    postLayout()
+  }
+
+ async function postLayout() {
+  formData.append('file', file);
+  formData.append('mapPath', selectedOption);
   const response = await fetch('http://localhost:5000/api/layout', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ fileName })
+    body: formData
   });
   const json = await response.json();
   layoutResponse = json.message;
+  console.log(json.message)
 }
 </script>
 
@@ -74,8 +121,8 @@
    display: block;
    /* width: 80%; */
    position: absolute;
-   top: 50%;
-   left: 50%;
+   top: 3%;
+   left: 32%;
    transform: translate(-50%);
    width: 60%;
  }
@@ -96,9 +143,21 @@
    cursor: pointer;
  }
 
- .submit-button {
+ .submit-button, .select-keyboard, .select-map, .map-svg {
    margin-top: 10px;
  }
+
+ .map-svg {
+    width: 200px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  svg {
+    max-width: 20%;
+    max-height: 20%;
+  }
 
  .main {
    display: flex;
@@ -189,5 +248,13 @@
    max-height: 80%;
    width: 80%;
    max-width: 1200px;
+ }
+
+ .btn-valid {
+  background-color: rgb(153, 255, 153, 50);
+ }
+
+ .btn-invalid {
+  background-color: rgb(255, 153, 153, 50);
  }
 </style>

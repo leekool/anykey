@@ -14,66 +14,66 @@ class Layer:
         return {'name': self.name, 'keys': self.keys}
 
 
-layers = []
-current_layer = None
+def parse_map(keymap):
+    layers = []
+    current_layer = None
+    lines = keymap.readlines()
+    flag = False
 
-with open('./kurtmap.c', 'r') as f:
-    lines = f.readlines()
-
-flag = False
-
-# --- process layers ---
-for line in lines:
-    if line.strip().startswith(('//', '/*', '*', '*/')):
-        continue
-
-    if 'MATRIX' in line:
-        flag = True
-
-    if not flag:
-        continue
-
-    if line.strip().startswith('['):
-        layer_name = re.search(r'\[(.*?)\]', line).group(1)
-        current_layer = Layer(layer_name)
-    elif current_layer:
-        # split line into list of keys
-        line_keys = filter(None, line.strip().split(','))
-
-        # todo: refactor into switch handling function
-        for switch_dirty in line_keys:
-            invalid_keys = {'\n', '(', ')'}
-            if any(x in switch_dirty for x in invalid_keys):
-                continue
-
-            switch = switch_dirty.strip()
-
-            current_layer.keys.append(switch)
-
-        if ')' in line:
-            layers.append(current_layer.return_layer())
-            current_layer = None
-
-    if flag and '};' in line:
-        break
-
-# --- process switches ---
-for layer_idx, layer in enumerate(layers):
-    for switch_idx, switch in enumerate(layer['keys']):
-        if any(x in switch for x in {'KC_TRANSPARENT', 'KC_TRNS', '_______'}) and layer_idx > 0:
-            layer['keys'][switch_idx] = layers[layer_idx - 1]['keys'][switch_idx]
+    # --- process layers ---
+    for bline in lines:
+        line = bline.decode('utf-8')
+        if line.strip().startswith(('//', '/*', '*', '*/')):
             continue
 
-        # check if switch's value matches any key in inverted_key_dict
-        # if it does, switch becomes that key
-        if switch in key_dict:
-            layer['keys'][switch_idx] = key_dict[switch]
+        if 'MATRIX' in line:
+            flag = True
 
-        if 'KC_' in layer['keys'][switch_idx]:
-            layer['keys'][switch_idx] = switch.replace('KC_', '')
+        if not flag:
+            continue
 
-pprint(layers, sort_dicts=False)
+        if line.strip().startswith('['):
+            layer_name = re.search(r'\[(.*?)\]', line).group(1)
+            current_layer = Layer(layer_name)
+        elif current_layer:
+            # split line into list of keys
+            line_keys = filter(None, line.strip().split(','))
+
+            # todo: refactor into switch handling function
+            for switch_dirty in line_keys:
+                invalid_keys = {'\n', '(', ')'}
+                if any(x in switch_dirty for x in invalid_keys):
+                    continue
+
+                switch = switch_dirty.strip()
+
+                current_layer.keys.append(switch)
+
+            if ')' in line:
+                layers.append(current_layer.return_layer())
+                current_layer = None
+
+        if flag and '};' in line:
+            break
+
+    # --- process switches ---
+    for layer_idx, layer in enumerate(layers):
+        for switch_idx, switch in enumerate(layer['keys']):
+            if any(x in switch for x in {'KC_TRANSPARENT', 'KC_TRNS', '_______'}) and layer_idx > 0:
+                layer['keys'][switch_idx] = layers[layer_idx - 1]['keys'][switch_idx]
+                continue
+
+            # check if switch's value matches any key in inverted_key_dict
+            # if it does, switch becomes that key
+            if switch in key_dict:
+                layer['keys'][switch_idx] = key_dict[switch]
+
+            if 'KC_' in layer['keys'][switch_idx]:
+                layer['keys'][switch_idx] = switch.replace('KC_', '')
+
+    pprint(layers, sort_dicts=False)
+    return layers
 
 
 def get_layout():
-    return layers
+    return None
