@@ -1,5 +1,4 @@
 import json
-from parse_keys import get_layout
 
 
 def getKeyboardCoords(mapPath):
@@ -10,12 +9,9 @@ def getKeyboardCoords(mapPath):
 
 def get_keymap_svg(mapPath, fullLayout):
 
-    svg_open = '<svg version="1.1" width="1000" height="2500" xmlns="http://www.w3.org/2000/svg">'
-    svg_close = '</svg>'
-
-    level = 30
-    row_x = 30
-    row_y = 30
+    level = 10
+    row_x = 10
+    row_y = 10
     key_h = 50
     key_w = 50
     key_r = 0
@@ -26,13 +22,26 @@ def get_keymap_svg(mapPath, fullLayout):
     key_text_x = row_x + key_h / 2
     key_text_y = row_y + key_w / 2
     key_text_r = 0
+    svg_w = 0
+    svg_h = 0
+    coord_multiplier = 50
+
 
     with open('layout.svg', 'w') as file:
         coords = getKeyboardCoords(mapPath)
 
-        svg_string = svg_open
+        largest_x = max(coords, key=lambda x:x['x'])['x']
+        largest_y = max(coords, key=lambda x:x['y'])['y']
+        svg_w = ((largest_x) * coord_multiplier) + key_w
 
-        file.write(svg_open)
+        step1 = largest_y * coord_multiplier
+        step2 = step1 + key_h
+        step3 = step2 * len(fullLayout)
+        svg_h = step3 + key_h * len(fullLayout)
+
+        svg_string = '<svg version="1.1" width="{0}" height="{1}" xmlns="http://www.w3.org/2000/svg">'.format(svg_w, svg_h)
+        file.write('<svg version="1.1" width="{0}" height="{1}" xmlns="http://www.w3.org/2000/svg">'.format(svg_w, svg_h))
+
         svg_string += """<style>
                     rect {transform-origin: center; transform-box: fill-box;}'
                     text {transform-origin: center; transform-box: fill-box; font-family: sans-serif; font-size: 14;}
@@ -52,12 +61,12 @@ def get_keymap_svg(mapPath, fullLayout):
 
         for index, layer in enumerate(fullLayout):
             for idx, key_cap in enumerate(layer['keys']):
-                row_x = coords[idx]['x'] * 50
-                row_y = level + coords[idx]['y'] * 50
+                row_x = coords[idx]['x'] * coord_multiplier
+                row_y = level + coords[idx]['y'] * coord_multiplier
                 if 'h' in coords[idx]:
-                    key_h = coords[idx]['h'] * 50
+                    key_h = coords[idx]['h'] * coord_multiplier
                 if 'w' in coords[idx]:
-                    key_w = coords[idx]['w'] * 50
+                    key_w = coords[idx]['w'] * coord_multiplier
                 if 'r' in coords[idx]:
                     key_r = coords[idx]['r']
 
@@ -87,7 +96,7 @@ def get_keymap_svg(mapPath, fullLayout):
                 key_w = 50
                 key_r = 0
                 key_text_r = 0
-            level = level + 300
-        svg_string += svg_close
-        file.write(svg_close)
+            level = row_y + 100
+        svg_string += '</svg>'
+        file.write('</svg>')
         return svg_string

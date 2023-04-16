@@ -73,7 +73,3 @@ def parse_map(keymap):
 
     pprint(layers, sort_dicts=False)
     return layers
-
-
-def get_layout():
-    return None
