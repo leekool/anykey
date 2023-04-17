@@ -42,7 +42,8 @@ def parse_map(keymap):
             # todo: refactor into switch handling function
             for switch_dirty in line_keys:
                 invalid_keys = {'\n', '(', ')'}
-                if any(x in switch_dirty for x in invalid_keys):
+                # if any(x in switch_dirty for x in invalid_keys):
+                if switch_dirty in invalid_keys:
                     continue
 
                 switch = switch_dirty.strip()
