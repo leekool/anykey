@@ -26,12 +26,11 @@ def get_keymap_svg(mapPath, fullLayout):
     svg_h = 0
     coord_multiplier = 50
 
-
     with open('layout.svg', 'w') as file:
         coords = getKeyboardCoords(mapPath)
 
-        largest_x = max(coords, key=lambda x:x['x'])['x']
-        largest_y = max(coords, key=lambda x:x['y'])['y']
+        largest_x = max(coords, key=lambda x: x['x'])['x']
+        largest_y = max(coords, key=lambda x: x['y'])['y']
         svg_w = ((largest_x) * coord_multiplier) + key_w
 
         step1 = largest_y * coord_multiplier
@@ -47,14 +46,14 @@ def get_keymap_svg(mapPath, fullLayout):
                     text {transform-origin: center; transform-box: fill-box; font-family: sans-serif; font-size: 14;}
                     .key-base {stroke: black; fill: #C3C3C3; stroke-width=1;}
                     .key-cap {stroke: #BFBBBB; fill: white; stroke-width=1;}
-                    .key-text {fill=black;}
+                    .key-text {fill=black; pointer-events: none;}
                 </style>"""
         file.write('<style>' +
                     'rect {transform-origin: center; transform-box: fill-box;}'
                     'text {transform-origin: center; transform-box: fill-box; font-family: sans-serif; font-size: 14;}' +
                     '.key-base {stroke: black; fill: #C3C3C3; stroke-width=1;}' +
                     '.key-cap {stroke: #BFBBBB; fill: white; stroke-width=1;}' +
-                    '.key-text {fill=black;}' +
+                    '.key-text {fill=black; pointer-events: none;}' +
                 '</style>')
         svg_string += '<rect fill="transparent" />'
         file.write('<rect fill="transparent" />')
