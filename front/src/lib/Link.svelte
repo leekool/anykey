@@ -10,15 +10,14 @@
 <!-- <a href="#{link.toLowerCase()}">{link}</a> -->
 <!-- <span on:click={return link.toLowerCase()}>{link}</span> -->
 <div class="link"
-     on:click={() => handleClick(link)}
-    >
+     on:click={() => handleClick(link)}>
     {link}
 </div>
 
 <style>
     .link {
         color: black;
-        padding: 3px 6px;
+        padding: 1px 6px;
         text-decoration: none;
         display: block;
         cursor: pointer;

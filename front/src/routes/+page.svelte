@@ -4,7 +4,7 @@
     import Input from "../lib/Input.svelte";
 
     let inputValue: string = "";
-    $: console.log(inputValue);
+    let inputEl: any;
 
     let menuOpen: boolean = false;
     let menuItems: { name: string; path: string }[] = [];
@@ -92,40 +92,20 @@
                 <div class="form">
                     <!-- <form on:submit={(e) => submitForm(e)}> -->
                     <div class="form-contents">
-                        <!-- <div class="select-keyboard"> -->
-                        <!--     <select on:change={handleSelect}> -->
-                        <!--         <option value="select keyboard" -->
-                        <!--             >Select Keyboard</option -->
-                        <!--         > -->
-                        <!--         {#each options as option} -->
-                        <!--             <option value={option["path"]} -->
-                        <!--                 >{option["name"]}</option -->
-                        <!--             > -->
-                        <!--         {/each} -->
-                        <!--     </select> -->
-                        <!-- </div> -->
 
-                        <div class="select-map">
-                            <label>
-                                <input
-                                    type="file"
-                                    accept=".c"
-                                    on:change={(e) => onFileSelected(e)}
-                                />
-                                upload keymap
-                            </label>
-                            <span>{fileName}</span>
-                        </div>
-
-                        <!-- button zone -->
-                        <div class="select-keyboard">
+                        <div class="select-keyboard"
+                             on:click={() => inputEl.focus()}
+                             on:keypress={(e) => console.log(e)}>
                             <Button
-                                on:click={() => (menuOpen = !menuOpen)}
+                                on:click={() => menuOpen = !menuOpen}
                                 {menuOpen}
                             />
 
                             <div class:show={menuOpen} class="dropdown-content">
-                                <Input bind:inputValue on:input={handleInput} />
+                                <Input 
+                                    bind:inputEl={inputEl}
+                                    bind:inputValue 
+                                    on:input={handleInput} />
                                 <!-- MENU -->
                                 {#if filteredItems.length > 0}
                                     {#each filteredItems as item}
@@ -155,6 +135,18 @@
                             </div>
                         </div>
                         <span>{selectedOption.name}</span>
+
+                        <div class="select-map">
+                            <label>
+                                <input
+                                    type="file"
+                                    accept=".c"
+                                    on:change={(e) => onFileSelected(e)}
+                                />
+                                upload keymap
+                            </label>
+                        </div>
+                        <span>{fileName}</span>
 
                         <div
                             class="submit-button"
@@ -188,10 +180,7 @@
         display: block;
         /* width: 80%; */
         position: absolute;
-        top: 3%;
-        left: 32%;
-        transform: translate(-50%);
-        width: 60%;
+        width: 100%;
     }
 
     .form-contents {
@@ -216,20 +205,41 @@
         /* display: inline-block; */
     }
 
+    .submit-button {
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        transform: translate(-50%);
+    }
+
+    .select-map,
+    .select-keyboard {
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%);
+    }
+
+    .select-map {
+        top: 45px;
+        left: 0;
+        background: lightgrey;
+    }
+
     .submit-button,
     .select-keyboard,
     .select-map,
     .map-svg {
         margin-top: 10px;
+        z-index: 1;
     }
 
     .dropdown-content {
         display: none;
         position: absolute;
         background-color: #f6f6f6;
-        min-width: 230px;
+        /* min-width: 230px; */
         border: 1px solid #ddd;
-        z-index: 1;
+        z-index: 10;
     }
 
     /* Show the dropdown menu */
@@ -268,8 +278,10 @@
         width: 100%;
         flex-direction: column;
         height: calc(100% - 30px); /* 30px to account for taskbar */
-        box-shadow: 0 0 0 1px #1f1f1e inset, 0 0 0 3px #30302f inset,
-            0 0 0 6px #1f1f1e inset, 0 3px 15px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0 1px #1f1f1e inset, 
+                    0 0 0 3px #30302f inset,
+                    0 0 0 6px #1f1f1e inset, 
+                    0 3px 15px rgba(0, 0, 0, 0.3);
     }
 
     /* .focus {
@@ -333,9 +345,9 @@
         left: 50%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        max-height: 80%;
-        width: 80%;
-        max-width: 1200px;
+        height: 200px;
+        width: 350px;
+        max-width: 1000px;
     }
 
     .btn-valid {
