@@ -1,22 +1,5 @@
 <script lang="ts">
-    import Button from "../lib/Button.svelte";
-    import Link from "../lib/Link.svelte";
-    import Input from "../lib/Input.svelte";
-
-    let inputValue: string = "";
-    let inputEl: any;
-
-    let menuOpen: boolean = false;
-    let menuItems: { name: string; path: string }[] = [];
-    let filteredItems: { name: string; path: string }[] = [];
-
-    const handleInput = () => {
-        return (filteredItems = menuItems.filter((item) =>
-            item.name.toLowerCase().match(inputValue.toLowerCase())
-        ));
-    };
-
-    // ---
+    import KeyboardMenu from "../lib/KeyboardMenu.svelte";
     import { onMount } from "svelte";
 
     let file: File;
@@ -24,14 +7,14 @@
     let fileName: string = "";
     let layoutResponse: string = "";
 
-    let selectedOption: { name: string; path: string } = { name: "", path: "" };
+    let menuItems: { name: string; path: string }[] = [];
+    let selectedItem: { name: string; path: string } = { name: "", path: "" };
 
-    // let options: [] = [];
     let submitDisabled: boolean = true;
     let btnState: string = "btn-invalid";
 
     // This is a watcher
-    $: if (fileName && selectedOption.name !== "") {
+    $: if (fileName && selectedItem.name !== "") {
         btnState = "btn-valid";
         submitDisabled = false;
     }
@@ -39,10 +22,6 @@
     onMount(async () => {
         // fetch some data from the server when the component is mounted
         const response = await fetch("http://localhost:5000/api/keyboards");
-        // options = await response.json();
-        // options.forEach((item: any) => {
-        //     menuItems.push(item);
-        // });
         menuItems = await response.json();
     });
 
@@ -51,11 +30,7 @@
             file = e.currentTarget.files[0];
             fileName = file.name;
         }
-    };
-
-    // function handleSelect(event: any): any {
-    //     selectedOption = event.target?.value;
-    // }
+    }
 
     function submitForm(event: any) {
         event.preventDefault(); // prevent default form submission behavior
@@ -65,7 +40,7 @@
 
     async function postLayout() {
         formData.append("file", file);
-        formData.append("mapPath", selectedOption.path);
+        formData.append("mapPath", selectedItem.path);
         const response = await fetch("http://localhost:5000/api/layout", {
             method: "POST",
             body: formData,
@@ -90,51 +65,13 @@
         {#if menuItems && menuItems.length > 1}
             <div class="content main-item">
                 <div class="form">
-                    <!-- <form on:submit={(e) => submitForm(e)}> -->
                     <div class="form-contents">
+                        <KeyboardMenu 
+                            bind:selectedItem={selectedItem}
+                            bind:menuItems={menuItems}
+                        />
 
-                        <div class="select-keyboard"
-                             on:click={() => inputEl.focus()}
-                             on:keypress={(e) => console.log(e)}>
-                            <Button
-                                on:click={() => menuOpen = !menuOpen}
-                                {menuOpen}
-                            />
-
-                            <div class:show={menuOpen} class="dropdown-content">
-                                <Input 
-                                    bind:inputEl={inputEl}
-                                    bind:inputValue 
-                                    on:input={handleInput} />
-                                <!-- MENU -->
-                                {#if filteredItems.length > 0}
-                                    {#each filteredItems as item}
-                                        <div
-                                            on:click={() => {
-                                                selectedOption = item;
-                                                menuOpen = !menuOpen;
-                                            }}
-                                            on:keypress={(e) => console.log(e)}
-                                        >
-                                            <Link link={item.name} />
-                                        </div>
-                                    {/each}
-                                {:else}
-                                    {#each menuItems as item}
-                                        <div
-                                            on:click={() => {
-                                                selectedOption = item;
-                                                menuOpen = !menuOpen;
-                                            }}
-                                            on:keypress={(e) => console.log(e)}
-                                        >
-                                            <Link link={item.name} />
-                                        </div>
-                                    {/each}
-                                {/if}
-                            </div>
-                        </div>
-                        <span>{selectedOption.name}</span>
+                        <span>{selectedItem.name}</span>
 
                         <div class="select-map">
                             <label>
@@ -166,7 +103,6 @@
                             {@html layoutResponse}
                         </div>
                     </div>
-                    <!-- </form> -->
                 </div>
             </div>
         {/if}
@@ -278,10 +214,8 @@
         width: 100%;
         flex-direction: column;
         height: calc(100% - 30px); /* 30px to account for taskbar */
-        box-shadow: 0 0 0 1px #1f1f1e inset, 
-                    0 0 0 3px #30302f inset,
-                    0 0 0 6px #1f1f1e inset, 
-                    0 3px 15px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0 1px #1f1f1e inset, 0 0 0 3px #30302f inset,
+            0 0 0 6px #1f1f1e inset, 0 3px 15px rgba(0, 0, 0, 0.3);
     }
 
     /* .focus {
