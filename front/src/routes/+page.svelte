@@ -26,17 +26,17 @@
     });
 
     const onFileSelected = (e: { currentTarget: HTMLInputElement }) => {
-        if (e.currentTarget.files) {
-            file = e.currentTarget.files[0];
-            fileName = file.name;
-        }
-    }
+        if (!e.currentTarget.files) return;
 
-    function submitForm(event: any) {
+        file = e.currentTarget.files[0];
+        fileName = file.name;
+    };
+
+    const submitForm = (event: Event) => {
         event.preventDefault(); // prevent default form submission behavior
         console.log("Form submitted!");
         postLayout();
-    }
+    };
 
     async function postLayout() {
         formData.append("file", file);
@@ -64,16 +64,14 @@
 
         {#if menuItems && menuItems.length > 1}
             <div class="content main-item">
-                <div class="form">
-                    <div class="form-contents">
-                        <KeyboardMenu 
-                            bind:selectedItem={selectedItem}
-                            bind:menuItems={menuItems}
-                        />
+                <div class="half-container">
+                    <div class="half">
+                        <KeyboardMenu bind:selectedItem bind:menuItems />
 
                         <span>{selectedItem.name}</span>
-
-                        <div class="select-map">
+                    </div>
+                    <div class="half">
+                        <div class="upload-btn">
                             <label>
                                 <input
                                     type="file"
@@ -84,42 +82,50 @@
                             </label>
                         </div>
                         <span>{fileName}</span>
-
-                        <div
-                            class="submit-button"
-                            on:click={(e) => submitForm(e)}
-                            on:keypress={(e) => console.log(e)}
-                        >
-                            <label class={btnState}>
-                                <input
-                                    type="submit"
-                                    disabled={submitDisabled}
-                                />
-                                submit
-                            </label>
-                        </div>
-
-                        <div class="map-svg">
-                            {@html layoutResponse}
-                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="version">
+                        <span>test</span>
+                    </div>
+                    <div
+                        class="submit-btn"
+                        on:click={(e) => submitForm(e)}
+                        on:keypress={(e) => console.log(e)}
+                    >
+                        <label class={btnState}>
+                            <input type="submit" disabled={submitDisabled} />
+                            submit
+                        </label>
                     </div>
                 </div>
             </div>
         {/if}
     </div>
+    <!-- <div class="map-svg"> -->
+    <!--     {@html layoutResponse} -->
+    <!-- </div> -->
 </div>
 
 <style>
     @import url("../../static/fonts/real-icons.css");
 
-    .form {
-        display: block;
-        /* width: 80%; */
-        position: absolute;
+    .half-container {
+        display: flex;
+        height: 90%;
         width: 100%;
     }
 
-    .form-contents {
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .half {
+        display: flex;
+        /* position: absolute; */
+        width: 50%;
         margin: 0;
     }
 
@@ -129,45 +135,44 @@
     }
 
     label {
-        border: 1px solid #ccc;
+        /* border: 1px solid #ccc; */
         /* display: inline-block; */
-        padding: 3px 6px;
+        /* padding: 3px 6px; */
         cursor: pointer;
     }
 
-    .select-keyboard {
-        display: inline-block;
-        position: relative;
-        /* display: inline-block; */
-    }
-
-    .submit-button {
-        left: 50%;
-        top: 50%;
-        position: absolute;
-        transform: translate(-50%);
-    }
-
-    .select-map,
-    .select-keyboard {
-        left: 50%;
-        position: absolute;
-        transform: translate(-50%);
-    }
-
-    .select-map {
-        top: 45px;
-        left: 0;
-        background: lightgrey;
-    }
-
-    .submit-button,
-    .select-keyboard,
-    .select-map,
-    .map-svg {
-        margin-top: 10px;
-        z-index: 1;
-    }
+    /* .select-btn { */
+    /*     display: inline-block; */
+    /*     position: relative; */
+    /* } */
+    /**/
+    /* .submit-btn { */
+    /*     left: 50%; */
+    /*     top: 50%; */
+    /*     position: absolute; */
+    /*     transform: translate(-50%); */
+    /* } */
+    /**/
+    /* .upload-btn, */
+    /* .select-btn { */
+    /*     left: 50%; */
+    /*     position: absolute; */
+    /*     transform: translate(-50%); */
+    /* } */
+    /**/
+    /* .upload-btn { */
+    /*     top: 45px; */
+    /*     left: 0; */
+    /*     background: lightgrey; */
+    /* } */
+    /**/
+    /* .submit-btn, */
+    /* .select-btn, */
+    /* .upload-btn, */
+    /* .map-svg { */
+    /*     margin-top: 10px; */
+    /*     z-index: 1; */
+    /* } */
 
     .dropdown-content {
         display: none;
@@ -268,6 +273,7 @@
     .content {
         display: flex;
         flex: 1 1 auto;
+        flex-direction: column;
         max-height: calc(100% - 29.5px);
         background-color: #c6bb9b;
     }
