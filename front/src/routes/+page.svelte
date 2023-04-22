@@ -15,7 +15,6 @@
     let submitDisabled: boolean = true;
     let btnState: string = "btn-invalid";
 
-
     // This is a watcher
     $: if (fileName && selectedItem.name !== "") {
         btnState = "btn-valid";
@@ -46,7 +45,7 @@
 
         formData.append("file", file);
         formData.append("mapPath", selectedItem.path);
-        formData.append("mergeLayers", mergeLayers == true ? 'true' : 'false');
+        formData.append("mergeLayers", mergeLayers == true ? "true" : "false");
         const response = await fetch("http://localhost:5000/api/layout", {
             method: "POST",
             body: formData,
@@ -59,7 +58,7 @@
 
 <!-- <Window /> -->
 <!-- Layout Window -->
-<div class="border position-left">
+<div class="border position-centre">
     <div class="main">
         <div class="navbar main-item">
             <div class="navbar-text">layout_gen</div>
@@ -70,73 +69,73 @@
             </div>
         </div>
 
-        {#if menuItems && menuItems.length > 1}
-            <div class="content main-item">
-                <div class="half-container">
-                    <div class="half">
-                        <KeyboardMenu bind:selectedItem bind:menuItems />
-
-                    </div>
-                    <div class="seperator"></div>
-                    <div class="half">
-                        <div class="btn">
-                            <label>
-                                <input
-                                    type="file"
-                                    accept=".c"
-                                    on:change={(e) => onFileSelected(e)}
-                                />
-                                upload keymap
-                            </label>
-                        </div>
-                        <div class="btn">
-                            <label>
-                                merge layers
-                                <input type="checkbox" bind:checked={mergeLayers}>
-                            </label>
-                        </div>
-                    </div>
+        <!-- {#if menuItems && menuItems.length > 1} -->
+        <div class="content main-item">
+            <div class="half-container">
+                <div class="half">
+                    <KeyboardMenu bind:selectedItem bind:menuItems />
                 </div>
-                <div class="footer">
-                    <div class="version">
-                        <span style="padding-left: 5px;">{selectedItem.name}</span>
-                        <span>{fileName}</span>
+                <div class="separator" />
+                <div class="half">
+                    <div class="btn">
+                        <label>
+                            <input
+                                type="file"
+                                accept=".c"
+                                on:change={(e) => onFileSelected(e)}
+                            />
+                            upload keymap
+                        </label>
                     </div>
-                    <div
-                        class="btn"
-                        on:click={(e) => submitForm(e)}
-                        on:keypress={(e) => console.log(e)}
-                    >
-                        <label class={btnState}>
-                            <input type="submit" disabled={submitDisabled} />
-                            submit
+                    <div class="btn">
+                        <label>
+                            merge layers
+                            <input type="checkbox" bind:checked={mergeLayers} />
+                            <span class="checkbox" />
                         </label>
                     </div>
                 </div>
             </div>
-        {/if}
+            <div class="footer">
+                <div class="version">
+                    <span style="padding-left: 5px;">{selectedItem.name}</span>
+                    <span>{fileName}</span>
+                </div>
+                <div
+                    class="btn"
+                    on:click={(e) => submitForm(e)}
+                    on:keypress={(e) => console.log(e)}
+                >
+                    <label class={btnState}>
+                        <input type="submit" disabled={submitDisabled} />
+                        submit
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- {/if} -->
     </div>
 </div>
 
 <!-- SVG Window -->
 {#if layoutResponse}
-<div class="border position-centre">
-    <div class="main">
-        <div class="navbar main-item">
-            <div class="navbar-text">layout_img</div>
-            <div class="navbar-buttons">
-                <span class="ri-minimise" />
-                <span class="ri-maximise" />
-                <span class="ri-close" />
+    <div class="border position-centre">
+        <div class="main">
+            <div class="navbar main-item">
+                <div class="navbar-text">layout_img</div>
+                <div class="navbar-buttons">
+                    <span class="ri-minimise" />
+                    <span class="ri-maximise" />
+                    <span class="ri-close" />
+                </div>
             </div>
-        </div>
-        <div class="content main-item">
-            <div class="map-svg">
-                {@html layoutResponse}
+            <div class="content main-item">
+                <div class="map-svg">
+                    {@html layoutResponse}
+                </div>
             </div>
         </div>
     </div>
-</div>
 {/if}
 
 <style>
@@ -144,39 +143,40 @@
 
     .half-container {
         display: flex;
-        height: 90%;
         width: 100%;
+        height: 250px;
     }
 
     .footer {
         display: flex;
+        height: auto;
         width: auto;
-        margin: 3px;
+        /* margin: 3px; */
         justify-content: space-between;
+        background-color: #e5dac3;
+        border-top: 1px inset #7a776e;
     }
 
     .half {
-        display: block;
+        display: flex;
+        flex-direction: column;
         margin: 3px;
         /* position: absolute; */
         width: 50%;
         max-width: 175px;
     }
 
-    input[type="file"],
-    input[type="submit"] {
+    /* input[type="file"], */
+    /* input[type="submit"] { */
+    /*     display: none; */
+    /* } */
+
+    input {
         display: none;
     }
 
-    label {
-        /* border: 1px solid #ccc; */
-        /* display: inline-block; */
-        /* padding: 3px 6px; */
-        cursor: pointer;
-    }
-
-    .seperator {
-        background-color: #7a776e;        
+    .separator {
+        background-color: #7a776e;
         width: 1px;
     }
 
@@ -185,8 +185,53 @@
         height: 20px;
         background-color: #696d63;
         color: #e9e5d8;
-        box-shadow: 1px 1px 0 0 #b4b6b1 inset,
-                    -1px -1px 0 0 #3f413b inset;
+        box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset;
+    }
+
+    label {
+        display: inline-block;
+        margin-top: 2px;
+        cursor: pointer;
+    }
+
+    .checkbox {
+        display: inline-block;
+        height: 10px;
+        width: 10px;
+        background-color: #fff;
+    }
+
+    /* on checkbox hover, change bg colour */
+    .btn:hover input ~ .checkbox {
+        background-color: #e5dac3;
+    }
+
+    /* black bg when checkbox checked (test) */
+    .btn input:checked ~ .checkbox {
+        background-color: #000;
+    }
+
+    /* tick/checkmark indicator (hidden when unchecked) */
+    .checkbox:after {
+        content: "";
+        display: none;
+    }
+
+    /* show tick/checkmark when checked */
+    .btn input:checked ~ .checkbox:after {
+        display: block;
+    }
+
+    /* style tick/checkmark (just a shitty test atm) */
+    .btn .checkbox:after {
+        width: 3px;
+        height: 7px;
+        margin-left: 2px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
     }
 
     /* .select-btn { */
@@ -319,7 +364,7 @@
     }
 
     .content {
-        overflow-y:scroll;
+        overflow-y: scroll;
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
@@ -341,12 +386,12 @@
     .position-centre {
         margin: 0;
         position: absolute;
-        top: 55%;
-        left: 62%;
+        top: 50%;
+        left: 50%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 800px;
-        width: 1200px;
+        height: 200px;
+        width: 350px;
         max-width: 1500px;
     }
 

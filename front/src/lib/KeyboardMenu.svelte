@@ -1,17 +1,12 @@
 <script lang="ts">
-    // let menuOpen: boolean;
-    let inputValue: string = "";
-    let inputEl: HTMLElement;
-
     export let selectedItem: any;
     export let menuItems: { name: string; path: string }[] = [];
+
+    let inputEl: HTMLElement;
+    let inputValue: string = "";
     let filteredItems: { name: string; path: string }[] = [];
 
-    const handleClick = (item: { name: string; path: string }) => {
-        // menuOpen = !menuOpen;
-        selectedItem = item;
-        console.log(selectedItem);
-    };
+    const handleClick = (item: { name: string; path: string }) => selectedItem = item;
 
     const handleInput = () => {
         return (filteredItems = menuItems.filter((item) =>
@@ -21,16 +16,6 @@
 </script>
 
 <div class="main">
-    <!-- <div -->
-    <!--     class="select-keyboard" -->
-    <!--     on:click={() => inputEl.focus()} -->
-    <!--     on:keypress={(e) => console.log(e)} -->
-    <!-- > -->
-    <!--     <button on:click={() => (menuOpen = !menuOpen)} class="dropbtn"> -->
-    <!--         {!menuOpen ? "keyboard menu ▼" : "close menu ▲"} -->
-    <!--     </button> -->
-    <!-- </div> -->
-    <!-- <div class:show={menuOpen} class="dropdown-content"> -->
     <input
         id="searchInput"
         type="text"
@@ -61,8 +46,10 @@
     @import url("../../static/fonts/real-icons.css");
 
     .main {
-        width: 163px;
-        height: 105px;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        height: 100%;
     }
 
     /* .dropbtn { */
@@ -81,6 +68,7 @@
     /* } */
 
     .link {
+        display: flex;
         color: black;
         padding-left: 4px;
         text-decoration: none;
@@ -89,7 +77,6 @@
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
-        background-color: #ccc6b7;
     }
 
     /* search field */
@@ -103,10 +90,9 @@
         border: none;
         background-color: #ccc6b7;
         /* box-shadow: 1px 1px 0 0 #7a776e inset, -1px -1px 0 0 #ffffff inset; */
-        border-left: 1px inset #7a776e;
-        border-top: 1px inset #7a776e;
-        border-right: 1px inset #fff;
-        border-bottom: 1px inset #fff;
+        border-color: #7a776e #fff #fff #7a776e;
+        border-style: inset;
+        border-width: 1px;
     }
 
     #searchInput:focus,
@@ -117,15 +103,18 @@
     }
 
     .list-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        height: 0;
         margin-top: 4px;
         background-color: #ccc6b7;
         overflow-x: hidden;
-        overflow-y: scroll;
-        height: 100%;
-        border-left: 1px inset #7a776e;
-        border-top: 1px inset #7a776e;
-        border-right: 1px inset #fff;
-        border-bottom: 1px inset #fff;
+        overflow-y: auto;
+        scrollbar-width: none;
+        border-color: #7a776e #fff #fff #7a776e;
+        border-style: inset;
+        border-width: 1px;
     }
 
     /* show dropdown menu */
