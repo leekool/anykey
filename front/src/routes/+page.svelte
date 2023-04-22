@@ -44,7 +44,6 @@
     async function postLayout() {
         formData = new FormData();
 
-        layoutResponse = '';
         formData.append("file", file);
         formData.append("mapPath", selectedItem.path);
         formData.append("mergeLayers", mergeLayers == true ? 'true' : 'false');
