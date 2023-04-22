@@ -1,5 +1,6 @@
 <script lang="ts">
     import KeyboardMenu from "../lib/KeyboardMenu.svelte";
+    import Window from "../lib/Window.svelte";
     import { onMount } from "svelte";
 
     let file: File;
@@ -51,6 +52,7 @@
     }
 </script>
 
+<!-- <Window /> -->
 <div class="border position-centre">
     <div class="main">
         <div class="navbar main-item">
@@ -70,8 +72,9 @@
 
                         <span>{selectedItem.name}</span>
                     </div>
+                    <div class="seperator"></div>
                     <div class="half">
-                        <div class="upload-btn">
+                        <div class="btn">
                             <label>
                                 <input
                                     type="file"
@@ -89,7 +92,7 @@
                         <span>test</span>
                     </div>
                     <div
-                        class="submit-btn"
+                        class="btn"
                         on:click={(e) => submitForm(e)}
                         on:keypress={(e) => console.log(e)}
                     >
@@ -118,15 +121,16 @@
 
     .footer {
         display: flex;
+        margin: 3px;
         justify-content: space-between;
-        width: 100%;
+        width: auto;
     }
 
     .half {
         display: flex;
+        margin: 3px;
         /* position: absolute; */
         width: 50%;
-        margin: 0;
     }
 
     input[type="file"],
@@ -139,6 +143,20 @@
         /* display: inline-block; */
         /* padding: 3px 6px; */
         cursor: pointer;
+    }
+
+    .seperator {
+        background-color: #7a776e;        
+        width: 1px;
+    }
+
+    .btn {
+        padding: 2px 5px;
+        height: 20px;
+        background-color: #696d63;
+        color: #e9e5d8;
+        box-shadow: 1px 1px 0 0 #b4b6b1 inset,
+                    -1px -1px 0 0 #3f413b inset;
     }
 
     /* .select-btn { */
@@ -290,11 +308,11 @@
         max-width: 1000px;
     }
 
-    .btn-valid {
-        background-color: rgb(153, 255, 153, 50);
-    }
-
-    .btn-invalid {
-        background-color: rgb(255, 153, 153, 50);
-    }
+    /* .btn-valid { */
+    /*     background-color: rgb(153, 255, 153, 50); */
+    /* } */
+    /**/
+    /* .btn-invalid { */
+    /*     background-color: rgb(255, 153, 153, 50); */
+    /* } */
 </style>
