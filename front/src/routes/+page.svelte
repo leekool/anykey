@@ -54,7 +54,7 @@
 
 <!-- <Window /> -->
 <!-- Layout Window -->
-<div class="border position-left">
+<div class="border position-centre">
     <div class="main">
         <div class="navbar main-item">
             <div class="navbar-text">layout_gen</div>
@@ -71,7 +71,6 @@
                     <div class="half">
                         <KeyboardMenu bind:selectedItem bind:menuItems />
 
-                        <span>{selectedItem.name}</span>
                     </div>
                     <div class="seperator"></div>
                     <div class="half">
@@ -85,12 +84,12 @@
                                 upload keymap
                             </label>
                         </div>
-                        <span>{fileName}</span>
                     </div>
                 </div>
                 <div class="footer">
                     <div class="version">
-                        <span>test</span>
+                        <span style="padding-left: 5px;">{selectedItem.name}</span>
+                        <span>{fileName}</span>
                     </div>
                     <div
                         class="btn"
@@ -140,9 +139,9 @@
 
     .footer {
         display: flex;
+        width: auto;
         margin: 3px;
         justify-content: space-between;
-        width: auto;
     }
 
     .half {
@@ -150,6 +149,7 @@
         margin: 3px;
         /* position: absolute; */
         width: 50%;
+        max-width: 175px;
     }
 
     input[type="file"],
@@ -312,7 +312,7 @@
         flex: 1 1 auto;
         flex-direction: column;
         max-height: calc(100% - 29.5px);
-        background-color: #c6bb9b;
+        background-color: #ccc6b7;
     }
 
     .position-left {
@@ -334,8 +334,8 @@
         left: 50%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 800px;
-        width: 1400px;
+        height: 200px;
+        width: 350px;
         max-height: 800px;
         max-width: 1400px;
     }
