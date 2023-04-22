@@ -38,10 +38,14 @@ def get_keymap_svg(mapPath, fullLayout):
         step3 = step2 * len(fullLayout)
         svg_h = step3 + key_h * len(fullLayout)
 
-        svg_string = '<svg version="1.1" width="{0}" height="{1}" xmlns="http://www.w3.org/2000/svg">'.format(svg_w, svg_h)
-        file.write('<svg version="1.1" width="{0}" height="{1}" xmlns="http://www.w3.org/2000/svg">'.format(svg_w, svg_h))
+        
+        svg_string = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg">'
+        file.write('<svg version="1.1" xmlns="http://www.w3.org/2000/svg">')
 
-        svg_string += """<style>
+
+        svg_string += '<style>svg {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
+        file.write('<style>svg {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}')
+        svg_string += """
                     rect {transform-origin: center; transform-box: fill-box;}'
                     text {transform-origin: center; transform-box: fill-box; font-family: sans-serif; font-size: 14;}
                     .key-base {stroke: black; fill: #C3C3C3; stroke-width=1;}

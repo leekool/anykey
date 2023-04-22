@@ -53,7 +53,8 @@
 </script>
 
 <!-- <Window /> -->
-<div class="border position-centre">
+<!-- Layout Window -->
+<div class="border position-left">
     <div class="main">
         <div class="navbar main-item">
             <div class="navbar-text">layout_gen</div>
@@ -105,10 +106,28 @@
             </div>
         {/if}
     </div>
-    <!-- <div class="map-svg"> -->
-    <!--     {@html layoutResponse} -->
-    <!-- </div> -->
 </div>
+
+<!-- SVG Window -->
+{#if layoutResponse}
+<div class="border position-centre">
+    <div class="main">
+        <div class="navbar main-item">
+            <div class="navbar-text">layout_img</div>
+            <div class="navbar-buttons">
+                <span class="ri-minimise" />
+                <span class="ri-maximise" />
+                <span class="ri-close" />
+            </div>
+        </div>
+        <div class="content">
+            <div class="main-item map-svg">
+                {@html layoutResponse}
+            </div>
+        </div>
+    </div>
+</div>
+{/if}
 
 <style>
     @import url("../../static/fonts/real-icons.css");
@@ -207,10 +226,10 @@
     }
 
     .map-svg {
-        width: 200px;
-        height: 200px;
+        overflow-y:scroll;
         justify-content: center;
         align-items: center;
+        height:auto;
     }
 
     /* svg {
@@ -296,6 +315,18 @@
         background-color: #c6bb9b;
     }
 
+    .position-left {
+        margin: 0;
+        position: absolute;
+        top: 15%;
+        left: 8%;
+        -ms-transform: translate(-50%, -52.5%);
+        transform: translate(-50%, -52.5%);
+        height: 200px;
+        width: 350px;
+        max-width: 1000px;
+    }
+
     .position-centre {
         margin: 0;
         position: absolute;
@@ -303,9 +334,10 @@
         left: 50%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 200px;
-        width: 350px;
-        max-width: 1000px;
+        height: 800px;
+        width: 1400px;
+        max-height: 800px;
+        max-width: 1400px;
     }
 
     /* .btn-valid { */
