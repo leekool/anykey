@@ -14,6 +14,8 @@
     let submitDisabled: boolean = true;
     let btnState: string = "btn-invalid";
 
+    let flattenLayers: boolean = false;
+
     // This is a watcher
     $: if (fileName && selectedItem.name !== "") {
         btnState = "btn-valid";
@@ -54,7 +56,7 @@
 
 <!-- <Window /> -->
 <!-- Layout Window -->
-<div class="border position-centre">
+<div class="border position-left">
     <div class="main">
         <div class="navbar main-item">
             <div class="navbar-text">layout_gen</div>
@@ -82,6 +84,12 @@
                                     on:change={(e) => onFileSelected(e)}
                                 />
                                 upload keymap
+                            </label>
+                        </div>
+                        <div class="btn">
+                            <label>
+                                merge layers
+                                <input type=checkbox bind:checked={flattenLayers}>
                             </label>
                         </div>
                     </div>
@@ -119,8 +127,8 @@
                 <span class="ri-close" />
             </div>
         </div>
-        <div class="content">
-            <div class="main-item map-svg">
+        <div class="content main-item">
+            <div class="map-svg">
                 {@html layoutResponse}
             </div>
         </div>
@@ -145,7 +153,7 @@
     }
 
     .half {
-        display: flex;
+        display: block;
         margin: 3px;
         /* position: absolute; */
         width: 50%;
@@ -226,10 +234,9 @@
     }
 
     .map-svg {
-        overflow-y:scroll;
+        display: flex;
         justify-content: center;
         align-items: center;
-        height:auto;
     }
 
     /* svg {
@@ -243,6 +250,7 @@
         padding: 5px 0px 0px 5px;
         flex-direction: column;
         font-family: "Tamzen", sans-serif;
+        max-height: calc(100% - 10px);
     }
 
     .main-item {
@@ -308,10 +316,10 @@
     }
 
     .content {
+        overflow-y:scroll;
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
-        max-height: calc(100% - 29.5px);
         background-color: #ccc6b7;
     }
 
@@ -319,25 +327,24 @@
         margin: 0;
         position: absolute;
         top: 15%;
-        left: 8%;
+        left: 15%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         height: 200px;
         width: 350px;
-        max-width: 1000px;
+        max-width: 500px;
     }
 
     .position-centre {
         margin: 0;
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top: 55%;
+        left: 62%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 200px;
-        width: 350px;
-        max-height: 800px;
-        max-width: 1400px;
+        height: 800px;
+        width: 1200px;
+        max-width: 1500px;
     }
 
     /* .btn-valid { */

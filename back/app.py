@@ -4,7 +4,7 @@ from flask import Flask, after_this_request, jsonify, request
 from flask_cors import CORS, cross_origin
 
 from parse_keys import parse_map
-from generate_svg import get_keymap_svg
+from generate_flat_svg import get_keymap_svg
 
 app = Flask(__name__)
 CORS(app)
