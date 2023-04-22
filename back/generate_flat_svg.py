@@ -7,7 +7,7 @@ def getKeyboardCoords(mapPath):
         print(next(iter(contents['layouts'])))
         return contents['layouts'][next(iter(contents['layouts']))]['layout']
 
-def get_keymap_svg(mapPath, fullLayout):
+def get_flat_keymap_svg(mapPath, fullLayout):
 
     level = 10
     row_x = 10
@@ -99,7 +99,7 @@ def get_keymap_svg(mapPath, fullLayout):
             key_text_r = 0
 
         key_text_layer_x = [20, 20, 20, 20]
-        key_text_layer_y = [5, 2.5, 1.5, 5]
+        key_text_layer_y = [5, 2.4, 1.5, 5]
 
         for index, layer in enumerate(fullLayout):
             for idx, key_cap in enumerate(layer['keys']):

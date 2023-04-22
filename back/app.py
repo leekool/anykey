@@ -4,7 +4,8 @@ from flask import Flask, after_this_request, jsonify, request
 from flask_cors import CORS, cross_origin
 
 from parse_keys import parse_map
-from generate_flat_svg import get_keymap_svg
+from generate_svg import get_keymap_svg
+from generate_flat_svg import get_flat_keymap_svg
 
 app = Flask(__name__)
 CORS(app)
@@ -23,11 +24,20 @@ def get_data():
     if 'mapPath' not in request.form:
         return 'No map found'
     
+    if 'mergeLayers' not in request.form:
+        return 'No Merge Layer found'
+    
     fileData = request.files['file']
     mapPath = request.form['mapPath']
+    mergeLayers = request.form['mergeLayers']
     fullLayout = parse_map(fileData)
 
-    svg_string = get_keymap_svg(mapPath, fullLayout)
+    if (mergeLayers == 'true'):
+        print('merging')
+        svg_string = get_flat_keymap_svg(mapPath, fullLayout)
+    else:
+        print('split')
+        svg_string = get_keymap_svg(mapPath, fullLayout)
 
     return jsonify({'message': svg_string})
 

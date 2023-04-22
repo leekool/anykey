@@ -5,6 +5,7 @@
 
     let file: File;
     let formData = new FormData();
+    let mergeLayers: boolean = false;
     let fileName: string = "";
     let layoutResponse: string = "";
 
@@ -14,7 +15,6 @@
     let submitDisabled: boolean = true;
     let btnState: string = "btn-invalid";
 
-    let flattenLayers: boolean = false;
 
     // This is a watcher
     $: if (fileName && selectedItem.name !== "") {
@@ -42,8 +42,12 @@
     };
 
     async function postLayout() {
+        formData = new FormData();
+
+        layoutResponse = '';
         formData.append("file", file);
         formData.append("mapPath", selectedItem.path);
+        formData.append("mergeLayers", mergeLayers == true ? 'true' : 'false');
         const response = await fetch("http://localhost:5000/api/layout", {
             method: "POST",
             body: formData,
@@ -89,7 +93,7 @@
                         <div class="btn">
                             <label>
                                 merge layers
-                                <input type=checkbox bind:checked={flattenLayers}>
+                                <input type="checkbox" bind:checked={mergeLayers}>
                             </label>
                         </div>
                     </div>
