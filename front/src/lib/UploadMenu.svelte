@@ -3,11 +3,20 @@
     export let fileName: string = "";
     export let mergeLayers: boolean = false;
 
+    let fileSize: string = "";
+
+    const fileSizeKb = (file: File) => {
+        var i = Math.floor(Math.log(file.size) / Math.log(1024));
+        return `${parseFloat((file.size / Math.pow(1024, i)).toFixed(1))}kB`;
+    };
+
     const onFileSelected = (e: { currentTarget: HTMLInputElement }) => {
         if (!e.currentTarget.files) return;
 
         file = e.currentTarget.files[0];
         fileName = file.name;
+        fileSize = fileSizeKb(file);
+        console.log(file);
     };
 </script>
 
@@ -22,6 +31,10 @@
             upload keymap
         </label>
     </div>
+    <div class="info">
+        <div>{fileName}</div>
+        <div>{fileSize ? `size: ${fileSize}` : ''}</div>
+    </div>
     <div class="btn">
         <label>
             <input type="checkbox" bind:checked={mergeLayers} />
@@ -32,6 +45,14 @@
 </div>
 
 <style>
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1 1 auto;
+        height: 100%;
+    }
+
     input {
         display: none;
     }
@@ -48,12 +69,16 @@
         width: 10px;
         background-color: #fff;
     }
+
     .btn {
         padding-left: 5px;
-        height: 22px;
-        background-color: #696d63;
+        height: 20px;
+        background-color: #553e3a;
         color: #e9e5d8;
-        box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset;
+        /* box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset; */
+        border-color: #b4b6b1 #363430 #363430 #b4b6b1;
+        border-style: solid;
+        border-width: 1px;
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;

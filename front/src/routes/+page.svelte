@@ -146,7 +146,6 @@
 
     .half {
         display: flex;
-        flex-direction: column;
         margin: 3px;
         /* position: absolute; */
         width: 50%;
