@@ -54,7 +54,7 @@
 
 <!-- <Window /> -->
 <!-- Layout Window -->
-<div class="border position-centre">
+<div class="border position-left">
     <div class="main">
         <div class="navbar main-item">
             <div class="navbar-text">layout_gen</div>
@@ -192,6 +192,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 15px;
+        letter-spacing: -0.5px;
     }
 
     /* svg {
@@ -294,11 +296,11 @@
         margin: 0;
         position: absolute;
         top: 50%;
-        left: 50%;
+        left: 60%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 200px;
-        width: 350px;
+        height: 800px;
+        width: 1200px;
         max-width: 1500px;
     }
 
