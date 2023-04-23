@@ -62,7 +62,7 @@ def get_keymap_svg(mapPath, fullLayout):
                 determineKeyPosition(level, coord_multiplier, kCap, coords, idx)
 
                 svg_string += '<rect class="key-base" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="8" ry="8" />'.format(kCap.key_w, kCap.key_h, kCap.pos_x, kCap.pos_y, kCap.key_r)
-                svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format(kCap.key_inner_w, kCap.key_inner_h, kCap.row_inner_x, kCap.row_inner_y, kCap.key_r)
+                svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format(kCap.inner_key_w, kCap.inner_key_h, kCap.inner_pos_x, kCap.inner_pos_y, kCap.key_r)
                 svg_string += '<text class="key-text" {0} transform="translate({1}, {2}) rotate({3})">{4}</text>'.format(kCap.baseline_text, kCap.key_text_x, kCap.key_text_y, kCap.key_text_r, key_cap)
 
                 kCap.key_h = 60
@@ -85,20 +85,20 @@ def determineKeyPosition(level, coord_multiplier, kCap, coords, idx):
     if 'r' in coords[idx]:
         kCap.key_r = coords[idx]['r']
 
-    kCap.key_inner_h = kCap.key_h * 0.75
-    kCap.key_inner_w = kCap.key_w * 0.75
+    kCap.inner_key_h = kCap.key_h * 0.75
+    kCap.inner_key_w = kCap.key_w * 0.75
     if (kCap.key_r != 0):
-        kCap.row_inner_x = kCap.pos_x + kCap.key_w / 10
-        kCap.row_inner_y = kCap.pos_y + kCap.key_h / 10
+        kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 10
+        kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 10
         negative = str(kCap.key_r).find("-") != -1
         kCap.key_text_r = kCap.key_r + 90 if negative else kCap.key_r - 90
-        kCap.key_text_x = kCap.row_inner_x + kCap.key_w / 8 if negative else kCap.row_inner_x + kCap.key_w / 5
-        kCap.key_text_y = kCap.row_inner_y + kCap.key_h / 5 if negative else kCap.row_inner_y + kCap.key_w / 1
+        kCap.key_text_x = kCap.inner_pos_x + kCap.key_w / 8 if negative else kCap.inner_pos_x + kCap.key_w / 5
+        kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / 5 if negative else kCap.inner_pos_y + kCap.key_w / 1
         kCap.baseline_text = ''
     else:
-        kCap.row_inner_x = kCap.pos_x + kCap.key_w / 8
-        kCap.row_inner_y = kCap.pos_y + kCap.key_h / 18
-        kCap.key_text_x = kCap.row_inner_x + kCap.key_inner_w / 2
-        kCap.key_text_y = kCap.row_inner_y + kCap.key_inner_h / 2
+        kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 8
+        kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 18
+        kCap.key_text_x = kCap.inner_pos_x + kCap.inner_key_w / 2
+        kCap.key_text_y = kCap.inner_pos_y + kCap.inner_key_h / 2
         kCap.key_text_r = kCap.key_r
         kCap.baseline_text = 'dominant-baseline="middle" text-anchor="middle"'
