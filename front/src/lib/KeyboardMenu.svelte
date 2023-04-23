@@ -97,10 +97,14 @@
         border-width: 1px;
     }
 
-    #searchInput:focus,
     #searchInput:hover,
     .link:hover {
         background-color: #e5dac3;
+    }
+
+    #searchInput:focus,
+    .link:focus,
+    .list-content:focus {
         outline: none;
     }
 

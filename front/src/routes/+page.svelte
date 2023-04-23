@@ -57,7 +57,12 @@
 <div class="border position-centre">
     <div class="main">
         <div class="navbar main-item">
-            <div class="navbar-text">layout_gen</div>
+            <div class="navbar-buttons">
+                <span class="ri-close" />
+            </div>
+            <div class="navbar-text">
+                <span>layout_gen</span>
+            </div>
             <div class="navbar-buttons">
                 <span class="ri-minimise" />
                 <span class="ri-maximise" />
@@ -74,23 +79,6 @@
                 <div class="separator" />
                 <div class="half">
                     <UploadMenu bind:file bind:fileName bind:mergeLayers />
-                    <!-- <div class="btn"> -->
-                    <!--     <label> -->
-                    <!--         <input -->
-                    <!--             type="file" -->
-                    <!--             accept=".c" -->
-                    <!--             on:change={(e) => onFileSelected(e)} -->
-                    <!--         /> -->
-                    <!--         upload keymap -->
-                    <!--     </label> -->
-                    <!-- </div> -->
-                    <!-- <div class="btn"> -->
-                    <!--     <label> -->
-                    <!--         <input type="checkbox" bind:checked={mergeLayers} /> -->
-                    <!--         <span class="checkbox" /> -->
-                    <!--         merge layers -->
-                    <!--     </label> -->
-                    <!-- </div> -->
                 </div>
             </div>
             <div class="footer">
@@ -233,23 +221,35 @@
 
     .navbar {
         display: flex;
-        height: 25px;
+        height: 38px;
         color: #e9e5d8;
-        justify-content: flex-end;
+        font-size: 15px;
+        align-items: center;
+        justify-content: space-between;
         background-repeat: repeat;
-        background-image: url("images/navbar-tile.svg");
+        /* background-image: url("images/navbar-tile.svg"); */
+        background-color: #d5d5d5;
         box-shadow: 0 -1px 0 0 #30302f inset;
         user-select: none;
     }
 
     .navbar-text {
-        display: flex;
-        height: 28px;
-        left: 50%;
-        font-size: 15px;
-        align-items: center;
         position: absolute;
+        left: 50%;
         transform: translate(-50%);
+        background-image: url("images/navbar-title-tile.svg");
+        width: 60%;
+        height: 17px;
+        margin-bottom: 1px;
+    }
+
+    .navbar-text span {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        font-weight: bold;
+        margin-top: 1px;
+        text-shadow: 0 1px rgba(138, 134, 160, 0.7);
     }
 
     .navbar-buttons {
@@ -258,11 +258,12 @@
         align-items: center;
         justify-content: center;
         margin-right: 2px;
+        color: #000;
     }
 
     .navbar-buttons span {
         font-size: 8px;
-        padding: 8px;
+        padding: 6px;
         cursor: pointer;
     }
 

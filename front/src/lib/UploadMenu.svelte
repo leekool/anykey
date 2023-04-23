@@ -35,7 +35,7 @@
         <div>{fileName}</div>
         <div>{fileSize ? `size: ${fileSize}` : ''}</div>
     </div>
-    <div class="btn">
+    <div class="check-btn">
         <label>
             <input type="checkbox" bind:checked={mergeLayers} />
             <span class="checkbox" />
@@ -84,13 +84,23 @@
         -ms-user-select: none;
     }
 
+    .check-btn {
+        padding-left: 5px;
+        height: 20px;
+        color: #000;
+        /* box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset; */
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+
     /* on checkbox hover, change bg colour */
-    .btn:hover input ~ .checkbox {
+    .check-btn:hover input ~ .checkbox {
         background-color: #e5dac3;
     }
 
     /* black bg when checkbox checked (test) */
-    .btn input:checked ~ .checkbox {
+    .check-btn input:checked ~ .checkbox {
         background-color: #000;
     }
 
@@ -101,12 +111,12 @@
     }
 
     /* show tick/checkmark when checked */
-    .btn input:checked ~ .checkbox:after {
+    .check-btn input:checked ~ .checkbox:after {
         display: block;
     }
 
     /* style tick/checkmark (just a shitty test atm) */
-    .btn .checkbox:after {
+    .check-btn .checkbox:after {
         width: 3px;
         height: 7px;
         margin-left: 2px;
