@@ -1,17 +1,20 @@
 <script lang="ts">
     import KeyboardMenu from "../lib/KeyboardMenu.svelte";
+    import UploadMenu from "../lib/UploadMenu.svelte";
     import Window from "../lib/Window.svelte";
     import { onMount } from "svelte";
 
+    // from UploadMenu
     let file: File;
-    let formData = new FormData();
-    let mergeLayers: boolean = false;
     let fileName: string = "";
-    let layoutResponse: string = "";
+    let mergeLayers: boolean = false;
 
+    // from KeyboardMenu
     let menuItems: { name: string; path: string }[] = [];
     let selectedItem: { name: string; path: string } = { name: "", path: "" };
 
+    let formData = new FormData();
+    let layoutResponse: string = "";
     let submitDisabled: boolean = true;
     let btnState: string = "btn-invalid";
 
@@ -26,13 +29,6 @@
         const response = await fetch("http://localhost:5000/api/keyboards");
         menuItems = await response.json();
     });
-
-    const onFileSelected = (e: { currentTarget: HTMLInputElement }) => {
-        if (!e.currentTarget.files) return;
-
-        file = e.currentTarget.files[0];
-        fileName = file.name;
-    };
 
     const submitForm = (event: Event) => {
         event.preventDefault(); // prevent default form submission behavior
@@ -77,23 +73,24 @@
                 </div>
                 <div class="separator" />
                 <div class="half">
-                    <div class="btn">
-                        <label>
-                            <input
-                                type="file"
-                                accept=".c"
-                                on:change={(e) => onFileSelected(e)}
-                            />
-                            upload keymap
-                        </label>
-                    </div>
-                    <div class="btn">
-                        <label>
-                            merge layers
-                            <input type="checkbox" bind:checked={mergeLayers} />
-                            <span class="checkbox" />
-                        </label>
-                    </div>
+                    <UploadMenu bind:file bind:fileName bind:mergeLayers />
+                    <!-- <div class="btn"> -->
+                    <!--     <label> -->
+                    <!--         <input -->
+                    <!--             type="file" -->
+                    <!--             accept=".c" -->
+                    <!--             on:change={(e) => onFileSelected(e)} -->
+                    <!--         /> -->
+                    <!--         upload keymap -->
+                    <!--     </label> -->
+                    <!-- </div> -->
+                    <!-- <div class="btn"> -->
+                    <!--     <label> -->
+                    <!--         <input type="checkbox" bind:checked={mergeLayers} /> -->
+                    <!--         <span class="checkbox" /> -->
+                    <!--         merge layers -->
+                    <!--     </label> -->
+                    <!-- </div> -->
                 </div>
             </div>
             <div class="footer">
@@ -147,6 +144,15 @@
         height: 250px;
     }
 
+    .half {
+        display: flex;
+        flex-direction: column;
+        margin: 3px;
+        /* position: absolute; */
+        width: 50%;
+        max-width: 175px;
+    }
+
     .footer {
         display: flex;
         height: auto;
@@ -157,35 +163,8 @@
         border-top: 1px inset #7a776e;
     }
 
-    .half {
-        display: flex;
-        flex-direction: column;
-        margin: 3px;
-        /* position: absolute; */
-        width: 50%;
-        max-width: 175px;
-    }
-
-    /* input[type="file"], */
-    /* input[type="submit"] { */
-    /*     display: none; */
-    /* } */
-
     input {
         display: none;
-    }
-
-    .separator {
-        background-color: #7a776e;
-        width: 1px;
-    }
-
-    .btn {
-        padding: 2px 5px;
-        height: 20px;
-        background-color: #696d63;
-        color: #e9e5d8;
-        box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset;
     }
 
     label {
@@ -194,91 +173,20 @@
         cursor: pointer;
     }
 
-    .checkbox {
-        display: inline-block;
-        height: 10px;
-        width: 10px;
-        background-color: #fff;
+    .btn {
+        padding-left: 5px;
+        height: 22px;
+        background-color: #696d63;
+        color: #e9e5d8;
+        box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
     }
 
-    /* on checkbox hover, change bg colour */
-    .btn:hover input ~ .checkbox {
-        background-color: #e5dac3;
-    }
-
-    /* black bg when checkbox checked (test) */
-    .btn input:checked ~ .checkbox {
-        background-color: #000;
-    }
-
-    /* tick/checkmark indicator (hidden when unchecked) */
-    .checkbox:after {
-        content: "";
-        display: none;
-    }
-
-    /* show tick/checkmark when checked */
-    .btn input:checked ~ .checkbox:after {
-        display: block;
-    }
-
-    /* style tick/checkmark (just a shitty test atm) */
-    .btn .checkbox:after {
-        width: 3px;
-        height: 7px;
-        margin-left: 2px;
-        border: solid white;
-        border-width: 0 2px 2px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
-
-    /* .select-btn { */
-    /*     display: inline-block; */
-    /*     position: relative; */
-    /* } */
-    /**/
-    /* .submit-btn { */
-    /*     left: 50%; */
-    /*     top: 50%; */
-    /*     position: absolute; */
-    /*     transform: translate(-50%); */
-    /* } */
-    /**/
-    /* .upload-btn, */
-    /* .select-btn { */
-    /*     left: 50%; */
-    /*     position: absolute; */
-    /*     transform: translate(-50%); */
-    /* } */
-    /**/
-    /* .upload-btn { */
-    /*     top: 45px; */
-    /*     left: 0; */
-    /*     background: lightgrey; */
-    /* } */
-    /**/
-    /* .submit-btn, */
-    /* .select-btn, */
-    /* .upload-btn, */
-    /* .map-svg { */
-    /*     margin-top: 10px; */
-    /*     z-index: 1; */
-    /* } */
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f6f6f6;
-        /* min-width: 230px; */
-        border: 1px solid #ddd;
-        z-index: 10;
-    }
-
-    /* Show the dropdown menu */
-    .show {
-        display: block;
+    .separator {
+        background-color: #7a776e;
+        width: 1px;
     }
 
     .map-svg {

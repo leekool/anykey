@@ -68,6 +68,7 @@
     /* } */
 
     .link {
+        height: 19px;
         display: flex;
         color: black;
         padding-left: 4px;
@@ -81,6 +82,7 @@
 
     /* search field */
     #searchInput {
+        height: 22px;
         width: 100%;
         box-sizing: border-box;
         font-family: "Tamzen", sans-serif;
