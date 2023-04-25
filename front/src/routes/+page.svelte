@@ -54,8 +54,8 @@
 
 <!-- <Window /> -->
 <!-- Layout Window -->
-<div class="border position-centre">
-    <div class="main">
+<div class="position-centre">
+    <div class="main pixel-corners">
         <div class="navbar main-item">
             <div class="navbar-buttons">
                 <span class="ri-close" />
@@ -65,7 +65,7 @@
             </div>
             <div class="navbar-buttons">
                 <span class="ri-minimise" />
-                <span class="ri-maximise" />
+                <!-- <span class="ri-maximise" /> -->
                 <span class="ri-close" />
             </div>
         </div>
@@ -76,27 +76,41 @@
                 <div class="half">
                     <KeyboardMenu bind:selectedItem bind:menuItems />
                 </div>
-                <div class="separator" />
+                <!-- <div class="separator" /> -->
                 <div class="half">
                     <UploadMenu bind:file bind:fileName bind:mergeLayers />
                 </div>
             </div>
-            <div class="footer">
-                <div class="version">
-                    <span style="padding-left: 5px;">{selectedItem.name}</span>
-                    <span>{fileName}</span>
+        </div>
+        <div class="footer">
+            <div class="footer-btn-container">
+                <div class="footer-btn">
+                    <div class="left-arrow" />
                 </div>
-                <div
-                    class="btn"
-                    on:click={(e) => submitForm(e)}
-                    on:keypress={(e) => console.log(e)}
-                >
-                    <label class={btnState}>
-                        <input type="submit" disabled={submitDisabled} />
-                        submit
-                    </label>
+                <div class="separator" />
+                <div class="footer-scroll-btn">
+                    <div class="scroll-img" />
                 </div>
             </div>
+            <div class="footer-bg" />
+            <div class="separator" />
+            <div class="footer-btn">
+                <div class="right-arrow" />
+            </div>
+            <!-- <div class="version"> -->
+            <!--     <span style="padding-left: 5px;">{selectedItem.name}</span> -->
+            <!--     <span>{fileName}</span> -->
+            <!-- </div> -->
+            <!-- <div -->
+            <!--     class="btn" -->
+            <!--     on:click={(e) => submitForm(e)} -->
+            <!--     on:keypress={(e) => console.log(e)} -->
+            <!-- > -->
+            <!--     <label class={btnState}> -->
+            <!--         <input type="submit" disabled={submitDisabled} /> -->
+            <!--         submit -->
+            <!--     </label> -->
+            <!-- </div> -->
         </div>
         <!-- {/if} -->
     </div>
@@ -104,7 +118,7 @@
 
 <!-- SVG Window -->
 {#if layoutResponse}
-    <div class="border position-centre">
+    <div class="position-centre">
         <div class="main">
             <div class="navbar main-item">
                 <div class="navbar-text">layout_img</div>
@@ -142,12 +156,79 @@
 
     .footer {
         display: flex;
-        height: auto;
-        width: auto;
+        justify-items: space-between;
+        box-sizing: border-box;
+        height: 22px;
+        user-select: none;
         /* margin: 3px; */
-        justify-content: space-between;
-        background-color: #e5dac3;
-        border-top: 1px inset #7a776e;
+        border-top: 1px inset #000;
+    }
+
+    .footer-btn {
+        display: flex;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        align-items: center;
+        justify-content: center;
+        background-color: #d5d5d5;
+        box-sizing: border-box;
+        border-color: #fff #a0a0a0 #a0a0a0 #fff;
+        border-style: solid;
+        border-width: 1px;
+    }
+
+    .footer-btn-container {
+        display: flex;
+        aspect-ratio: 2 / 1;
+        box-sizing: border-box;
+        /* justify-content: center; */
+    }
+
+    .footer-scroll-btn {
+        display: flex;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        background-color: #aaaaaa;
+        border-color: #ccccff #333366 #333366 #ccccff;
+        border-style: solid;
+        border-width: 1px;
+        z-index: 10;
+    }
+
+    .footer-bg {
+        height: calc(100% - 2px);
+        width: 100%;
+        background-image: url("images/footer-tile.svg");
+    }
+
+    /* .footer-btn > .left-arrow { */
+    /*     border-right: 1px solid #000; */
+    /* } */
+
+    .scroll-img {
+        display: flex;
+        height: 70%;
+        width: 70%;
+        content: url("images/footer-scroll.svg");
+        border-left: 1px solid #a3a3d7;
+        margin-right: 1px;
+    }
+
+    .left-arrow {
+        display: flex;
+        height: 80%;
+        width: 80%;
+        content: url("images/left-arrow.svg");
+    }
+
+    .right-arrow {
+        height: 80%;
+        width: 80%;
+        content: url("images/left-arrow.svg");
+        transform: rotate(180deg);
     }
 
     input {
@@ -172,8 +253,9 @@
     }
 
     .separator {
-        background-color: #7a776e;
-        width: 1px;
+        background-color: #000;
+        min-width: 1px;
+        z-index: 10;
     }
 
     .map-svg {
@@ -190,26 +272,39 @@
     .main {
         display: flex;
         flex: 1 1 auto;
-        padding: 5px 0px 0px 5px;
+        /* padding: 5px 0px 0px 5px; */
         flex-direction: column;
         font-family: "Tamzen", sans-serif;
-        max-height: calc(100% - 10px);
+        /* max-height: calc(100% - 10px); */
+        max-height: 100%;
+        background-color: #d5d5d5;
     }
 
     .main-item {
         position: sticky;
-        width: calc(100% - 5px);
+        padding-top: 1px;
+        border-color: #fff #a0a0a0 #a0a0a0 #fff;
+        border-style: solid;
+        border-width: 1px;
+        /* width: calc(100% - 5px); */
     }
 
-    .border {
-        display: flex;
-        position: absolute;
-        width: 100%;
-        flex-direction: column;
-        height: calc(100% - 30px); /* 30px to account for taskbar */
-        box-shadow: 0 0 0 1px #1f1f1e inset, 0 0 0 3px #30302f inset,
-            0 0 0 6px #1f1f1e inset, 0 3px 15px rgba(0, 0, 0, 0.3);
-    }
+    /* .border { */
+    /*     display: flex; */
+    /*     position: absolute; */
+    /*     width: 100%; */
+    /*     flex-direction: column; */
+    /*     height: calc(100% - 30px); */
+    /*     box-shadow: 0 0 0 1px #1f1f1e inset, 0 0 0 3px #30302f inset, */
+    /*         0 0 0 6px #1f1f1e inset, 0 3px 15px rgba(0, 0, 0, 0.3); */
+    /* } */
+
+    /* .border { */
+    /*     position: absolute; */
+    /*     width: 100%; */
+    /*     border: 1px solid black; */
+    /*     border-radius: 3px; */
+    /* } */
 
     /* .focus {
    box-shadow: 0 0 0 1px #222020 inset,
@@ -221,16 +316,21 @@
 
     .navbar {
         display: flex;
-        height: 38px;
+        height: 30px;
         color: #e9e5d8;
         font-size: 15px;
         align-items: center;
         justify-content: space-between;
-        background-repeat: repeat;
+        /* background-repeat: repeat; */
         /* background-image: url("images/navbar-tile.svg"); */
-        background-color: #d5d5d5;
-        box-shadow: 0 -1px 0 0 #30302f inset;
+        box-shadow: 0 -1px 0 0 #30302f;
         user-select: none;
+        border-color: #fff #a0a0a0 #a0a0a0 #fff;
+        border-style: solid;
+        border-width: 1px;
+        box-sizing: border-box;
+        box-shadow: 0 1px 0 0 #30302f;
+        margin-bottom: 1px;
     }
 
     .navbar-text {
@@ -276,7 +376,6 @@
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
-        background-color: #ccc6b7;
     }
 
     .position-left {
@@ -310,4 +409,83 @@
     /* .btn-invalid { */
     /*     background-color: rgb(255, 153, 153, 50); */
     /* } */
+    /* border */
+
+    .pixel-corners,
+    .pixel-corners--wrapper {
+        clip-path: polygon(
+            0px calc(100% - 1px),
+            1px calc(100% - 1px),
+            1px 100%,
+            calc(100% - 1px) 100%,
+            calc(100% - 1px) calc(100% - 1px),
+            100% calc(100% - 1px),
+            100% 1px,
+            calc(100% - 1px) 1px,
+            calc(100% - 1px) 0px,
+            1px 0px,
+            1px 1px,
+            0px 1px
+        );
+        position: relative;
+        z-index: 999;
+    }
+
+    .pixel-corners {
+        border: 1px solid transparent;
+    }
+
+    .pixel-corners--wrapper {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .pixel-corners--wrapper .pixel-corners {
+        display: block;
+        clip-path: polygon(
+            1px 1px,
+            calc(100% - 1px) 1px,
+            calc(100% - 1px) calc(100% - 1px),
+            1px calc(100% - 1px)
+        );
+    }
+
+    .pixel-corners::after,
+    .pixel-corners--wrapper::after {
+        content: "";
+        position: absolute;
+        clip-path: polygon(
+            0px calc(100% - 1px),
+            1px calc(100% - 1px),
+            1px 100%,
+            calc(100% - 1px) 100%,
+            calc(100% - 1px) calc(100% - 1px),
+            100% calc(100% - 1px),
+            100% 1px,
+            calc(100% - 1px) 1px,
+            calc(100% - 1px) 0px,
+            1px 0px,
+            1px 1px,
+            0px 1px,
+            0px 50%,
+            1px 50%,
+            1px 1px,
+            calc(100% - 1px) 1px,
+            calc(100% - 1px) calc(100% - 1px),
+            1px calc(100% - 1px),
+            1px 50%,
+            0px 50%
+        );
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #000;
+        display: block;
+        pointer-events: none;
+    }
+
+    .pixel-corners::after {
+        margin: -1px;
+    }
 </style>

@@ -8,9 +8,9 @@
 
 body {
     margin: 0;
-    background-image: url('images/bg.png');
-    background-color: #6E8287;
+    background-image: url('images/bg.svg');
+    background-color: #888cb1;
     background-repeat: repeat-x;
-    background-size: auto;
+    background-size: 16px;
     background-attachment: fixed;
 }

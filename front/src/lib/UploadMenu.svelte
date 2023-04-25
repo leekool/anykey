@@ -21,14 +21,14 @@
 </script>
 
 <div class="main">
-    <div class="btn">
+    <div class="upload-btn">
         <label>
+            <img src="images/upload-icon.png" />
             <input
                 type="file"
                 accept=".c"
                 on:change={(e) => onFileSelected(e)}
             />
-            upload keymap
         </label>
     </div>
     <div class="info">
@@ -70,15 +70,22 @@
         background-color: #fff;
     }
 
-    .btn {
-        padding-left: 5px;
-        height: 20px;
-        background-color: #553e3a;
-        color: #e9e5d8;
+    .upload-btn {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        /* padding-left: 5px; */
+        /* height: 20px; */
+        /* background-color: #553e3a; */
+        /* color: #e9e5d8; */
         /* box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset; */
-        border-color: #b4b6b1 #363430 #363430 #b4b6b1;
-        border-style: solid;
+        /* border-color: #b4b6b1 #363430 #363430 #b4b6b1; */
+        /* border-style: solid; */
+        /* border-width: 1px; */
+        border-color: #7a776e #fff #fff #7a776e;
+        border-style: inset;
         border-width: 1px;
+        image-rendering: pixelated;
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;

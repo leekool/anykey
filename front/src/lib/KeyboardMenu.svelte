@@ -89,8 +89,7 @@
         font-size: 15px;
         cursor: pointer;
         padding: 1px 4px;
-        border: none;
-        background-color: #ccc6b7;
+        background-color: #d5d5d5;
         /* box-shadow: 1px 1px 0 0 #7a776e inset, -1px -1px 0 0 #ffffff inset; */
         border-color: #7a776e #fff #fff #7a776e;
         border-style: inset;
@@ -99,7 +98,7 @@
 
     #searchInput:hover,
     .link:hover {
-        background-color: #e5dac3;
+        background-color: #ebebeb;
     }
 
     #searchInput:focus,
@@ -114,7 +113,7 @@
         flex: 1 1 auto;
         height: 0;
         margin-top: 4px;
-        background-color: #ccc6b7;
+        background-color: #d5d5d5;
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-width: none;
