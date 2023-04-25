@@ -33,10 +33,8 @@ def get_data():
     fullLayout = parse_map(fileData)
 
     if (mergeLayers == 'true'):
-        print('merging')
         svg_string = get_flat_keymap_svg(mapPath, fullLayout)
     else:
-        print('split')
         svg_string = get_keymap_svg(mapPath, fullLayout)
 
     return jsonify({'message': svg_string})

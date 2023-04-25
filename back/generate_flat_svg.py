@@ -38,8 +38,10 @@ def get_flat_keymap_svg(mapPath, fullLayout):
         largest_y = max(coords, key=lambda x: x['y'])['y']
         svg_w = ((largest_x) * kCap.coord_multiplier) + kCap.key_w
         svg_h = largest_y * kCap.coord_multiplier + (kCap.key_h * 2)
-        key_text_layer_x = [20, 20, 20, 20]
-        key_text_layer_y = [5, 2.4, 1.5, 5]
+        key_text_layer_x = [2.75, 20, 20, 3]
+        key_text_layer_y = [2.75, 5, 1.5, 1.155]
+        key_text_layer_alignment = ['dominant-baseline="middle" text-anchor="middle"','','','dominant-baseline="middle" text-anchor="middle"']
+        key_text_layer_cmyk = ['black','cyan','magenta','yellow']
         
         svg_string = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg">'
 
@@ -47,15 +49,15 @@ def get_flat_keymap_svg(mapPath, fullLayout):
         svg_string += """
                     rect {transform-origin: center; transform-box: fill-box;}'
                     text {transform-origin: center; transform-box: fill-box;}
-                    .key-base {stroke: black; fill: #C3C3C3; stroke-width=1;}
-                    .key-cap {stroke: #BFBBBB; fill: white; stroke-width=1;}
+                    .key-base {stroke: black; fill: #E0CFB3; stroke-width=1;}
+                    .key-cap {stroke: #9E9483; fill: #E1D6C3; stroke-width=0.5;}
                     .key-text {fill=black; pointer-events: none;}
                 </style>"""
         svg_string += '<rect fill="transparent" />'
 
         firstLayer = fullLayout[0]
         for idx, key_cap in enumerate(firstLayer['keys']):
-            determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, 0)
+            determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, key_text_layer_alignment, 0)
 
             svg_string += '<rect class="key-base" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="8" ry="8" />'.format(kCap.key_w, kCap.key_h, kCap.pos_x, kCap.pos_y, kCap.key_r)
             svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format( kCap.inner_key_w, kCap.inner_key_h, kCap.inner_pos_x, kCap.inner_pos_y, kCap.key_r)
@@ -64,9 +66,9 @@ def get_flat_keymap_svg(mapPath, fullLayout):
 
         for index, layer in enumerate(fullLayout):
             for idx, key_cap in enumerate(layer['keys']):
-                determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, index)
-
-                svg_string += '<text class="key-text" transform="translate({0}, {1}) rotate({2})">{3}</text>'.format(kCap.key_text_x, kCap.key_text_y, kCap.key_text_r, key_cap)
+                determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, key_text_layer_alignment, index)
+                fontSize = '12' if len(key_cap) > 2 else '14'
+                svg_string += '<text class="key-text" {0} font-size="{1}" stroke="{2}" stroke-width="0.3" transform="translate({3}, {4}) rotate({5})">{6}</text>'.format(kCap.baseline_text, fontSize, key_text_layer_cmyk[index], kCap.key_text_x, kCap.key_text_y, kCap.key_text_r, key_cap)
 
                 resetKey(kCap)
 
@@ -81,7 +83,7 @@ def resetKey(kCap):
     kCap.key_r = 0
     kCap.key_text_r = 0
 
-def determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, index):
+def determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, key_text_layer_alignment, index):
     kCap.pos_x = coords[idx]['x'] * kCap.coord_multiplier
     kCap.pos_y = level + coords[idx]['y'] * kCap.coord_multiplier
     if 'h' in coords[idx]:
@@ -100,7 +102,9 @@ def determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_l
         kCap.key_text_r = kCap.key_r + 90 if negative else kCap.key_r - 90
         kCap.key_text_x = kCap.inner_pos_x + kCap.key_w / 8 if negative else kCap.inner_pos_x + kCap.key_w / 5
         kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / 5 if negative else kCap.inner_pos_y + kCap.key_w / 1
+        kCap.baseline_text = ''
     else:
         kCap.key_text_x = kCap.inner_pos_x + kCap.key_w / key_text_layer_x[index]
         kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / key_text_layer_y[index]
         kCap.key_text_r = kCap.key_r
+        kCap.baseline_text = key_text_layer_alignment[index]

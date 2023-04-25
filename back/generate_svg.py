@@ -46,13 +46,12 @@ def get_keymap_svg(mapPath, fullLayout):
 
         
         svg_string = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg">'
-
         svg_string += '<style>svg {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
         svg_string += """
                     rect {transform-origin: center; transform-box: fill-box;}'
                     text {transform-origin: center; transform-box: fill-box;}
-                    .key-base {stroke: black; fill: #C3C3C3; stroke-width=1;}
-                    .key-cap {stroke: #BFBBBB; fill: white; stroke-width=1;}
+                    .key-base {stroke: black; fill: #E0CFB3; stroke-width=1;}
+                    .key-cap {stroke: #9E9483; fill: #E1D6C3; stroke-width=0.5;}
                     .key-text {fill=black; pointer-events: none;}
                 </style>"""
         svg_string += '<rect fill="transparent" />'
@@ -61,7 +60,7 @@ def get_keymap_svg(mapPath, fullLayout):
             for idx, key_cap in enumerate(layer['keys']):
                 determineKeyPosition(level, coord_multiplier, kCap, coords, idx)
 
-                svg_string += '<rect class="key-base" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="8" ry="8" />'.format(kCap.key_w, kCap.key_h, kCap.pos_x, kCap.pos_y, kCap.key_r)
+                svg_string += '<rect class="key-base" fill="url(#RadialGradient1)" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="8" ry="8" />'.format(kCap.key_w, kCap.key_h, kCap.pos_x, kCap.pos_y, kCap.key_r)
                 svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format(kCap.inner_key_w, kCap.inner_key_h, kCap.inner_pos_x, kCap.inner_pos_y, kCap.key_r)
                 svg_string += '<text class="key-text" {0} transform="translate({1}, {2}) rotate({3})">{4}</text>'.format(kCap.baseline_text, kCap.key_text_x, kCap.key_text_y, kCap.key_text_r, key_cap)
 

@@ -277,7 +277,7 @@
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
-        background-color: #ccc6b7;
+        background-color: #D5D5D5;
     }
 
     .position-left {
