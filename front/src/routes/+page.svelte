@@ -54,8 +54,13 @@
 
 <!-- <Window /> -->
 <!-- Layout Window -->
+<<<<<<< HEAD
 <div class="position-centre">
     <div class="main pixel-corners">
+=======
+<div class="border position-left">
+    <div class="main">
+>>>>>>> f5c03a4bbd7cf75b47cadc1450dee925e8d6a934
         <div class="navbar main-item">
             <div class="navbar-buttons">
                 <span class="ri-close" />
@@ -262,6 +267,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 15px;
+        letter-spacing: -0.5px;
     }
 
     /* svg {
@@ -376,6 +383,10 @@
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
+<<<<<<< HEAD
+=======
+        background-color: #D5D5D5;
+>>>>>>> f5c03a4bbd7cf75b47cadc1450dee925e8d6a934
     }
 
     .position-left {
@@ -394,11 +405,11 @@
         margin: 0;
         position: absolute;
         top: 50%;
-        left: 50%;
+        left: 60%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 200px;
-        width: 350px;
+        height: 800px;
+        width: 1200px;
         max-width: 1500px;
     }
 
