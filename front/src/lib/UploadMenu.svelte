@@ -21,21 +21,21 @@
 </script>
 
 <div class="main">
-    <div class="btn">
+    <div class="upload-btn">
         <label>
+            <img src="images/upload-icon.png" />
             <input
                 type="file"
                 accept=".c"
                 on:change={(e) => onFileSelected(e)}
             />
-            upload keymap
         </label>
     </div>
     <div class="info">
         <div>{fileName}</div>
         <div>{fileSize ? `size: ${fileSize}` : ''}</div>
     </div>
-    <div class="btn">
+    <div class="check-btn">
         <label>
             <input type="checkbox" bind:checked={mergeLayers} />
             <span class="checkbox" />
@@ -70,27 +70,44 @@
         background-color: #fff;
     }
 
-    .btn {
+    .upload-btn {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        /* padding-left: 5px; */
+        /* height: 20px; */
+        /* background-color: #553e3a; */
+        /* color: #e9e5d8; */
+        /* box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset; */
+        /* border-color: #b4b6b1 #363430 #363430 #b4b6b1; */
+        /* border-style: solid; */
+        /* border-width: 1px; */
+        border-color: #7a776e #fff #fff #7a776e;
+        border-style: inset;
+        border-width: 1px;
+        image-rendering: pixelated;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+
+    .check-btn {
         padding-left: 5px;
         height: 20px;
-        background-color: #553e3a;
-        color: #e9e5d8;
+        color: #000;
         /* box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset; */
-        border-color: #b4b6b1 #363430 #363430 #b4b6b1;
-        border-style: solid;
-        border-width: 1px;
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
     }
 
     /* on checkbox hover, change bg colour */
-    .btn:hover input ~ .checkbox {
+    .check-btn:hover input ~ .checkbox {
         background-color: #e5dac3;
     }
 
     /* black bg when checkbox checked (test) */
-    .btn input:checked ~ .checkbox {
+    .check-btn input:checked ~ .checkbox {
         background-color: #000;
     }
 
@@ -101,12 +118,12 @@
     }
 
     /* show tick/checkmark when checked */
-    .btn input:checked ~ .checkbox:after {
+    .check-btn input:checked ~ .checkbox:after {
         display: block;
     }
 
     /* style tick/checkmark (just a shitty test atm) */
-    .btn .checkbox:after {
+    .check-btn .checkbox:after {
         width: 3px;
         height: 7px;
         margin-left: 2px;
