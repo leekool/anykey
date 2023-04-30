@@ -54,13 +54,10 @@
 
 <!-- <Window /> -->
 <!-- Layout Window -->
-<<<<<<< HEAD
 <div class="position-centre">
     <div class="main pixel-corners">
-=======
 <div class="border position-left">
     <div class="main">
->>>>>>> f5c03a4bbd7cf75b47cadc1450dee925e8d6a934
         <div class="navbar main-item">
             <div class="navbar-buttons">
                 <span class="ri-close" />
@@ -383,10 +380,7 @@
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
-<<<<<<< HEAD
-=======
         background-color: #D5D5D5;
->>>>>>> f5c03a4bbd7cf75b47cadc1450dee925e8d6a934
     }
 
     .position-left {
