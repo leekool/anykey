@@ -56,8 +56,6 @@
 <!-- Layout Window -->
 <div class="position-centre">
     <div class="main pixel-corners">
-<div class="border position-left">
-    <div class="main">
         <div class="navbar main-item">
             <div class="navbar-buttons">
                 <span class="ri-close" />
@@ -285,7 +283,7 @@
     }
 
     .main-item {
-        position: sticky;
+        /* position: sticky; */
         padding-top: 1px;
         border-color: #fff #a0a0a0 #a0a0a0 #fff;
         border-style: solid;
@@ -320,21 +318,21 @@
 
     .navbar {
         display: flex;
-        height: 30px;
+        height: 34px;
         color: #e9e5d8;
-        font-size: 15px;
+        font-size: 16px;
         align-items: center;
         justify-content: space-between;
         /* background-repeat: repeat; */
         /* background-image: url("images/navbar-tile.svg"); */
         box-shadow: 0 -1px 0 0 #30302f;
         user-select: none;
-        border-color: #fff #a0a0a0 #a0a0a0 #fff;
+        border-color: #ccccff #a3a3d7 #a3a3d7 #ccccff;
         border-style: solid;
-        border-width: 1px;
+        border-width: 2px;
         box-sizing: border-box;
-        box-shadow: 0 1px 0 0 #30302f;
-        margin-bottom: 1px;
+        box-shadow: 0 2px 0 0 #30302f;
+        margin-bottom: 2px;
     }
 
     .navbar-text {
@@ -358,16 +356,16 @@
 
     .navbar-buttons {
         display: flex;
-        max-width: 90px;
+        max-width: 180px;
         align-items: center;
         justify-content: center;
-        margin-right: 2px;
+        margin-right: 4px;
         color: #000;
     }
 
     .navbar-buttons span {
-        font-size: 8px;
-        padding: 6px;
+        font-size: 11px;
+        padding: 12px;
         cursor: pointer;
     }
 
@@ -379,8 +377,9 @@
         overflow-y: scroll;
         display: flex;
         flex: 1 1 auto;
+        align-self: center;
         flex-direction: column;
-        background-color: #D5D5D5;
+        background-color: #d5d5d5;
     }
 
     .position-left {
@@ -399,11 +398,11 @@
         margin: 0;
         position: absolute;
         top: 50%;
-        left: 60%;
+        left: 50%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 800px;
-        width: 1200px;
+        height: 400px;
+        width: 700px;
         max-width: 1500px;
     }
 
@@ -419,78 +418,72 @@
     .pixel-corners,
     .pixel-corners--wrapper {
         clip-path: polygon(
-            0px calc(100% - 1px),
-            1px calc(100% - 1px),
-            1px 100%,
-            calc(100% - 1px) 100%,
-            calc(100% - 1px) calc(100% - 1px),
-            100% calc(100% - 1px),
-            100% 1px,
-            calc(100% - 1px) 1px,
-            calc(100% - 1px) 0px,
-            1px 0px,
-            1px 1px,
-            0px 1px
+            0px calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 100%,
+            calc(100% - 2px) 100%,
+            calc(100% - 2px) calc(100% - 2px),
+            100% calc(100% - 2px),
+            100% 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) 0px,
+            2px 0px,
+            2px 2px,
+            0px 2px
         );
         position: relative;
-        z-index: 999;
     }
-
     .pixel-corners {
-        border: 1px solid transparent;
+        border: 2px solid transparent;
     }
-
     .pixel-corners--wrapper {
         width: fit-content;
         height: fit-content;
     }
-
     .pixel-corners--wrapper .pixel-corners {
         display: block;
         clip-path: polygon(
-            1px 1px,
-            calc(100% - 1px) 1px,
-            calc(100% - 1px) calc(100% - 1px),
-            1px calc(100% - 1px)
+            2px 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) calc(100% - 2px),
+            2px calc(100% - 2px)
         );
     }
-
     .pixel-corners::after,
     .pixel-corners--wrapper::after {
         content: "";
         position: absolute;
         clip-path: polygon(
-            0px calc(100% - 1px),
-            1px calc(100% - 1px),
-            1px 100%,
-            calc(100% - 1px) 100%,
-            calc(100% - 1px) calc(100% - 1px),
-            100% calc(100% - 1px),
-            100% 1px,
-            calc(100% - 1px) 1px,
-            calc(100% - 1px) 0px,
-            1px 0px,
-            1px 1px,
-            0px 1px,
+            0px calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 100%,
+            calc(100% - 2px) 100%,
+            calc(100% - 2px) calc(100% - 2px),
+            100% calc(100% - 2px),
+            100% 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) 0px,
+            2px 0px,
+            2px 2px,
+            0px 2px,
             0px 50%,
-            1px 50%,
-            1px 1px,
-            calc(100% - 1px) 1px,
-            calc(100% - 1px) calc(100% - 1px),
-            1px calc(100% - 1px),
-            1px 50%,
+            2px 50%,
+            2px 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 50%,
             0px 50%
         );
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-        background: #000;
+        background: #000000;
         display: block;
         pointer-events: none;
     }
-
     .pixel-corners::after {
-        margin: -1px;
+        margin: -2px;
     }
 </style>
