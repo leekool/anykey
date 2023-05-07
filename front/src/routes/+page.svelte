@@ -80,7 +80,7 @@
 
 <!-- SVG Window -->
 {#if layoutResponse}
-    <Window>
+    <Window position="position-layout">
         <div class="map-svg">
             {@html layoutResponse}
         </div>
@@ -151,7 +151,7 @@
 
     .map-svg {
         display: flex;
-        margin: 20px;
+        padding: 20px;
         justify-content: center;
         align-items: center;
         font-family: "Tamzen", sans-serif;

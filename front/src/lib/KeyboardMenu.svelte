@@ -34,15 +34,23 @@
             <div class="list-content">
                 {#if filteredItems.length > 0}
                     {#each filteredItems as item}
-                        <div class="{item.name == selectedItem.name ? 'link link-selected' : 'link'}" 
-                             on:click={() => handleClick(item)}>
+                        <div
+                            class={item.name == selectedItem.name
+                                ? "link link-selected"
+                                : "link"}
+                            on:click={() => handleClick(item)}
+                        >
                             {item.name}
                         </div>
                     {/each}
                 {:else}
                     {#each menuItems as item}
-                        <div class="{item.name == selectedItem.name ? 'link link-selected' : 'link'}" 
-                             on:click={() => handleClick(item)}>
+                        <div
+                            class={item.name == selectedItem.name
+                                ? "link link-selected"
+                                : "link"}
+                            on:click={() => handleClick(item)}
+                        >
                             {item.name}
                         </div>
                     {/each}
@@ -55,6 +63,10 @@
 
 <style>
     @import url("../../static/fonts/real-icons.css");
+
+    *::-webkit-scrollbar {
+        display: none;
+    }
 
     .main {
         display: flex;
@@ -149,18 +161,14 @@
 
     .link:hover {
         background-color: #ebebeb;
-        box-shadow: 2px 0 0 0 #c2c2c2 inset,
-                    -2px 0 0 0 #f5f5f5 inset,
-                    0 -2px 0 0 #ebebeb inset,
-                    0 2px 0 0 #ebebeb inset;
+        box-shadow: 2px 0 0 0 #c2c2c2 inset, -2px 0 0 0 #f5f5f5 inset,
+            0 -2px 0 0 #ebebeb inset, 0 2px 0 0 #ebebeb inset;
     }
 
     .link-selected {
         background-color: #ebebeb;
-        box-shadow: 2px 0 0 0 #c2c2c2 inset,
-                    -2px 0 0 0 #f5f5f5 inset,
-                    0 -2px 0 0 #ebebeb inset,
-                    0 2px 0 0 #ebebeb inset;
+        box-shadow: 2px 0 0 0 #c2c2c2 inset, -2px 0 0 0 #f5f5f5 inset,
+            0 -2px 0 0 #ebebeb inset, 0 2px 0 0 #ebebeb inset;
         background-image: url("images/keyboard-tile.svg");
     }
 

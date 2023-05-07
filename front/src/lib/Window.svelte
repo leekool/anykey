@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let position = "position-main";
+    export let position: string = "position-main";
 </script>
 
 <div class={position}>
@@ -193,6 +193,18 @@
         min-height: 300px;
         width: 80%;
         max-width: 500px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .position-layout {
+        display: flex;
+        flex: 1 1 auto;
+        position: absolute;
+        background-color: #000;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -52.5%);
+        transform: translate(-50%, -52.5%);
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
     }
 
