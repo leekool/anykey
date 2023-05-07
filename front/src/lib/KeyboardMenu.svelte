@@ -14,6 +14,14 @@
             item.name.toLowerCase().match(inputValue.toLowerCase())
         ));
     };
+
+    const handleKey = (event: KeyboardEvent) => {
+        if (event.code !== "Enter") return;
+
+        const matchedItem = menuItems.find((item) => item.name.toLowerCase() === inputValue.toLowerCase());
+
+        if (matchedItem) selectedItem = matchedItem;
+    };
 </script>
 
 <div class="main">
@@ -28,6 +36,7 @@
             bind:this={inputEl}
             bind:value={inputValue}
             on:input={handleInput}
+            on:keyup={handleKey}
         />
         <div class="list-container pixel-corners">
             <div class="list-spacer" />
@@ -83,7 +92,7 @@
         box-sizing: border-box;
         border: 2px solid #000;
         font-weight: 800;
-        margin: 4px 10px 10px 10px;
+        margin: 6px 10px 10px 10px;
         height: 100%;
     }
 

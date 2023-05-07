@@ -80,18 +80,6 @@
         -ms-user-select: none;
     }
 
-    /* .search-input { */
-    /*     display: flex; */
-    /*     box-sizing: border-box; */
-    /*     font-family: "Tamzen", sans-serif; */
-    /*     font-size: 15px; */
-    /*     cursor: pointer; */
-    /*     padding: 2px 8px; */
-    /*     background-color: #e0e0e0; */
-    /*     border: 2px solid #000; */
-    /*     box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset; */
-    /* } */
-
     input {
         display: none;
     }
@@ -127,14 +115,12 @@
     .check-btn {
         display: flex;
         margin-top: 6px;
-        /* padding-left: 5px; */
         flex: 1 1 auto;
         height: 25px;
         width: 0;
         min-width: 131px;
         color: #000;
         box-sizing: border-box;
-        /* box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset; */
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;

@@ -68,7 +68,6 @@
         <div
             class="{submitState} submit-btn pixel-corners"
             on:click={(e) => submitForm(e)}
-            on:keypress={(e) => console.log(e)}
         >
             <label>
                 <input class="" type="submit" disabled={submitDisabled} />

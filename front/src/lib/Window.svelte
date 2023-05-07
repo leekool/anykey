@@ -2,7 +2,7 @@
     export let position: string = "position-main";
 </script>
 
-<div class={position}>
+<div class="{position}">
     <div class="main pixel-corners">
         <div class="navbar">
             <div class="navbar-title">layout_gen</div>
@@ -50,7 +50,6 @@
     .navbar {
         display: flex;
         height: 34px;
-        color: #e9e5d8;
         font-size: 16px;
         align-items: center;
         justify-content: space-between;
@@ -205,7 +204,6 @@
         display: flex;
         flex: 1 1 auto;
         position: absolute;
-        background-color: #000;
         top: 50%;
         left: 50%;
         -ms-transform: translate(-50%, -52.5%);
