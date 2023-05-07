@@ -1,108 +1,297 @@
-<div class="border position-centre">
-    <div class="main">
-        <div class="navbar main-item">
-            <div class="navbar-text">layout_gen</div>
-            <div class="navbar-buttons">
-                <span class="ri-minimise" />
-                <span class="ri-maximise" />
-                <span class="ri-close" />
+<script lang="ts">
+    export let position = "position-main";
+</script>
+
+<div class={position}>
+    <div class="main pixel-corners">
+        <div class="navbar">
+            <div class="navbar-title">layout_gen</div>
+            <div class="navbar-bg" style="width: 14px;" />
+            <div class="navbar-btn-base">
+                <div class="navbar-btn-inner" />
             </div>
+            <div class="navbar-bg" />
+            <div class="navbar-btn-base">
+                <div class="navbar-btn-inner navbar-btn-right" />
+            </div>
+            <div class="navbar-bg" style="width: 14px;" />
         </div>
-        <div class="content main-item">
+
+        <div class="content">
+            <slot></slot>
+        </div>
+
+        <div class="footer">
+            <div class="footer-btn-container">
+                <div class="footer-btn">
+                    <div class="left-arrow" />
+                </div>
+                <div class="separator" />
+                <div class="footer-scroll-btn">
+                    <div class="scroll-img" />
+                </div>
+            </div>
+            <div class="footer-bg" />
+            <div class="separator" />
+            <div class="footer-btn">
+                <div class="right-arrow" />
+            </div>
         </div>
     </div>
 </div>
 
 <style>
     @import url("../../static/fonts/real-icons.css");
+    .navbar {
+        display: flex;
+        height: 34px;
+        color: #e9e5d8;
+        font-size: 16px;
+        align-items: center;
+        justify-content: space-between;
+        user-select: none;
+        border-color: #ccccff #a3a3d7 #a3a3d7 #ccccff;
+        border-style: solid;
+        border-width: 2px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 0 0 #000;
+        padding-bottom: 1px;
+    }
+
+    .navbar-bg {
+        box-shadow: 0 2px 0 0 #a4a4a4 inset, 0 4px 0 0 #d5d5d5 inset,
+            0 6px 0 0 #a4a4a4 inset, 0 8px 0 0 #d5d5d5 inset,
+            0 10px 0 0 #a4a4a4 inset, 0 12px 0 0 #d5d5d5 inset,
+            0 14px 0 0 #a4a4a4 inset, 0 16px 0 0 #d5d5d5 inset,
+            0 18px 0 0 #a4a4a4 inset, 0 20px 0 0 #d5d5d5 inset,
+            0 22px 0 0 #a4a4a4 inset;
+        width: 100%;
+        height: 22px;
+    }
+
+    .navbar-title {
+        position: absolute;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 12px;
+        left: 50%;
+        transform: translate(-50%);
+        font-weight: bold;
+        color: #000;
+        background-color: #d5d5d5;
+        text-shadow: 0 1px rgba(138, 134, 160, 0.7);
+    }
+
+    .navbar-btn-base {
+        display: flex;
+        height: 22px;
+        aspect-ratio: 1 / 1;
+        margin: 4px;
+        align-items: center;
+        justify-content: center;
+        background-color: #ccccff;
+        box-shadow: 2px 2px 0 0 #333366 inset;
+    }
+
+    .navbar-btn-inner {
+        display: flex;
+        height: 16px;
+        aspect-ratio: 1 /1;
+        margin-left: 2px;
+        margin-top: 2px;
+        background-color: #a4a4a4;
+        box-shadow: -2px -2px 0 0 #333366 inset;
+    }
+
+    .navbar-btn-right {
+        box-shadow: -2px -2px 0 0 #333366 inset, -6px -6px 0 0 #a4a4a4 inset,
+            -8px -8px 0 0 #333366 inset;
+    }
 
     .main {
         display: flex;
         flex: 1 1 auto;
-        padding: 5px 0px 0px 5px;
         flex-direction: column;
         font-family: "Tamzen", sans-serif;
-    }
-
-    .main-item {
-        position: sticky;
-        width: calc(100% - 5px);
-    }
-
-    .border {
-        display: flex;
-        position: absolute;
-        width: 100%;
-        flex-direction: column;
-        height: calc(100% - 30px); /* 30px to account for taskbar */
-        box-shadow: 0 0 0 1px #1f1f1e inset, 0 0 0 3px #30302f inset,
-            0 0 0 6px #1f1f1e inset, 0 3px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    /* .focus {
-   box-shadow: 0 0 0 1px #222020 inset,
-   0 0 0 3px #32302c inset,
-   0 0 0 6px #222020 inset,
-   0 3px 15px rgba(0, 0, 0, 0.3);
-   z-index: 10;
-   } */
-
-    .navbar {
-        display: flex;
-        height: 25px;
-        color: #e9e5d8;
-        justify-content: flex-end;
-        background-repeat: repeat;
-        background-image: url("images/navbar-tile.svg");
-        box-shadow: 0 -1px 0 0 #30302f inset;
-        user-select: none;
-    }
-
-    .navbar-text {
-        display: flex;
-        height: 28px;
-        left: 50%;
-        font-size: 15px;
-        align-items: center;
-        position: absolute;
-        transform: translate(-50%);
-    }
-
-    .navbar-buttons {
-        display: flex;
-        max-width: 90px;
-        align-items: center;
-        justify-content: center;
-        margin-right: 2px;
-    }
-
-    .navbar-buttons span {
-        font-size: 8px;
-        padding: 8px;
-        cursor: pointer;
-    }
-
-    .navbar-buttons span:hover {
-        opacity: 0.4;
+        background-color: #d5d5d5;
     }
 
     .content {
         display: flex;
         flex: 1 1 auto;
+        align-self: center;
         flex-direction: column;
-        max-height: calc(100% - 29.5px);
-        background-color: #c6bb9b;
+        background-color: #d5d5d5;
+        margin: 2px 4px;
+        width: 100%;
     }
 
-    .position-centre {
-        margin: 0;
+    .footer {
+        display: flex;
+        justify-items: space-between;
+        box-sizing: border-box;
+        height: 28px;
+        user-select: none;
+        box-shadow: 0 -2px 0 0 #000;
+    }
+
+    .footer-btn {
+        display: flex;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        align-items: center;
+        justify-content: center;
+        background-color: #d5d5d5;
+        box-sizing: border-box;
+        border-color: #fff #a0a0a0 #a0a0a0 #fff;
+        border-style: solid;
+        border-width: 2px;
+    }
+
+    .footer-btn-container {
+        display: flex;
+        aspect-ratio: 2 / 1;
+        box-sizing: border-box;
+        /* justify-content: center; */
+    }
+
+    .footer-scroll-btn {
+        display: flex;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        background-color: #aaaaaa;
+        border-color: #ccccff #333366 #333366 #ccccff;
+        border-style: solid;
+        border-width: 2px;
+        z-index: 10;
+    }
+
+    .footer-bg {
+        height: calc(100% - 2px);
+        width: 100%;
+        background-image: url("images/footer-tile.svg");
+    }
+
+    .separator {
+        background-color: #000;
+        min-width: 2px;
+        z-index: 10;
+    }
+
+    .position-main {
+        display: flex;
+        flex: 1 1 auto;
         position: absolute;
         top: 50%;
         left: 50%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 200px;
-        width: 350px;
-        max-width: 1000px;
+        min-height: 300px;
+        width: 80%;
+        max-width: 500px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .scroll-img {
+        display: flex;
+        height: 70%;
+        width: 70%;
+        content: url("images/footer-scroll.svg");
+        border-left: 1px solid #a3a3d7;
+        margin-right: 1px;
+    }
+
+    .left-arrow {
+        display: flex;
+        height: 80%;
+        width: 80%;
+        content: url("images/left-arrow.svg");
+    }
+
+    .right-arrow {
+        height: 80%;
+        width: 80%;
+        content: url("images/left-arrow.svg");
+        transform: rotate(180deg);
+    }
+
+    .pixel-corners,
+    .pixel-corners--wrapper {
+        clip-path: polygon(
+            0px calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 100%,
+            calc(100% - 2px) 100%,
+            calc(100% - 2px) calc(100% - 2px),
+            100% calc(100% - 2px),
+            100% 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) 0px,
+            2px 0px,
+            2px 2px,
+            0px 2px
+        );
+        position: relative;
+    }
+
+    .pixel-corners {
+        border: 2px solid transparent;
+    }
+
+    .pixel-corners--wrapper {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .pixel-corners--wrapper .pixel-corners {
+        display: block;
+        clip-path: polygon(
+            2px 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) calc(100% - 2px),
+            2px calc(100% - 2px)
+        );
+    }
+
+    .pixel-corners::after,
+    .pixel-corners--wrapper::after {
+        content: "";
+        position: absolute;
+        clip-path: polygon(
+            0px calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 100%,
+            calc(100% - 2px) 100%,
+            calc(100% - 2px) calc(100% - 2px),
+            100% calc(100% - 2px),
+            100% 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) 0px,
+            2px 0px,
+            2px 2px,
+            0px 2px,
+            0px 50%,
+            2px 50%,
+            2px 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 50%,
+            0px 50%
+        );
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #000;
+        display: block;
+        pointer-events: none;
+    }
+
+    .pixel-corners::after {
+        margin: -2px;
     }
 </style>

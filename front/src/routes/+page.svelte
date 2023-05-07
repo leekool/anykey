@@ -32,7 +32,7 @@
     });
 
     const submitForm = (event: Event) => {
-        if (submitState == 'submit-invalid') return;
+        if (submitState == "submit-invalid") return;
         event.preventDefault(); // prevent default form submission behavior
         console.log("Form submitted!");
         postLayout();
@@ -54,69 +54,29 @@
     }
 </script>
 
-<!-- Layout Window -->
-<div class="position-centre">
-    <div class="main pixel-corners">
-        <div class="navbar">
-            <div class="navbar-title">layout_gen</div>
-            <div class="navbar-bg" style="width: 14px;" />
-            <div class="navbar-btn-base">
-                <div class="navbar-btn-inner" />
-            </div>
-            <div class="navbar-bg" />
-            <div class="navbar-btn-base">
-                <div class="navbar-btn-inner navbar-btn-right" />
-            </div>
-            <div class="navbar-bg" style="width: 14px;" />
-        </div>
+<Window>
+    <KeyboardMenu bind:selectedItem bind:menuItems />
+    <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 
-        <!-- {#if menuItems && menuItems.length > 1} -->
-        <div class="content">
-            <KeyboardMenu bind:selectedItem bind:menuItems />
-            <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
-
-            <div class="bottom-container">
-                <div class="info">
-                    <span style="padding-left: 5px;">
-                        {fileName ? selectedItem.name + ' - ' : selectedItem.name}
-                    </span>
-                    <span>{fileName} {fileSize}</span>
-                </div>
-                <div
-                    class="{submitState} submit-btn pixel-corners"
-                    on:click={(e) => submitForm(e)}
-                    on:keypress={(e) => console.log(e)}
-                >
-                    <label>
-                        <input
-                            class=""
-                            type="submit"
-                            disabled={submitDisabled}
-                        />
-                        submit
-                    </label>
-                </div>
-            </div>
+    <div class="bottom-container">
+        <div class="info">
+            <span style="padding-left: 5px;">
+                {fileName ? selectedItem.name + " - " : selectedItem.name}
+            </span>
+            <span>{fileName} {fileSize}</span>
         </div>
-        <div class="footer">
-            <div class="footer-btn-container">
-                <div class="footer-btn">
-                    <div class="left-arrow" />
-                </div>
-                <div class="separator" />
-                <div class="footer-scroll-btn">
-                    <div class="scroll-img" />
-                </div>
-            </div>
-            <div class="footer-bg" />
-            <div class="separator" />
-            <div class="footer-btn">
-                <div class="right-arrow" />
-            </div>
+        <div
+            class="{submitState} submit-btn pixel-corners"
+            on:click={(e) => submitForm(e)}
+            on:keypress={(e) => console.log(e)}
+        >
+            <label>
+                <input class="" type="submit" disabled={submitDisabled} />
+                submit
+            </label>
         </div>
-        <!-- {/if} -->
     </div>
-</div>
+</Window>
 
 <!-- SVG Window -->
 {#if layoutResponse}
@@ -436,22 +396,22 @@
     /*     opacity: 0.4; */
     /* } */
 
-    .position-left {
-        margin: 0;
-        position: absolute;
-        top: 15%;
-        left: 15%;
-        -ms-transform: translate(-50%, -52.5%);
-        transform: translate(-50%, -52.5%);
-        height: 200px;
-        width: 350px;
-        max-width: 500px;
-    }
+    /* .position-left { */
+    /*     margin: 0; */
+    /*     position: absolute; */
+    /*     top: 15%; */
+    /*     left: 15%; */
+    /*     -ms-transform: translate(-50%, -52.5%); */
+    /*     transform: translate(-50%, -52.5%); */
+    /*     height: 200px; */
+    /*     width: 350px; */
+    /*     max-width: 500px; */
+    /* } */
 
-    .position-centre {
+    .position-main {
         display: flex;
         flex: 1 1 auto;
-        margin: 0;
+        /* margin: 0; */
         position: absolute;
         top: 50%;
         left: 50%;
