@@ -1,9 +1,12 @@
 <script lang="ts">
     export let file: File;
     export let fileName: string = "";
+    export let fileSize: string = "";
     export let mergeLayers: boolean = false;
 
-    let fileSize: string = "";
+    let mergeLayersSelected: boolean = false;
+
+    $: mergeLayersSelected, console.log(mergeLayersSelected);
 
     const fileSizeKb = (file: File) => {
         var i = Math.floor(Math.log(file.size) / Math.log(1024));
@@ -21,94 +24,150 @@
 </script>
 
 <div class="main">
-    <div class="upload-btn">
-        <label>
-            <img src="images/upload-icon.png" />
-            <input
-                type="file"
-                accept=".c"
-                on:change={(e) => onFileSelected(e)}
-            />
-        </label>
-    </div>
-    <div class="info">
-        <div>{fileName}</div>
-        <div>{fileSize ? `size: ${fileSize}` : ''}</div>
-    </div>
-    <div class="check-btn">
-        <label>
-            <input type="checkbox" bind:checked={mergeLayers} />
-            <span class="checkbox" />
-            merge layers
-        </label>
-    </div>
+    <fieldset>
+        <legend>Keymap</legend>
+        <div class="upload-btn pixel-corners">
+            <label>
+                <!-- <img src="images/upload-icon.png" /> -->
+                upload...
+                <input
+                    type="file"
+                    accept=".c"
+                    on:change={(e) => onFileSelected(e)}
+                />
+            </label>
+        </div>
+        <div class="check-btn">
+            <label>
+                <input
+                    type="checkbox"
+                    bind:checked={mergeLayers}
+                    on:click={() =>
+                        (mergeLayersSelected = !mergeLayersSelected)}
+                />
+                <span
+                    class={mergeLayersSelected
+                        ? "checkbox pixel-corners ri-close"
+                        : "checkbox pixel-corners"}
+                />
+                merge layers
+            </label>
+        </div>
+    </fieldset>
 </div>
 
 <style>
     .main {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         flex: 1 1 auto;
+        flex-direction: column;
+        min-height: 100px;
+        height: 100%;
+        width: 100%;
+    }
+
+    fieldset {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        border: 2px solid #000;
+        font-weight: 800;
+        margin: 0 10px 0px 10px;
         height: 100%;
     }
+
+    legend {
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+
+    /* .search-input { */
+    /*     display: flex; */
+    /*     box-sizing: border-box; */
+    /*     font-family: "Tamzen", sans-serif; */
+    /*     font-size: 15px; */
+    /*     cursor: pointer; */
+    /*     padding: 2px 8px; */
+    /*     background-color: #e0e0e0; */
+    /*     border: 2px solid #000; */
+    /*     box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset; */
+    /* } */
 
     input {
         display: none;
     }
 
     label {
-        display: inline-block;
-        margin-top: 2px;
+        /* margin-top: 2px; */
         cursor: pointer;
     }
 
-    .checkbox {
-        display: inline-block;
-        height: 10px;
-        width: 10px;
-        background-color: #fff;
+    .upload-btn label {
+        width: 100%;
+        padding-left: 8px;
     }
 
     .upload-btn {
         display: flex;
-        align-content: center;
-        justify-content: center;
+        height: 27px;
+        line-height: 23px;
+        width: 30%;
+        min-width: 92px;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        box-sizing: border-box;
+        background-color: #e0e0e0;
+        box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
+    }
+
+    .upload-btn:hover {
+        box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
+    }
+
+    .check-btn {
+        display: flex;
+        margin-top: 6px;
         /* padding-left: 5px; */
-        /* height: 20px; */
-        /* background-color: #553e3a; */
-        /* color: #e9e5d8; */
+        flex: 1 1 auto;
+        height: 25px;
+        width: 0;
+        min-width: 131px;
+        color: #000;
+        box-sizing: border-box;
         /* box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset; */
-        /* border-color: #b4b6b1 #363430 #363430 #b4b6b1; */
-        /* border-style: solid; */
-        /* border-width: 1px; */
-        border-color: #7a776e #fff #fff #7a776e;
-        border-style: inset;
-        border-width: 1px;
-        image-rendering: pixelated;
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
     }
 
-    .check-btn {
-        padding-left: 5px;
-        height: 20px;
-        color: #000;
-        /* box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset; */
-        user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
+    .check-btn label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .checkbox {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        height: 25px;
+        aspect-ratio: 1 / 1;
+        box-sizing: border-box;
+        background-color: #ebebeb;
+        box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
     }
 
     /* on checkbox hover, change bg colour */
     .check-btn:hover input ~ .checkbox {
-        background-color: #e5dac3;
+        box-shadow: none;
     }
 
     /* black bg when checkbox checked (test) */
     .check-btn input:checked ~ .checkbox {
-        background-color: #000;
+        /* background-color: #000; */
     }
 
     /* tick/checkmark indicator (hidden when unchecked) */
@@ -122,15 +181,80 @@
         display: block;
     }
 
-    /* style tick/checkmark (just a shitty test atm) */
-    .check-btn .checkbox:after {
-        width: 3px;
-        height: 7px;
-        margin-left: 2px;
-        border: solid white;
-        border-width: 0 2px 2px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
+    .pixel-corners,
+    .pixel-corners--wrapper {
+        clip-path: polygon(
+            0px calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 100%,
+            calc(100% - 2px) 100%,
+            calc(100% - 2px) calc(100% - 2px),
+            100% calc(100% - 2px),
+            100% 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) 0px,
+            2px 0px,
+            2px 2px,
+            0px 2px
+        );
+        position: relative;
+    }
+
+    .pixel-corners {
+        border: 2px solid black;
+    }
+
+    .pixel-corners--wrapper {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .pixel-corners--wrapper .pixel-corners {
+        display: block;
+        clip-path: polygon(
+            2px 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) calc(100% - 2px),
+            2px calc(100% - 2px)
+        );
+    }
+
+    .pixel-corners::after,
+    .pixel-corners--wrapper::after {
+        content: "";
+        position: absolute;
+        clip-path: polygon(
+            0px calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 100%,
+            calc(100% - 2px) 100%,
+            calc(100% - 2px) calc(100% - 2px),
+            100% calc(100% - 2px),
+            100% 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) 0px,
+            2px 0px,
+            2px 2px,
+            0px 2px,
+            0px 50%,
+            2px 50%,
+            2px 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px 50%,
+            0px 50%
+        );
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #000000;
+        display: block;
+        pointer-events: none;
+    }
+
+    .pixel-corners::after {
+        margin: -2px;
     }
 </style>

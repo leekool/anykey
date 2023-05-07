@@ -7,6 +7,7 @@
     // from UploadMenu
     let file: File;
     let fileName: string = "";
+    let fileSize: string = "";
     let mergeLayers: boolean = false;
 
     // from KeyboardMenu
@@ -16,11 +17,11 @@
     let formData = new FormData();
     let layoutResponse: string = "";
     let submitDisabled: boolean = true;
-    let btnState: string = "btn-invalid";
+    let submitState: string = "submit-invalid";
 
     // This is a watcher
     $: if (fileName && selectedItem.name !== "") {
-        btnState = "btn-valid";
+        submitState = "submit-valid";
         submitDisabled = false;
     }
 
@@ -31,6 +32,7 @@
     });
 
     const submitForm = (event: Event) => {
+        if (submitState == 'submit-invalid') return;
         event.preventDefault(); // prevent default form submission behavior
         console.log("Form submitted!");
         postLayout();
@@ -52,13 +54,12 @@
     }
 </script>
 
-<!-- <Window /> -->
 <!-- Layout Window -->
 <div class="position-centre">
     <div class="main pixel-corners">
-        <div class="navbar main-item">
+        <div class="navbar">
             <div class="navbar-title">layout_gen</div>
-            <div class="navbar-bg" style="width: 14px;"/>
+            <div class="navbar-bg" style="width: 14px;" />
             <div class="navbar-btn-base">
                 <div class="navbar-btn-inner" />
             </div>
@@ -66,18 +67,34 @@
             <div class="navbar-btn-base">
                 <div class="navbar-btn-inner navbar-btn-right" />
             </div>
-            <div class="navbar-bg" style="width: 14px;"/>
+            <div class="navbar-bg" style="width: 14px;" />
         </div>
 
         <!-- {#if menuItems && menuItems.length > 1} -->
-        <div class="content main-item">
-            <div class="half-container">
-                <div class="half">
-                    <KeyboardMenu bind:selectedItem bind:menuItems />
+        <div class="content">
+            <KeyboardMenu bind:selectedItem bind:menuItems />
+            <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
+
+            <div class="bottom-container">
+                <div class="info">
+                    <span style="padding-left: 5px;">
+                        {fileName ? selectedItem.name + ' - ' : selectedItem.name}
+                    </span>
+                    <span>{fileName} {fileSize}</span>
                 </div>
-                <!-- <div class="separator" /> -->
-                <div class="half">
-                    <UploadMenu bind:file bind:fileName bind:mergeLayers />
+                <div
+                    class="{submitState} submit-btn pixel-corners"
+                    on:click={(e) => submitForm(e)}
+                    on:keypress={(e) => console.log(e)}
+                >
+                    <label>
+                        <input
+                            class=""
+                            type="submit"
+                            disabled={submitDisabled}
+                        />
+                        submit
+                    </label>
                 </div>
             </div>
         </div>
@@ -96,20 +113,6 @@
             <div class="footer-btn">
                 <div class="right-arrow" />
             </div>
-            <!-- <div class="version"> -->
-            <!--     <span style="padding-left: 5px;">{selectedItem.name}</span> -->
-            <!--     <span>{fileName}</span> -->
-            <!-- </div> -->
-            <!-- <div -->
-            <!--     class="btn" -->
-            <!--     on:click={(e) => submitForm(e)} -->
-            <!--     on:keypress={(e) => console.log(e)} -->
-            <!-- > -->
-            <!--     <label class={btnState}> -->
-            <!--         <input type="submit" disabled={submitDisabled} /> -->
-            <!--         submit -->
-            <!--     </label> -->
-            <!-- </div> -->
         </div>
         <!-- {/if} -->
     </div>
@@ -138,20 +141,6 @@
 
 <style>
     @import url("../../static/fonts/real-icons.css");
-
-    .half-container {
-        display: flex;
-        width: 100%;
-        height: 250px;
-    }
-
-    .half {
-        display: flex;
-        margin: 3px;
-        /* position: absolute; */
-        width: 50%;
-        max-width: 175px;
-    }
 
     .footer {
         display: flex;
@@ -203,6 +192,65 @@
         background-image: url("images/footer-tile.svg");
     }
 
+    .bottom-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        min-height: 40px;
+        margin: 0px 10px 0px 10px;
+        font-weight: bold;
+        /* margin: 3px; */
+    }
+
+    .submit-btn {
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        font-family: "Tamzen", sans-serif;
+        height: 27px;
+        font-size: 15px;
+        cursor: pointer;
+        padding: 2px 8px;
+        background-color: #e0e0e0;
+    }
+
+    .submit-valid {
+        box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
+    }
+
+    .submit-valid:hover {
+        box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
+    }
+
+    .submit-btn > * {
+        user-select: none;
+        cursor: pointer;
+    }
+
+    .submit-invalid {
+        cursor: not-allowed;
+        color: #a4a4a4;
+        box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
+    }
+
+    .pixel-corners::after {
+        background: #a4a4a4;
+    }
+
+    .submit-invalid > * {
+        cursor: not-allowed;
+    }
+
+    .info {
+        width: 90%;
+        line-height: 28px;
+    }
+
+    input {
+        display: none;
+    }
+
     /* .footer-btn > .left-arrow { */
     /*     border-right: 1px solid #000; */
     /* } */
@@ -228,27 +276,6 @@
         width: 80%;
         content: url("images/left-arrow.svg");
         transform: rotate(180deg);
-    }
-
-    input {
-        display: none;
-    }
-
-    label {
-        display: inline-block;
-        margin-top: 2px;
-        cursor: pointer;
-    }
-
-    .btn {
-        padding-left: 5px;
-        height: 22px;
-        background-color: #696d63;
-        color: #e9e5d8;
-        box-shadow: 1px 1px 0 0 #b4b6b1 inset, -1px -1px 0 0 #3f413b inset;
-        user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
     }
 
     .separator {
@@ -277,17 +304,18 @@
         flex-direction: column;
         font-family: "Tamzen", sans-serif;
         /* max-height: calc(100% - 10px); */
-        max-height: 100%;
         background-color: #d5d5d5;
     }
 
-    .main-item {
-        /* position: sticky; */
-        padding-top: 1px;
-        border-color: #fff #a0a0a0 #a0a0a0 #fff;
-        border-style: solid;
-        border-width: 1px;
-        /* width: calc(100% - 5px); */
+    .content {
+        display: flex;
+        flex: 1 1 auto;
+        align-self: center;
+        flex-direction: column;
+        background-color: #d5d5d5;
+        margin: 2px 4px;
+        width: 100%;
+        /* min-height: 200px; */
     }
 
     /* .border { */
@@ -332,17 +360,12 @@
     }
 
     .navbar-bg {
-        box-shadow: 0 2px 0 0 #777777 inset,
-                    0 4px 0 0 #d5d5d5 inset,
-                    0 6px 0 0 #777777 inset,
-                    0 8px 0 0 #d5d5d5 inset,
-                    0 10px 0 0 #777777 inset,
-                    0 12px 0 0 #d5d5d5 inset,
-                    0 14px 0 0 #777777 inset,
-                    0 16px 0 0 #d5d5d5 inset,
-                    0 18px 0 0 #777777 inset,
-                    0 20px 0 0 #d5d5d5 inset,
-                    0 22px 0 0 #777777 inset;
+        box-shadow: 0 2px 0 0 #a4a4a4 inset, 0 4px 0 0 #d5d5d5 inset,
+            0 6px 0 0 #a4a4a4 inset, 0 8px 0 0 #d5d5d5 inset,
+            0 10px 0 0 #a4a4a4 inset, 0 12px 0 0 #d5d5d5 inset,
+            0 14px 0 0 #a4a4a4 inset, 0 16px 0 0 #d5d5d5 inset,
+            0 18px 0 0 #a4a4a4 inset, 0 20px 0 0 #d5d5d5 inset,
+            0 22px 0 0 #a4a4a4 inset;
         width: 100%;
         height: 22px;
     }
@@ -357,6 +380,7 @@
         font-weight: bold;
         color: #000;
         background-color: #d5d5d5;
+        text-shadow: 0 1px rgba(138, 134, 160, 0.7);
     }
 
     .navbar-btn-base {
@@ -381,9 +405,8 @@
     }
 
     .navbar-btn-right {
-        box-shadow: -2px -2px 0 0 #333366 inset,
-                    -6px -6px 0 0 #a4a4a4 inset,
-                    -8px -8px 0 0 #333366 inset;
+        box-shadow: -2px -2px 0 0 #333366 inset, -6px -6px 0 0 #a4a4a4 inset,
+            -8px -8px 0 0 #333366 inset;
     }
 
     /* .navbar-text span { */
@@ -413,16 +436,6 @@
     /*     opacity: 0.4; */
     /* } */
 
-    .content {
-        overflow-y: scroll;
-        display: flex;
-        flex: 1 1 auto;
-        align-self: center;
-        flex-direction: column;
-        background-color: #d5d5d5;
-        margin-top: 2px;
-    }
-
     .position-left {
         margin: 0;
         position: absolute;
@@ -436,15 +449,18 @@
     }
 
     .position-centre {
+        display: flex;
+        flex: 1 1 auto;
         margin: 0;
         position: absolute;
         top: 50%;
         left: 50%;
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
-        height: 300px;
+        min-height: 300px;
         width: 80%;
         max-width: 500px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
     }
 
     /* .btn-valid { */
@@ -474,13 +490,16 @@
         );
         position: relative;
     }
+
     .pixel-corners {
         border: 2px solid transparent;
     }
+
     .pixel-corners--wrapper {
         width: fit-content;
         height: fit-content;
     }
+
     .pixel-corners--wrapper .pixel-corners {
         display: block;
         clip-path: polygon(
@@ -490,6 +509,7 @@
             2px calc(100% - 2px)
         );
     }
+
     .pixel-corners::after,
     .pixel-corners--wrapper::after {
         content: "";
@@ -520,10 +540,11 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: #000000;
+        background: #000;
         display: block;
         pointer-events: none;
     }
+
     .pixel-corners::after {
         margin: -2px;
     }
