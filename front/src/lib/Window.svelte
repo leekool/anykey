@@ -43,6 +43,10 @@
 <style>
     @import url("../../static/fonts/real-icons.css");
 
+    *::-webkit-scrollbar {
+        display: none;
+    }
+
     .navbar {
         display: flex;
         height: 34px;
@@ -125,6 +129,7 @@
         background-color: #d5d5d5;
         margin: 2px 4px;
         width: 100%;
+        overflow: scroll;
     }
 
     .footer {
@@ -206,6 +211,7 @@
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+        max-height: 80%;
     }
 
     .scroll-img {

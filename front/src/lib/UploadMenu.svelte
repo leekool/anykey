@@ -6,8 +6,6 @@
 
     let mergeLayersSelected: boolean = false;
 
-    $: mergeLayersSelected, console.log(mergeLayersSelected);
-
     const fileSizeKb = (file: File) => {
         var i = Math.floor(Math.log(file.size) / Math.log(1024));
         return `${parseFloat((file.size / Math.pow(1024, i)).toFixed(1))}kB`;
