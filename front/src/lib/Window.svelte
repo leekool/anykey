@@ -42,6 +42,7 @@
 
 <style>
     @import url("../../static/fonts/real-icons.css");
+
     .navbar {
         display: flex;
         height: 34px;
