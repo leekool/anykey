@@ -87,7 +87,7 @@
 {/if}
 
 <style>
-    @import url("../../static/fonts/real-icons.css");
+    @import url("../../static/pixel-corners.css");
 
     .bottom-container {
         display: flex;
@@ -95,9 +95,8 @@
         align-items: center;
         box-sizing: border-box;
         min-height: 40px;
-        margin: 0px 10px 0px 10px;
+        margin: 2px 10px;
         font-weight: bold;
-        /* margin: 3px; */
     }
 
     .submit-btn {
@@ -131,10 +130,6 @@
         box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
     }
 
-    .pixel-corners::after {
-        background: #a4a4a4;
-    }
-
     .submit-invalid > * {
         cursor: not-allowed;
     }
@@ -156,82 +151,5 @@
         font-family: "Tamzen", sans-serif;
         font-size: 15px;
         letter-spacing: -0.5px;
-    }
-
-    .pixel-corners,
-    .pixel-corners--wrapper {
-        clip-path: polygon(
-            0px calc(100% - 2px),
-            2px calc(100% - 2px),
-            2px 100%,
-            calc(100% - 2px) 100%,
-            calc(100% - 2px) calc(100% - 2px),
-            100% calc(100% - 2px),
-            100% 2px,
-            calc(100% - 2px) 2px,
-            calc(100% - 2px) 0px,
-            2px 0px,
-            2px 2px,
-            0px 2px
-        );
-        position: relative;
-    }
-
-    .pixel-corners {
-        border: 2px solid transparent;
-    }
-
-    .pixel-corners--wrapper {
-        width: fit-content;
-        height: fit-content;
-    }
-
-    .pixel-corners--wrapper .pixel-corners {
-        display: block;
-        clip-path: polygon(
-            2px 2px,
-            calc(100% - 2px) 2px,
-            calc(100% - 2px) calc(100% - 2px),
-            2px calc(100% - 2px)
-        );
-    }
-
-    .pixel-corners::after,
-    .pixel-corners--wrapper::after {
-        content: "";
-        position: absolute;
-        clip-path: polygon(
-            0px calc(100% - 2px),
-            2px calc(100% - 2px),
-            2px 100%,
-            calc(100% - 2px) 100%,
-            calc(100% - 2px) calc(100% - 2px),
-            100% calc(100% - 2px),
-            100% 2px,
-            calc(100% - 2px) 2px,
-            calc(100% - 2px) 0px,
-            2px 0px,
-            2px 2px,
-            0px 2px,
-            0px 50%,
-            2px 50%,
-            2px 2px,
-            calc(100% - 2px) 2px,
-            calc(100% - 2px) calc(100% - 2px),
-            2px calc(100% - 2px),
-            2px 50%,
-            0px 50%
-        );
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #000;
-        display: block;
-        pointer-events: none;
-    }
-
-    .pixel-corners::after {
-        margin: -2px;
     }
 </style>
