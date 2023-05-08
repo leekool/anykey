@@ -2,6 +2,7 @@
     import KeyboardMenu from "../lib/KeyboardMenu.svelte";
     import UploadMenu from "../lib/UploadMenu.svelte";
     import Window from "../lib/Window.svelte";
+    import Taskbar from "../lib/Taskbar.svelte";
     import { onMount } from "svelte";
 
     // from UploadMenu
@@ -60,7 +61,7 @@
 
     <div class="bottom-container">
         <div class="info">
-            <span style="padding-left: 5px;">
+            <span>
                 {fileName ? selectedItem.name + " - " : selectedItem.name}
             </span>
             <span>{fileName} {fileSize}</span>
@@ -85,6 +86,8 @@
         </div>
     </Window>
 {/if}
+
+<Taskbar />
 
 <style>
     @import url("../../static/pixel-corners.css");
@@ -137,6 +140,7 @@
     .info {
         width: 90%;
         line-height: 28px;
+        padding-left: 5px;
     }
 
     input {

@@ -18,9 +18,14 @@
     const handleKey = (event: KeyboardEvent) => {
         if (event.code !== "Enter") return;
 
-        const matchedItem = menuItems.find((item) => item.name.toLowerCase() === inputValue.toLowerCase());
+        const matchedItem = menuItems.find(
+            (item) => item.name.toLowerCase() === inputValue.toLowerCase()
+        );
 
-        if (matchedItem) selectedItem = matchedItem;
+        matchedItem
+            ? (selectedItem = matchedItem)
+            : (selectedItem =
+                  filteredItems.length > 0 ? filteredItems[0] : { name: "" });
     };
 </script>
 

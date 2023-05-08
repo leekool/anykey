@@ -1,8 +1,9 @@
 <script lang="ts">
     export let position: string = "position-main";
+    let minimised: boolean = false;
 </script>
 
-<div class="{position}">
+<div class="{minimised ? 'minimised' : position}">
     <div class="main pixel-corners">
         <div class="navbar">
             <div class="navbar-title">layout_gen</div>
@@ -12,13 +13,16 @@
             </div>
             <div class="navbar-bg" />
             <div class="navbar-btn-base">
-                <div class="navbar-btn-inner navbar-btn-right" />
+                <div
+                    class="navbar-btn-inner navbar-btn-right"
+                    on:click={() => (minimised = !minimised)}
+                />
             </div>
             <div class="navbar-bg" style="width: 14px;" />
         </div>
 
         <div class="content">
-            <slot></slot>
+            <slot />
         </div>
 
         <div class="footer">
@@ -45,6 +49,20 @@
 
     *::-webkit-scrollbar {
         display: none;
+    }
+
+    .minimised {
+        display: none;
+        visibility: hidden;
+        z-index: 0;
+    }
+
+    .main {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        font-family: "Tamzen", sans-serif;
+        background-color: #d5d5d5;
     }
 
     .navbar {
@@ -95,6 +113,7 @@
         justify-content: center;
         background-color: #ccccff;
         box-shadow: 2px 2px 0 0 #333366 inset;
+        cursor: pointer;
     }
 
     .navbar-btn-inner {
@@ -110,14 +129,6 @@
     .navbar-btn-right {
         box-shadow: -2px -2px 0 0 #333366 inset, -6px -6px 0 0 #a4a4a4 inset,
             -8px -8px 0 0 #333366 inset;
-    }
-
-    .main {
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        font-family: "Tamzen", sans-serif;
-        background-color: #d5d5d5;
     }
 
     .content {
@@ -137,7 +148,7 @@
         box-sizing: border-box;
         height: 28px;
         user-select: none;
-        box-shadow: 0 -2px 0 0 #000;
+        box-shadow: 0 -2px 0 0 #000, 0 -4px 0 0 #a3a3d7;
     }
 
     .footer-btn {
