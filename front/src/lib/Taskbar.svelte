@@ -40,7 +40,7 @@
     .taskbar {
         display: flex;
         position: fixed;
-        height: 29px;
+        height: 34px;
         width: 100%;
         justify-content: space-between;
         left: 50%;
@@ -49,10 +49,10 @@
         font-family: "Tamzen", sans-serif;
         font-size: 15px;
         color: #222020;
-        background-image: url("src/assets/images/pixmaps/menu-tile.png");
+        background-image: url("images/footer-tile.svg");
         background-repeat: repeat;
-        border-top: 1px solid #222020;
-        box-shadow: 1px 1px #fffefe inset, -1px -1px #948c79 inset;
+        border-top: 2px solid #222020;
+        box-shadow: 2px 2px #fffefe inset, -2px -2px #948c79 inset;
         z-index: 10;
     }
 
