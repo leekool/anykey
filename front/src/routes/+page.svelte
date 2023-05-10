@@ -15,6 +15,9 @@
     let menuItems: { name: string; path: string }[] = [];
     let selectedItem: { name: string; path: string } = { name: "", path: "" };
 
+    // Windows
+    let windowMain: any;
+
     let formData = new FormData();
     let layoutResponse: string = "";
     let submitDisabled: boolean = true;
@@ -55,7 +58,7 @@
     }
 </script>
 
-<Window>
+<Window bind:this={windowMain}>
     <KeyboardMenu bind:selectedItem bind:menuItems />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 
@@ -87,7 +90,7 @@
     </Window>
 {/if}
 
-<Taskbar />
+<Taskbar windowMain={windowMain}/>
 
 <style>
     @import url("../../static/pixel-corners.css");

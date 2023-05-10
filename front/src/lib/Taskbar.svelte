@@ -30,9 +30,13 @@
 <!--         </div> -->
 <!--     </div> -->
 <!-- </div> -->
+<script lang="ts">
+    export let windowMain: any;
+</script>
 
 <div class="taskbar">
     <div class="iconman">
+        <div class="iconman-button" on:click={windowMain.minimise()} />
     </div>
 </div>
 

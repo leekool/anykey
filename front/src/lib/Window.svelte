@@ -1,6 +1,10 @@
 <script lang="ts">
     export let position: string = "position-main";
     let minimised: boolean = false;
+
+    export const minimise = () => {
+        minimised = true;
+    }
 </script>
 
 <div class="{minimised ? 'minimised' : position}">
@@ -15,7 +19,7 @@
             <div class="navbar-btn-base">
                 <div
                     class="navbar-btn-inner navbar-btn-right"
-                    on:click={() => (minimised = !minimised)}
+                    on:click={() => minimise()}
                 />
             </div>
             <div class="navbar-bg" style="width: 14px;" />
