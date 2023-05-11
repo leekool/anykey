@@ -32,11 +32,17 @@
 <!-- </div> -->
 <script lang="ts">
     export let windowMain: any;
+
+    const iconmanClk = (window: any) => {
+        (!window.focused && !window.minimised)
+            ? window.getFocus()
+            : window.toggleMinimise();
+    };
 </script>
 
 <div class="taskbar">
     <div class="iconman">
-        <div class="iconman-button" on:click={windowMain.minimise()} />
+        <div class="iconman-button" on:click={() => iconmanClk(windowMain)} />
     </div>
 </div>
 

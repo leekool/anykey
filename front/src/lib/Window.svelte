@@ -1,10 +1,22 @@
 <script lang="ts">
     export let position: string = "position-main";
-    let minimised: boolean = false;
+    export let minimised: boolean = false;
+    export let focused: boolean;
 
-    export const minimise = () => {
-        minimised = true;
-    }
+    // todo: focus functions need to loop through existing
+    // windows and get/drop focus of other windows
+    export const getFocus = () => {
+        focused = true;
+    };
+
+    export const dropFocus = () => {
+        focused = false;
+    };
+
+    export const toggleMinimise = () => {
+        minimised = !minimised;
+        minimised ? dropFocus() : getFocus();
+    };
 </script>
 
 <div class="{minimised ? 'minimised' : position}">
@@ -19,7 +31,7 @@
             <div class="navbar-btn-base">
                 <div
                     class="navbar-btn-inner navbar-btn-right"
-                    on:click={() => minimise()}
+                    on:click={() => toggleMinimise()}
                 />
             </div>
             <div class="navbar-bg" style="width: 14px;" />
