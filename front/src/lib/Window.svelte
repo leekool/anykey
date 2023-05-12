@@ -13,6 +13,14 @@
         focused = false;
     };
 
+    export const isMinimised = () => {
+        return minimised;
+    };
+
+    export const isFocused = () => {
+        return focused;
+    };
+
     export const toggleMinimise = () => {
         minimised = !minimised;
         minimised ? dropFocus() : getFocus();

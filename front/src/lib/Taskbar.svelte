@@ -34,7 +34,7 @@
     export let windowMain: any;
 
     const iconmanClk = (window: any) => {
-        (!window.focused && !window.minimised)
+        (!window.isFocused() && !window.isMinimised())
             ? window.getFocus()
             : window.toggleMinimise();
     };
