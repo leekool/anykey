@@ -1,7 +1,7 @@
 <script lang="ts">
     export let position: string = "position-main";
     export let minimised: boolean = false;
-    export let focused: boolean;
+    export let focused: boolean = false;
 
     // todo: focus functions need to loop through existing
     // windows and get/drop focus of other windows

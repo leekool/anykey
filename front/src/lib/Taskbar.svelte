@@ -134,6 +134,7 @@
     .iconman {
         display: flex;
         width: 100%;
+        box-sizing: border-box;
         box-shadow: -1px -1px #948c79 inset, 1px 1px #fffefe inset;
     }
 
