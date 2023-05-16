@@ -34,7 +34,7 @@
     export let windowMain: any;
 
     const iconmanClk = (window: any) => {
-        (!window.isFocused() && !window.isMinimised())
+        !window.isFocused() && !window.isMinimised()
             ? window.getFocus()
             : window.toggleMinimise();
     };
@@ -42,7 +42,9 @@
 
 <div class="taskbar">
     <div class="iconman">
-        <div class="iconman-button" on:click={() => iconmanClk(windowMain)} />
+        <div class="iconman-button {windowMain?.getFocus() ? 'iconman-button-active' : 'iconman-button-inactive'}" 
+            on:click={() => iconmanClk(windowMain)} 
+        />
     </div>
 </div>
 
