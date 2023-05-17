@@ -33,17 +33,27 @@
 <script lang="ts">
     export let windowMain: any;
 
+    let windowMainFocus: boolean;
+
     const iconmanClk = (window: any) => {
         !window.isFocused() && !window.isMinimised()
             ? window.getFocus()
             : window.toggleMinimise();
     };
+
+    function testFocus() {
+        windowMainFocus = windowMain?.isFocused();
+    }
 </script>
 
+<!-- {windowMain?.getFocus() ? 'iconman-button-active' : 'iconman-button-inactive'} -->
 <div class="taskbar">
     <div class="iconman">
-        <div class="iconman-button {windowMain?.getFocus() ? 'iconman-button-active' : 'iconman-button-inactive'}" 
-            on:click={() => iconmanClk(windowMain)} 
+        <div class="{windowMainFocus ? 'iconman-button iconman-button-active' : 'iconman-button iconman-button-inactive'}" 
+            on:click={() => {
+                iconmanClk(windowMain);
+                testFocus();
+            }} 
         />
     </div>
 </div>
@@ -164,7 +174,7 @@
 
     .iconman-button-active {
         color: #fffefe;
-        background-image: url("src/assets/images/pixmaps/menu-tile-hover.png");
+        background-image: url("images/menu-tile-hover.png");
         box-shadow: -1px -1px #92998b inset, 1px 1px #5c6057 inset;
     }
 
