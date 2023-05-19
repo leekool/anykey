@@ -33,26 +33,23 @@
 <script lang="ts">
     export let windowMain: any;
 
-    let windowMainFocus: boolean;
-
     const iconmanClk = (window: any) => {
-        !window.isFocused() && !window.isMinimised()
+        !window.focused && !window.minimised
             ? window.getFocus()
             : window.toggleMinimise();
     };
 
     function testFocus() {
-        windowMainFocus = windowMain?.isFocused();
+        return windowMain.focused;
     }
 </script>
 
-<!-- {windowMain?.getFocus() ? 'iconman-button-active' : 'iconman-button-inactive'} -->
 <div class="taskbar">
     <div class="iconman">
-        <div class="{windowMainFocus ? 'iconman-button iconman-button-active' : 'iconman-button iconman-button-inactive'}" 
+        <div class="{testFocus() ? 'iconman-button iconman-button-active' : 'iconman-button iconman-button-inactive'}" 
             on:click={() => {
                 iconmanClk(windowMain);
-                testFocus();
+                testFocus()
             }} 
         />
     </div>

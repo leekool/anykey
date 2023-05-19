@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script lang="ts">
     export let position: string = "position-main";
     export let minimised: boolean = false;
@@ -11,14 +13,6 @@
 
     export const dropFocus = () => {
         focused = false;
-    };
-
-    export const isMinimised = () => {
-        return minimised;
-    };
-
-    export const isFocused = () => {
-        return focused;
     };
 
     export const toggleMinimise = () => {
