@@ -1,0 +1,21 @@
+{
+  "name": "layout_generator",
+  "version": "1.0.0",
+  "description": "* layout generator application that takes a QMK keymap.c file and returns a graphical representation of the keymap (png/jpeg/svg)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "npm --prefix front run dev & cd back && python app.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leekool/layout_generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leekool/layout_generator/issues"
+  },
+  "homepage": "https://github.com/leekool/layout_generator#readme"
+}

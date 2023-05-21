@@ -40,7 +40,7 @@
     };
 
     function testFocus() {
-        return windowMain.focused;
+        return windowMain?.focused;
     }
 </script>
 
