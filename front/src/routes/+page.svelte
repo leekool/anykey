@@ -4,6 +4,7 @@
     import Window from "../lib/Window.svelte";
     import Taskbar from "../lib/Taskbar.svelte";
     import { onMount } from "svelte";
+    import { windowMain } from "../lib/stores";
 
     // from UploadMenu
     let file: File;
@@ -16,7 +17,6 @@
     let selectedItem: { name: string; path: string } = { name: "", path: "" };
 
     // Windows
-    let windowMain: any;
 
     let formData = new FormData();
     let layoutResponse: string = "";
@@ -58,7 +58,7 @@
     }
 </script>
 
-<Window bind:this={windowMain}>
+<Window bind:this={$windowMain}>
     <KeyboardMenu bind:selectedItem bind:menuItems />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 
@@ -90,7 +90,7 @@
     </Window>
 {/if}
 
-<Taskbar windowMain={windowMain}/>
+<Taskbar />
 
 <style>
     @import url("../../static/pixel-corners.css");

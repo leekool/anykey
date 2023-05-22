@@ -31,7 +31,8 @@
 <!--     </div> -->
 <!-- </div> -->
 <script lang="ts">
-    export let windowMain: any;
+    import { onMount } from "svelte";
+    import { windowMain } from "../lib/stores";
 
     const iconmanClk = (window: any) => {
         !window.focused && !window.minimised
@@ -40,17 +41,22 @@
     };
 
     function testFocus() {
-        return windowMain?.focused;
+        console.log($windowMain?.focused);
+        return $windowMain?.focused;
     }
+
 </script>
 
 <div class="taskbar">
     <div class="iconman">
-        <div class="{testFocus() ? 'iconman-button iconman-button-active' : 'iconman-button iconman-button-inactive'}" 
+        <div
+            class={$windowMain.focused
+                ? "iconman-button iconman-button-active"
+                : "iconman-button iconman-button-inactive"}
             on:click={() => {
-                iconmanClk(windowMain);
-                testFocus()
-            }} 
+                iconmanClk($windowMain);
+                testFocus();
+            }}
         />
     </div>
 </div>
