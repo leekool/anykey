@@ -31,34 +31,42 @@
 <!--     </div> -->
 <!-- </div> -->
 <script lang="ts">
-    import { onMount } from "svelte";
     import { windowMain } from "../lib/stores";
 
+    let windows: any[] = [$windowMain];
+
     const iconmanClk = (window: any) => {
+        console.log(windows[0].minimised);
         !window.focused && !window.minimised
             ? window.getFocus()
             : window.toggleMinimise();
     };
-
-    function testFocus() {
-        console.log($windowMain?.focused);
-        return $windowMain?.focused;
-    }
-
 </script>
 
 <div class="taskbar">
     <div class="iconman">
-        <div
-            class={$windowMain.focused
-                ? "iconman-button iconman-button-active"
-                : "iconman-button iconman-button-inactive"}
-            on:click={() => {
-                iconmanClk($windowMain);
-                testFocus();
-            }}
-        />
+        {#each windows as window}
+            <div
+                class={window.minimised
+                    ? 'iconman-button'
+                    : 'iconman-button active'}
+                on:click={() => iconmanClk(window)}
+                on:keyup={() => {}}
+            />
+        {/each}
     </div>
+    <!-- <div class="iconman"> -->
+    <!--     <div -->
+    <!--         class={$windowMain.minimised -->
+    <!--             ? "iconman-button" -->
+    <!--             : "iconman-button iconman-button-active"} -->
+    <!--         on:click={() => { -->
+    <!--             iconmanClk($windowMain); -->
+    <!--         }} -->
+    <!--         on:keyup={() => {}} -->
+    <!--     > -->
+    <!--     </div> -->
+    <!-- </div> -->
 </div>
 
 <style>
@@ -169,13 +177,13 @@
         image-rendering: pixelated;
     }
 
-    .iconman-button-inactive {
+    .inactive {
         color: #000;
         background-image: none;
         box-shadow: none;
     }
 
-    .iconman-button-active {
+    .active {
         color: #fffefe;
         background-image: url("images/menu-tile-hover.png");
         box-shadow: -1px -1px #92998b inset, 1px 1px #5c6057 inset;

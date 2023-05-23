@@ -16,8 +16,6 @@
     let menuItems: { name: string; path: string }[] = [];
     let selectedItem: { name: string; path: string } = { name: "", path: "" };
 
-    // Windows
-
     let formData = new FormData();
     let layoutResponse: string = "";
     let submitDisabled: boolean = true;
