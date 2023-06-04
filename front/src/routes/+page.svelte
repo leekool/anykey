@@ -4,7 +4,6 @@
     import Window from "../lib/Window.svelte";
     import Taskbar from "../lib/Taskbar.svelte";
     import { onMount } from "svelte";
-    import { windowMain } from "../lib/stores";
 
     // from UploadMenu
     let file: File;
@@ -56,7 +55,9 @@
     }
 </script>
 
-<Window bind:this={$windowMain}>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- <Window bind:this={$windowMain}> -->
+<Window>
     <KeyboardMenu bind:selectedItem bind:menuItems />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 

@@ -1,72 +1,26 @@
-<!-- <div class="taskbar"> -->
-<!--         <div class="start-button"> -->
-<!--             <span>></span> -->
-<!--             <div class="start-menu-container"> -->
-<!--                 <div class="start-menu" #startMenu> -->
-<!--                     <div *ngFor="let window of windowList" -->
-<!--                          class="start-menu-item" -->
-<!--                          (click)="startMenuPress(window)"> -->
-<!--                         <img [src]="window.taskbarIcon"> -->
-<!--                         <span>{{window._title}}</span> -->
-<!--                     </div> -->
-<!--                     <hr class="divider"> -->
-<!--                     <div class="start-menu-item" -->
-<!--                          routerLink="/shutdown"> -->
-<!--                         <img src="../assets/icons/shutdown-icon-small.png"> -->
-<!--                         <span>shutdown</span> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     <div class="iconman"> -->
-<!--         <div *ngFor="let window of windowList"> -->
-<!--             <div *ngIf="!window.closed" -->
-<!--                  class="iconman-button" -->
-<!--                  [ngClass]="{'iconman-button-active': !window.minimised && window.focus}" -->
-<!--                  (click)="iconmanPress(window)"> -->
-<!--                 <img [src]="window.taskbarIcon"> -->
-<!--                 <span>{{window._title}}</span> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-<!-- </div> -->
 <script lang="ts">
-    import { windowMain } from "../lib/stores";
+    import { windowStore } from "./stores";
 
-    let windows: any[] = [$windowMain];
-
-    const iconmanClk = (window: any) => {
-        console.log(windows[0].minimised);
-        !window.focused && !window.minimised
-            ? window.getFocus()
-            : window.toggleMinimise();
-    };
+    // todo:
+    // changes are detected when made here but not in Window & vice versa
+    // i think createEventDispatcher is needed to tell the parent about changes
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="taskbar">
     <div class="iconman">
-        {#each windows as window}
+        {#each $windowStore as window}
             <div
                 class={window.minimised
-                    ? 'iconman-button'
-                    : 'iconman-button active'}
-                on:click={() => iconmanClk(window)}
-                on:keyup={() => {}}
+                    ? "iconman-button"
+                    : "iconman-button active"}
+                on:click={() => {
+                    window.taskbarClk();
+                    window = window; // tells svelte object changed
+                }}
             />
         {/each}
     </div>
-    <!-- <div class="iconman"> -->
-    <!--     <div -->
-    <!--         class={$windowMain.minimised -->
-    <!--             ? "iconman-button" -->
-    <!--             : "iconman-button iconman-button-active"} -->
-    <!--         on:click={() => { -->
-    <!--             iconmanClk($windowMain); -->
-    <!--         }} -->
-    <!--         on:keyup={() => {}} -->
-    <!--     > -->
-    <!--     </div> -->
-    <!-- </div> -->
 </div>
 
 <style>
