@@ -1,27 +1,20 @@
-<svelte:options accessors />
+<!-- <svelte:options accessors /> -->
 
 <script lang="ts">
+    import { onMount } from "svelte";
+    import { createWindow, Window } from "./stores";
+
     export let position: string = "position-main";
-    export let minimised: boolean = false;
-    export let focused: boolean = false;
 
-    // todo: focus functions need to loop through existing
-    // windows and get/drop focus of other windows
-    export const getFocus = () => {
-        focused = true;
-    };
+    let window: Window = createWindow();
 
-    export const dropFocus = () => {
-        focused = false;
-    };
+    onMount(() => {
 
-    export const toggleMinimise = () => {
-        minimised = !minimised;
-        minimised ? dropFocus() : getFocus();
-    };
+    });
 </script>
 
-<div class="{minimised ? 'minimised' : position}">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class={position} class:minimised={window.minimised}>
     <div class="main pixel-corners">
         <div class="navbar">
             <div class="navbar-title">layout_gen</div>
@@ -33,7 +26,10 @@
             <div class="navbar-btn-base">
                 <div
                     class="navbar-btn-inner navbar-btn-right"
-                    on:click={() => toggleMinimise()}
+                    on:click={() => {
+                        window.toggleMinimise();
+                        window = window; // tells svelte object changed 
+                    }}
                 />
             </div>
             <div class="navbar-bg" style="width: 14px;" />
