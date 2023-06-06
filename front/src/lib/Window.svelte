@@ -1,16 +1,18 @@
-<!-- <svelte:options accessors /> -->
-
 <script lang="ts">
-    import { onMount } from "svelte";
+    // import { createEventDispatcher } from "svelte";
     import { createWindow, Window } from "./stores";
 
+    // state change test
+    // const dispatch = createEventDispatcher();
+    //
+    // const forwardWindow = (currentWindow: Window) => {
+    //     dispatch('windowChange', currentWindow);
+    // };
+
+    export let name: string;
     export let position: string = "position-main";
 
-    let window: Window = createWindow();
-
-    onMount(() => {
-
-    });
+    let window: Window = createWindow(name);
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -28,7 +30,7 @@
                     class="navbar-btn-inner navbar-btn-right"
                     on:click={() => {
                         window.toggleMinimise();
-                        window = window; // tells svelte object changed 
+                        // forwardWindow(window);
                     }}
                 />
             </div>
