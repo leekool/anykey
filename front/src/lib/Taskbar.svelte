@@ -1,9 +1,5 @@
 <script lang="ts">
     import { windowStore } from "./stores";
-
-    // todo:
-    // changes are detected when made here but not in Window & vice versa
-    // i think createEventDispatcher is needed to tell the parent about changes
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

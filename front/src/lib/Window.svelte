@@ -1,18 +1,18 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
-    import { createWindow, Window } from "./stores";
+    import { windowStore, createWindow, Window } from "./stores";
 
     export let name: string;
     export let position: string = "position-main";
 
     let window: Window = createWindow(name);
 
-    // state change test
-    // const dispatch = createEventDispatcher();
+    $: $windowStore, checkWindows();
 
-    // const forwardWindow = (currentWindow: Window) => {
-    //     dispatch('windowChange', currentWindow);
-    // };
+    // CSS changes are only picked up by
+    // svelte when window is reassigned
+    const checkWindows = () => {
+        window = window;
+    }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -30,7 +30,8 @@
                     class="navbar-btn-inner navbar-btn-right"
                     on:click={() => {
                         window.toggleMinimise();
-                        // forwardWindow(window);
+                        $windowStore = $windowStore; // tells svelte object changed
+                        window = window;
                     }}
                 />
             </div>

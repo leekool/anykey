@@ -54,20 +54,9 @@
         layoutResponse = json.message;
         console.log(json.message);
     }
-
-    // state change test
-    // const handleWindowChange = (event: CustomEvent) => {
-    //     $windowStore.forEach((window: any) => {
-    //         if (window.name == event.detail.name) {
-    //             window = event.detail;
-    //             console.log(window);
-    //         }
-    //     });
-    // }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- <Window bind:this={$windowMain}> -->
 <Window name="main">
     <KeyboardMenu bind:selectedItem bind:menuItems />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
