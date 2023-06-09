@@ -93,7 +93,7 @@
 
 <!-- SVG Window -->
 {#if layoutResponse}
-    <Window position="position-layout">
+    <Window name="layout" position="position-layout">
         <div class="map-svg">
             {@html layoutResponse}
         </div>

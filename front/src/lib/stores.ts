@@ -11,7 +11,7 @@ export class Window {
     constructor(name: string) {
         this.name = name;
     }
-
+    
     toggleMinimise() {
         this.focused = !this.minimised;
         this.minimised = !this.minimised;
@@ -24,14 +24,12 @@ export class Window {
     }
 }
 
-const windows = writable<Window[]>([]);
-
 export function createWindow(name: string) {
     const window = new Window(name);
 
-    windows.update((store) => [...store, window]);
+    windowStore.update((store) => [...store, window]);
 
     return window;
 }
 
-export let windowStore: any = windows;
+export const windowStore = writable<Window[]>([]);

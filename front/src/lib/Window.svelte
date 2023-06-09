@@ -1,18 +1,18 @@
 <script lang="ts">
-    // import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher } from "svelte";
     import { createWindow, Window } from "./stores";
-
-    // state change test
-    // const dispatch = createEventDispatcher();
-    //
-    // const forwardWindow = (currentWindow: Window) => {
-    //     dispatch('windowChange', currentWindow);
-    // };
 
     export let name: string;
     export let position: string = "position-main";
 
     let window: Window = createWindow(name);
+
+    // state change test
+    // const dispatch = createEventDispatcher();
+
+    // const forwardWindow = (currentWindow: Window) => {
+    //     dispatch('windowChange', currentWindow);
+    // };
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
