@@ -2,9 +2,11 @@
     import { windowStore, createWindow, Window } from "./stores";
 
     export let name: string;
+    export let focused: boolean = false;
+    export let minimised: boolean = false;
     export let position: string = "position-main";
 
-    let window: Window = createWindow(name);
+    let window: Window = createWindow(name, focused, minimised);
 
     $: $windowStore, checkWindows();
 
@@ -12,6 +14,7 @@
     // svelte when window is reassigned
     const checkWindows = () => {
         window = window;
+        console.log(window);
     }
 </script>
 
@@ -31,7 +34,6 @@
                     on:click={() => {
                         window.toggleMinimise();
                         $windowStore = $windowStore; // tells svelte object changed
-                        window = window;
                     }}
                 />
             </div>

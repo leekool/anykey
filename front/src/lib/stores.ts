@@ -8,12 +8,14 @@ export class Window {
     focused: boolean = false;
     minimised: boolean = false;
 
-    constructor(name: string) {
+    constructor(name: string, focused?: boolean, minimised?: boolean) {
         this.name = name;
+        if (focused) this.focused = focused;
+        if (minimised) this.minimised = minimised;
     }
     
     toggleMinimise() {
-        this.focused = !this.minimised;
+        this.focused = this.minimised;
         this.minimised = !this.minimised;
     }
 
@@ -24,8 +26,8 @@ export class Window {
     }
 }
 
-export function createWindow(name: string) {
-    const window = new Window(name);
+export function createWindow(name: string, focused?: boolean, minimised?: boolean) {
+    const window = new Window(name, focused, minimised);
 
     windowStore.update((store) => [...store, window]);
 

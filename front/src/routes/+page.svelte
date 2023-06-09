@@ -4,7 +4,6 @@
     import Window from "../lib/Window.svelte";
     import Taskbar from "../lib/Taskbar.svelte";
     import { onMount } from "svelte";
-    import { windowStore } from "../lib/stores";
 
     // from UploadMenu
     let file: File;
@@ -57,7 +56,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<Window name="main">
+<Window name="main" focused>
     <KeyboardMenu bind:selectedItem bind:menuItems />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 
