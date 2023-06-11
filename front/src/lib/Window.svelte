@@ -15,7 +15,7 @@
     const checkWindows = () => {
         window = window;
         console.log(window);
-    }
+    };
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
