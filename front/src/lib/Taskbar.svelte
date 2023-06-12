@@ -7,9 +7,8 @@
     <div class="iconman">
         {#each $windowStore as window}
             <div
-                class={window.minimised
-                    ? "iconman-button"
-                    : "iconman-button active"}
+                class="iconman-button"
+                class:active={!window.minimised}
                 on:click={() => {
                     window.taskbarClk();
                     window = window; // tells svelte object changed
@@ -38,7 +37,7 @@
         background-image: url("images/footer-tile.svg");
         background-repeat: repeat;
         border-top: 2px solid #222020;
-        box-shadow: 2px 2px #fffefe inset, -2px -2px #948c79 inset;
+        box-shadow: 2px 2px #fff inset, -2px -2px #a0a0a0 inset;
         z-index: 10;
     }
 
@@ -50,7 +49,7 @@
         display: flex;
         width: 100%;
         box-sizing: border-box;
-        box-shadow: -1px -1px #948c79 inset, 1px 1px #fffefe inset;
+        box-shadow: -2px -2px #a0a0a0 inset, 2px 2px #fff inset;
     }
 
     .iconman-button {
@@ -75,9 +74,11 @@
     }
 
     .active {
-        color: #fffefe;
-        background-image: url("images/menu-tile-hover.png");
-        box-shadow: -1px -1px #92998b inset, 1px 1px #5c6057 inset;
+        color: #fff;
+        /* background-image: url("images/iconman-tile.svg"); */
+        /* background-size: 8%; */
+        background-color: #aaa;
+        box-shadow: -2px -2px #ccccff inset, 2px 2px #9c9cd3 inset;
     }
 
     @media screen and (max-width: 700px) {
