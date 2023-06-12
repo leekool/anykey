@@ -5,11 +5,14 @@ import { writable } from "svelte/store";
 
 export class Window {
     name: string;
+    icon: string;
     focused: boolean = false;
     minimised: boolean = false;
 
     constructor(name: string, focused?: boolean, minimised?: boolean) {
         this.name = name;
+        this.icon = name + '-icon.png';
+
         if (focused) this.focused = focused;
         if (minimised) this.minimised = minimised;
     }

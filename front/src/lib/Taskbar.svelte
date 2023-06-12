@@ -14,7 +14,10 @@
                     window.taskbarClk();
                     window = window; // tells svelte object changed
                 }}
-            />
+            >
+                <img src={"images/" + window.icon} alt={window.name} />
+                <span>{window.name}</span>
+            </div>
         {/each}
     </div>
 </div>
@@ -30,7 +33,7 @@
         bottom: 0;
         margin-left: -50%;
         font-family: "Tamzen", sans-serif;
-        font-size: 15px;
+        font-size: 16px;
         color: #222020;
         background-image: url("images/footer-tile.svg");
         background-repeat: repeat;
@@ -43,67 +46,6 @@
         margin-top: 3px;
     }
 
-    .start-button {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        justify-content: center;
-        width: 60px;
-        user-select: none;
-        box-shadow: -1px -1px #948c79 inset, -1px 0 0 0 #fffefe inset;
-    }
-
-    .start-button:hover,
-    .start-button:focus {
-    }
-
-    .start-menu-container {
-        display: none;
-        position: absolute;
-        left: 0;
-        padding: 10px 10px 10px 0;
-    }
-
-    .start-menu {
-        position: absolute;
-        flex-direction: column;
-        gap: 4px;
-        bottom: 25px;
-        padding: 4px;
-        min-width: 10%;
-        background-image: url("src/assets/images/pixmaps/menu-tile.png");
-        background-repeat: repeat;
-        box-shadow: 1px 1px #fffefe inset, -1px -1px #948c79 inset;
-        outline: 1px solid #222020;
-    }
-
-    .start-button:hover .start-menu-container {
-        display: flex;
-    }
-
-    .start-menu-item {
-        display: flex;
-    }
-
-    .start-menu-item span {
-        padding-right: 5px;
-    }
-
-    .start-menu-item:hover,
-    .start-menu-item:focus {
-        background: rgba(4, 4, 252, 0.3);
-        color: #fffefe;
-        box-shadow: -1px -1px #aeabd9 inset, 1px 1px #8680c6 inset;
-        outline: 1px dotted rgba(255, 254, 254, 0.5);
-    }
-
-    .divider {
-        height: 1px;
-        margin: 3px 0;
-        border: none;
-        background-color: #948c79;
-    }
-
     .iconman {
         display: flex;
         width: 100%;
@@ -114,16 +56,15 @@
     .iconman-button {
         display: flex;
         align-items: center;
-        width: 270px;
+        width: 250px;
         margin: 4px 0 5px 5px;
         cursor: pointer;
         user-select: none;
     }
 
-    .iconman-button img,
-    .start-menu-item img {
-        max-height: 13px;
-        margin: 4px;
+    .iconman-button img {
+        max-height: 26px;
+        margin: 8px;
         image-rendering: pixelated;
     }
 

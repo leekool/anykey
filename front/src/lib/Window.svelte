@@ -2,6 +2,7 @@
     import { windowStore, createWindow, Window } from "./stores";
 
     export let name: string;
+    export let icon: string;
     export let focused: boolean = false;
     export let minimised: boolean = false;
     export let position: string = "position-main";
