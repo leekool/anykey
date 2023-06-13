@@ -17,6 +17,7 @@
 
     let formData = new FormData();
     let layoutResponse: string = "";
+    let layout: string = "";
     let submitDisabled: boolean = true;
     let submitState: string = "submit-invalid";
 
@@ -27,7 +28,7 @@
     }
 
     onMount(async () => {
-        // fetch some data from the server when the component is mounted
+        // fetch data from the server when the component is mounted
         const response = await fetch("http://localhost:5000/api/keyboards");
         menuItems = await response.json();
     });
@@ -35,8 +36,11 @@
     const submitForm = (event: Event) => {
         if (submitState == "submit-invalid") return;
         event.preventDefault(); // prevent default form submission behavior
-        console.log("Form submitted!");
+        layout = `${selectedItem.name.toLowerCase()} layout`;
+
         postLayout();
+
+        console.log("Form submitted!");
     };
 
     async function postLayout() {
@@ -56,8 +60,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- <Window bind:this={$windowMain}> -->
-<Window>
+<Window name="layout_gen" focused>
     <KeyboardMenu bind:selectedItem bind:menuItems />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 
@@ -82,7 +85,7 @@
 
 <!-- SVG Window -->
 {#if layoutResponse}
-    <Window position="position-layout">
+    <Window name={layout} position="position-layout" focused>
         <div class="map-svg">
             {@html layoutResponse}
         </div>

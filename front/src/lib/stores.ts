@@ -4,11 +4,20 @@ import { writable } from "svelte/store";
 // windows and get/drop focus of other windows
 
 export class Window {
+    name: string;
+    icon: string;
     focused: boolean = false;
     minimised: boolean = false;
 
+    constructor(name: string, focused?: boolean, minimised?: boolean) {
+        this.name = name;
+        this.icon = (this.name.includes(' layout')) ? 'keymap-icon.png' : name + '-icon.png';
+        if (focused) this.focused = focused;
+        if (minimised) this.minimised = minimised;
+    }
+
     toggleMinimise() {
-        this.focused = !this.minimised;
+        this.focused = this.minimised;
         this.minimised = !this.minimised;
     }
 
@@ -19,14 +28,12 @@ export class Window {
     }
 }
 
-const windows = writable<any>([]);
+export function createWindow(name: string, focused?: boolean, minimised?: boolean) {
+    const window = new Window(name, focused, minimised);
 
-export function createWindow() {
-    const window = new Window();
-
-    windows.update((store) => [...store, window]);
+    windowStore.update((store) => [...store, window]);
 
     return window;
 }
 
-export let windowStore: any = windows;
+export const windowStore = writable<Window[]>([]);

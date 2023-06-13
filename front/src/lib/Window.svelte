@@ -1,23 +1,27 @@
-<!-- <svelte:options accessors /> -->
-
 <script lang="ts">
-    import { onMount } from "svelte";
-    import { createWindow, Window } from "./stores";
+    import { windowStore, createWindow, Window } from "./stores";
 
+    export let name: string;
+    export let focused: boolean = false;
+    export let minimised: boolean = false;
     export let position: string = "position-main";
 
-    let window: Window = createWindow();
+    let window: Window = createWindow(name, focused, minimised);
 
-    onMount(() => {
+    $: $windowStore, checkWindows();
 
-    });
+    // trigger svelte state management
+    const checkWindows = () => {
+        window = window;
+        console.log(window);
+    };
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class={position} class:minimised={window.minimised}>
     <div class="main pixel-corners">
         <div class="navbar">
-            <div class="navbar-title">layout_gen</div>
+            <div class="navbar-title">{window.name}</div>
             <div class="navbar-bg" style="width: 14px;" />
             <div class="navbar-btn-base">
                 <div class="navbar-btn-inner" />
@@ -28,7 +32,7 @@
                     class="navbar-btn-inner navbar-btn-right"
                     on:click={() => {
                         window.toggleMinimise();
-                        window = window; // tells svelte object changed 
+                        $windowStore = $windowStore; // tells svelte object changed
                     }}
                 />
             </div>

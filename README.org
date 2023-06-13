@@ -1,20 +1,20 @@
 * layout generator
 application that takes a QMK keymap.c file and returns a graphical representation of the keymap (png/jpeg/svg)
 
-front: sveltekit
-
+front: svelte
 back: python
 
 ** build/run:
-- cd front
 - npm install
-- npm run dev
+- npm run watch
 - https://localhost:5173
 
 ** todo (no priority):
+*** parser:
 - extensive key dictionary
 - function to parse combos
 - function to parse tap holds
 - function to parse encoders
+*** front:
 - front-end buttons/logic
 - custom SVG symbols/font i.e. arrow keys ???
