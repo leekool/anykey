@@ -76,7 +76,7 @@
 
     .active {
         color: #fff;
-        /* background-image: url("images/iconman-tile.svg"); */
+        background-image: url("images/iconman-tile.svg");
         /* background-size: 8%; */
         background-color: #aaa;
         box-shadow: -2px -2px #ccccff inset, 2px 2px #9c9cd3 inset;
