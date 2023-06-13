@@ -2,7 +2,6 @@
     import { windowStore, createWindow, Window } from "./stores";
 
     export let name: string;
-    export let icon: string;
     export let focused: boolean = false;
     export let minimised: boolean = false;
     export let position: string = "position-main";
@@ -11,8 +10,7 @@
 
     $: $windowStore, checkWindows();
 
-    // CSS changes are only picked up by
-    // svelte when window is reassigned
+    // trigger svelte state management
     const checkWindows = () => {
         window = window;
         console.log(window);
@@ -23,7 +21,7 @@
 <div class={position} class:minimised={window.minimised}>
     <div class="main pixel-corners">
         <div class="navbar">
-            <div class="navbar-title">layout_gen</div>
+            <div class="navbar-title">{window.name}</div>
             <div class="navbar-bg" style="width: 14px;" />
             <div class="navbar-btn-base">
                 <div class="navbar-btn-inner" />

@@ -33,6 +33,7 @@
         margin-left: -50%;
         font-family: "Tamzen", sans-serif;
         font-size: 16px;
+        font-weight: bold;
         color: #222020;
         background-image: url("images/footer-tile.svg");
         background-repeat: repeat;
@@ -62,16 +63,16 @@
     }
 
     .iconman-button img {
-        max-height: 26px;
+        /* max-height: 32px; */
         margin: 8px;
         image-rendering: pixelated;
     }
 
-    .inactive {
-        color: #000;
-        background-image: none;
-        box-shadow: none;
-    }
+    /* .inactive { */
+    /*     color: #000; */
+    /*     background-image: none; */
+    /*     box-shadow: none; */
+    /* } */
 
     .active {
         color: #fff;

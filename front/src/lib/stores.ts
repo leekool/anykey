@@ -11,12 +11,11 @@ export class Window {
 
     constructor(name: string, focused?: boolean, minimised?: boolean) {
         this.name = name;
-        this.icon = name + '-icon.png';
-
+        this.icon = (this.name.includes(' layout')) ? 'keymap-icon.png' : name + '-icon.png';
         if (focused) this.focused = focused;
         if (minimised) this.minimised = minimised;
     }
-    
+
     toggleMinimise() {
         this.focused = this.minimised;
         this.minimised = !this.minimised;
