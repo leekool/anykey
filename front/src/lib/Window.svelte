@@ -32,6 +32,7 @@
     class={position}
     class:minimised={window.minimised}
     class:focused={window.focused}
+    class:inactive={!window.focused}
     on:click={() => {
         if (window.focused) return;
         window.getFocus($windowStore);
@@ -278,6 +279,7 @@
         height: 80%;
         width: 80%;
         content: url("images/left-arrow.svg");
+        /* filter: saturate(0%) brightness(100%) contrast(80%); */
     }
 
     .right-arrow {
@@ -285,5 +287,37 @@
         width: 80%;
         content: url("images/left-arrow.svg");
         transform: rotate(180deg);
+    }
+
+    .inactive .navbar {
+        border-color: #d0d0d0 #a7a7a7 #a7a7a7 #d0d0d0;
+    }
+
+    .inactive .navbar-btn-base {
+        background-color: #d0d0d0;
+        box-shadow: 2px 2px 0 0 #454545 inset;
+    }
+
+    .inactive .navbar-btn-inner {
+        box-shadow: -2px -2px 0 0 #454545 inset;
+    }
+
+    .inactive .navbar-btn-right {
+        box-shadow: -2px -2px 0 0 #454545 inset, -6px -6px 0 0 #a4a4a4 inset,
+            -8px -8px 0 0 #454545 inset;
+    }
+
+    .inactive .footer {
+        box-shadow: 0 -2px 0 0 #000, 0 -4px 0 0 #a7a7a7;
+    }
+
+    .inactive .left-arrow,
+    .inactive .right-arrow,
+    .inactive .scroll-img {
+        filter: saturate(0%) brightness(100%) contrast(80%);
+    }
+
+    .inactive .footer-scroll-btn {
+        border-color: #d0d0d0 #454545 #454545 #d0d0d0;
     }
 </style>
