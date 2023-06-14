@@ -28,7 +28,10 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class={position} class:minimised={window.minimised}>
+<div 
+    class={position} 
+    class:minimised={window.minimised}
+    class:focused={window.focused}>
     <div class="main pixel-corners">
         <div class="navbar">
             <div class="navbar-title">{window.name}</div>
@@ -79,18 +82,22 @@
         display: none;
     }
 
-    .minimised {
-        display: none;
-        visibility: hidden;
-        z-index: 0;
-    }
-
     .main {
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
         font-family: "Tamzen", sans-serif;
         background-color: #d5d5d5;
+    }
+
+    .minimised {
+        display: none;
+        visibility: hidden;
+        z-index: 0;
+    }
+
+    .focused {
+        z-index: 10;
     }
 
     .navbar {
