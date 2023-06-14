@@ -28,10 +28,16 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div 
-    class={position} 
+<div
+    class={position}
     class:minimised={window.minimised}
-    class:focused={window.focused}>
+    class:focused={window.focused}
+    on:click={() => {
+        if (window.focused) return;
+        window.getFocus($windowStore);
+        $windowStore = $windowStore;
+    }}
+>
     <div class="main pixel-corners">
         <div class="navbar">
             <div class="navbar-title">{window.name}</div>
