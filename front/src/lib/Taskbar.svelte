@@ -8,9 +8,9 @@
         {#each $windowStore as window}
             <div
                 class="iconman-button"
-                class:active={!window.minimised}
+                class:active={window.focused}
                 on:click={() => {
-                    window.taskbarClk();
+                    window.taskbarClk($windowStore);
                     window = window; // tells svelte object changed
                 }}
             >
@@ -56,10 +56,12 @@
     .iconman-button {
         display: flex;
         align-items: center;
-        width: 250px;
+        width: 220px;
         margin: 4px 0 5px 5px;
         cursor: pointer;
         user-select: none;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     .iconman-button img {
@@ -96,7 +98,7 @@
         }
 
         .iconman-button {
-            width: 130px;
+            width: 145px;
         }
     }
 </style>

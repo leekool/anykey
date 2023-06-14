@@ -1,8 +1,9 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import { windowStore, createWindow, Window } from "./stores";
 
     export let name: string;
-    export let focused: boolean = false;
+    export let focused: boolean = true;
     export let minimised: boolean = false;
     export let position: string = "position-main";
 
@@ -11,10 +12,19 @@
     $: $windowStore, checkWindows();
 
     // trigger svelte state management
+    // i hate how we have to do this
     const checkWindows = () => {
         window = window;
-        console.log(window);
+        console.log($windowStore);
     };
+
+    onMount(async () => {
+        for (let window of $windowStore) {
+            if (window.name == name) window.getFocus($windowStore);
+        }
+
+        $windowStore = $windowStore; // trigger svelte state management
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -31,7 +41,7 @@
                 <div
                     class="navbar-btn-inner navbar-btn-right"
                     on:click={() => {
-                        window.toggleMinimise();
+                        window.toggleMinimise($windowStore);
                         $windowStore = $windowStore; // tells svelte object changed
                     }}
                 />

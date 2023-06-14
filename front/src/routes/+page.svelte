@@ -60,7 +60,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<Window name="layout_gen" focused>
+<Window name="layout_gen">
     <KeyboardMenu bind:selectedItem bind:menuItems />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 
@@ -85,7 +85,7 @@
 
 <!-- SVG Window -->
 {#if layoutResponse}
-    <Window name={layout} position="position-layout" focused>
+    <Window name={layout} position="position-layout">
         <div class="map-svg">
             {@html layoutResponse}
         </div>

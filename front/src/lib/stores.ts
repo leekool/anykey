@@ -16,15 +16,25 @@ export class Window {
         if (minimised) this.minimised = minimised;
     }
 
-    toggleMinimise() {
-        this.focused = this.minimised;
+    toggleMinimise(store: Window[]) {
         this.minimised = !this.minimised;
+
+        if (!this.minimised) this.getFocus(store);
+        else this.focused = false;
     }
 
-    taskbarClk() {
+    taskbarClk(store: Window[]) {
         !this.focused && !this.minimised
-            ? this.focused = true
-            : this.toggleMinimise();
+            ? this.getFocus(store)
+            : this.toggleMinimise(store);
+    }
+    
+    getFocus(store: Window[]) {
+        this.focused = true;
+
+        for (let window of store) {
+            if (this.name !== window.name) window.focused = false;
+        }
     }
 }
 
