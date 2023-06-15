@@ -34,7 +34,7 @@
     class:focused={window.focused}
     class:inactive={!window.focused}
     on:click={() => {
-        if (window.focused) return;
+        if (window.focused || window.minimised) return;
         window.getFocus($windowStore);
         $windowStore = $windowStore;
     }}

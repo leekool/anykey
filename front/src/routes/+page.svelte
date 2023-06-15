@@ -16,8 +16,8 @@
     let selectedItem: { name: string; path: string } = { name: "", path: "" };
 
     let formData = new FormData();
-    let layoutResponse: string = "";
-    let layout: string = "";
+    let layoutResponse: string[] = [];
+    let layoutName: string = "";
     let submitDisabled: boolean = true;
     let submitState: string = "submit-invalid";
 
@@ -36,7 +36,7 @@
     const submitForm = (event: Event) => {
         if (submitState == "submit-invalid") return;
         event.preventDefault(); // prevent default form submission behavior
-        layout = `${selectedItem.name.toLowerCase()} layout`;
+        layoutName = `${selectedItem.name.toLowerCase()} layout`;
 
         postLayout();
 
@@ -54,8 +54,9 @@
             body: formData,
         });
         const json = await response.json();
-        layoutResponse = json.message;
-        console.log(json.message);
+        layoutResponse.push(json.message);
+        layoutResponse = layoutResponse; // trigger svelte state management
+        console.log(layoutResponse);
     }
 </script>
 
@@ -84,13 +85,13 @@
 </Window>
 
 <!-- SVG Window -->
-{#if layoutResponse}
-    <Window name={layout} position="position-layout">
+{#each layoutResponse as layout}
+    <Window name={layoutName} position="position-layout">
         <div class="map-svg">
-            {@html layoutResponse}
+            {@html layout}
         </div>
     </Window>
-{/if}
+{/each}
 
 <Taskbar />
 

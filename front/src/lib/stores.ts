@@ -19,8 +19,12 @@ export class Window {
     toggleMinimise(store: Window[]) {
         this.minimised = !this.minimised;
 
-        if (!this.minimised) this.getFocus(store);
-        else this.focused = false;
+        if (!this.minimised) {
+            this.getFocus(store);
+        } else {
+            this.focused = false;
+            console.log('test', this.focused)
+        }
     }
 
     taskbarClk(store: Window[]) {
