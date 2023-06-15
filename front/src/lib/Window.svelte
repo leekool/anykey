@@ -43,10 +43,12 @@
         <div class="navbar">
             <div class="navbar-title">{window.name}</div>
             <div class="navbar-bg" style="width: 14px;" />
+            <!-- left button -->
             <div class="navbar-btn-base">
                 <div class="navbar-btn-inner" />
             </div>
             <div class="navbar-bg" />
+            <!-- right button -->
             <div class="navbar-btn-base">
                 <div
                     class="navbar-btn-inner navbar-btn-right"
@@ -166,6 +168,10 @@
         margin-top: 2px;
         background-color: #a4a4a4;
         box-shadow: -2px -2px 0 0 #333366 inset;
+    }
+
+    .navbar-btn-inner:hover {
+        box-shadow: 2px 2px 0 0 #333366 inset;
     }
 
     .navbar-btn-right {
