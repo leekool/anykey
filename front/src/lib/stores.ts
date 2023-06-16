@@ -16,30 +16,39 @@ export class Window {
         if (minimised) this.minimised = minimised;
     }
 
-    toggleMinimise(store: Window[]) {
+    toggleMinimise(store: Window[]): void {
         this.minimised = !this.minimised;
 
-        if (!this.minimised) {
-            this.getFocus(store);
-        } else {
-            this.focused = false;
-            console.log('test', this.focused)
-        }
+        this.minimised ? this.dropFocus(store) : this.getFocus(store);
     }
 
-    taskbarClk(store: Window[]) {
+    taskbarClk(store: Window[]): void {
         !this.focused && !this.minimised
             ? this.getFocus(store)
             : this.toggleMinimise(store);
     }
-    
-    getFocus(store: Window[]) {
+
+    // focuses target window and unfocuses all other windows
+    getFocus(store: Window[]): void {
         this.focused = true;
 
         for (let window of store) {
             if (this.name !== window.name) window.focused = false;
         }
     }
+
+    // unfocuses target window and focuses next unminimised window (if any)
+    dropFocus(store: Window[]): void {
+        this.focused = false;
+
+        for (let window of store) {
+            if (this.name === window.name || window.minimised) continue;
+
+            window.focused = true;
+            break;
+        }
+    }
+
 }
 
 export function createWindow(name: string, focused?: boolean, minimised?: boolean) {
