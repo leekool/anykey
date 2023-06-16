@@ -35,12 +35,11 @@
 
     const submitForm = (event: Event) => {
         if (submitState == "submit-invalid") return;
+
         event.preventDefault(); // prevent default form submission behavior
         layoutName = `${selectedItem.name.toLowerCase()} layout`;
 
         postLayout();
-
-        console.log("Form submitted!");
     };
 
     async function postLayout() {
@@ -56,7 +55,6 @@
         const json = await response.json();
         layoutResponse.push(json.message);
         layoutResponse = layoutResponse; // trigger svelte state management
-        console.log(layoutResponse);
     }
 </script>
 
@@ -120,17 +118,17 @@
         background-color: #e0e0e0;
     }
 
+    .submit-btn > * {
+        user-select: none;
+        cursor: pointer;
+    }
+
     .submit-valid {
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
     }
 
     .submit-valid:hover {
         box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
-    }
-
-    .submit-btn > * {
-        user-select: none;
-        cursor: pointer;
     }
 
     .submit-invalid {
@@ -149,10 +147,6 @@
         padding-left: 5px;
     }
 
-    input {
-        display: none;
-    }
-
     .map-svg {
         display: flex;
         padding: 20px;
@@ -161,5 +155,9 @@
         font-family: "Tamzen", sans-serif;
         font-size: 15px;
         letter-spacing: -0.5px;
+    }
+
+    input {
+        display: none;
     }
 </style>
