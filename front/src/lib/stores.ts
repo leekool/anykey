@@ -2,18 +2,24 @@ import { writable } from "svelte/store";
 
 // todo: focus functions need to loop through existing
 // windows and get/drop focus of other windows
+let count: number = 1;
 
 export class Window {
     name: string;
     icon: string;
+    id: number;
     focused: boolean = false;
     minimised: boolean = false;
 
     constructor(name: string, focused?: boolean, minimised?: boolean) {
         this.name = name;
         this.icon = (this.name.includes(' layout')) ? 'keymap-icon.png' : name + '-icon.png';
+
         if (focused) this.focused = focused;
         if (minimised) this.minimised = minimised;
+        
+        this.id = count;
+        count++
     }
 
     toggleMinimise(store: Window[]): void {
@@ -33,7 +39,7 @@ export class Window {
         this.focused = true;
 
         for (let window of store) {
-            if (this.name !== window.name) window.focused = false;
+            if (this.id !== window.id) window.focused = false;
         }
     }
 
@@ -42,7 +48,7 @@ export class Window {
         this.focused = false;
 
         for (let window of store) {
-            if (this.name === window.name || window.minimised) continue;
+            if (this.id === window.id || window.minimised) continue;
 
             window.focused = true;
             break;
