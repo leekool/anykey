@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { windowStore, createWindow, Window } from "./stores";
+    import { windowStore, createWindow, Window } from "./WindowStore";
 
     export let name: string;
     export let focused: boolean = true;
@@ -85,7 +85,7 @@
 </div>
 
 <style>
-    @import url("../../static/pixel-corners.css");
+    @import url("../../../static/pixel-corners.css");
 
     *::-webkit-scrollbar {
         display: none;

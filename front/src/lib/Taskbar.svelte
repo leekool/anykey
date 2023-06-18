@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { windowStore } from "./stores";
+    import { windowStore } from "./window/WindowStore";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
