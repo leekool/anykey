@@ -16,5 +16,5 @@ back: python
 - function to parse tap holds
 - function to parse encoders
 *** front:
-- front-end buttons/logic
-- custom SVG symbols/font i.e. arrow keys ???
+- separate window components
+- modular navbar
