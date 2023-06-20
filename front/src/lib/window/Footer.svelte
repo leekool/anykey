@@ -29,6 +29,7 @@
         display: flex;
         justify-items: space-between;
         box-sizing: border-box;
+        height: 24px;
         min-height: 24px;
         user-select: none;
         box-shadow: 0 -2px 0 0 #000, 0 -4px 0 0 #a3a3d7;

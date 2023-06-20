@@ -17,7 +17,9 @@
 
     const windowClick = () => {
         if (window.focused || window.minimised) return;
+
         window.getFocus($windowStore);
+
         $windowStore = $windowStore;
     };
 
