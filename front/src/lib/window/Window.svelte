@@ -11,13 +11,14 @@
 
     let window: Window = createWindow(name, focused, minimised);
 
-    $: $windowStore, checkWindows();
-
     /* trigger svelte state management
        i hate how we have to do this */
-    const checkWindows = () => {
-        window = window;
-        console.log($windowStore);
+    $: $windowStore, window = window;
+
+    const windowClick = () => {
+        if (window.focused || window.minimised) return;
+        window.getFocus($windowStore);
+        $windowStore = $windowStore;
     };
 
     onMount(async () => {
@@ -35,11 +36,7 @@
     class:minimised={window.minimised}
     class:focused={window.focused}
     class:inactive={!window.focused}
-    on:click={() => {
-        if (window.focused || window.minimised) return;
-        window.getFocus($windowStore);
-        $windowStore = $windowStore;
-    }}
+    on:click={() => windowClick()}
 >
     <div class="main pixel-corners">
         <Navbar {window} />
