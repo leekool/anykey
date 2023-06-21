@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { windowStore, createWindow, Window } from "./WindowStore";
+    import { windowStore, createWindow, type Window, type Options } from "./WindowStore";
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
 
@@ -8,8 +8,9 @@
     export let focused: boolean = true;
     export let minimised: boolean = false;
     export let position: string = "position-main";
+    export let options: Options; 
 
-    let window: Window = createWindow(name, focused, minimised);
+    let window: Window = createWindow(name, focused, minimised, options);
 
     /* trigger svelte state management
        i hate how we have to do this */

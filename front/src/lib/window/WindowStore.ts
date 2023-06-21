@@ -1,8 +1,8 @@
 import { writable } from "svelte/store";
 
-interface Options {
-    navbarMaximise: boolean,
-    navbarMinimise: boolean
+export interface Options {
+    navbarMaximise?: boolean,
+    navbarMinimise?: boolean
 }
 
 let count: number = 1;
@@ -68,8 +68,8 @@ export class Window {
 
 }
 
-export function createWindow(name: string, focused?: boolean, minimised?: boolean) {
-    const window = new Window(name, focused, minimised);
+export function createWindow(name: string, focused?: boolean, minimised?: boolean, options?: Options) {
+    const window = new Window(name, focused, minimised, options);
 
     windowStore.update((store) => [...store, window]);
 
