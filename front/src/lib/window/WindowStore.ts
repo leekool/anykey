@@ -1,7 +1,10 @@
 import { writable } from "svelte/store";
 
-// todo: focus functions need to loop through existing
-// windows and get/drop focus of other windows
+interface Options {
+    navbarMaximise: boolean,
+    navbarMinimise: boolean
+}
+
 let count: number = 1;
 
 export class Window {
@@ -10,14 +13,22 @@ export class Window {
     id: number;
     focused: boolean = false;
     minimised: boolean = false;
+    options: Options = {
+        navbarMaximise: false,
+        navbarMinimise: true
+    };
 
-    constructor(name: string, focused?: boolean, minimised?: boolean) {
+    constructor(name: string,
+                focused?: boolean,
+                minimised?: boolean,
+                options?: Options) {
         this.name = name;
         this.icon = (this.name.includes(' layout')) ? 'keymap-icon.png' : name + '-icon.png';
 
+        if (options) this.options = options;
         if (focused) this.focused = focused;
         if (minimised) this.minimised = minimised;
-        
+
         this.id = count;
         count++
     }

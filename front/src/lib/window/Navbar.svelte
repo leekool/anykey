@@ -5,16 +5,20 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="navbar"
-     class:inactive={!window.focused}>
+<div class="navbar" class:inactive={!window.focused}>
     <div class="navbar-title">{window.name}</div>
     <div class="navbar-bg" style="width: 14px;" />
-    <!-- left button -->
-    <div class="navbar-btn-base">
-        <div class="navbar-btn-inner" />
-    </div>
+
+    <!-- maximise button (left) -->
+    {#if window.options.navbarMaximise}
+        <div class="navbar-btn-base">
+            <div class="navbar-btn-inner" />
+        </div>
+    {/if}
+
     <div class="navbar-bg" />
-    <!-- right button -->
+
+    <!-- minimise button (right) -->
     <div class="navbar-btn-base">
         <div
             class="navbar-btn-inner navbar-btn-right"
