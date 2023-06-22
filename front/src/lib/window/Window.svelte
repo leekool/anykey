@@ -5,19 +5,20 @@
     import Footer from "./Footer.svelte";
 
     export let name: string;
-    export let focused: boolean = true;
-    export let minimised: boolean = false;
     export let position: string = "position-main";
-    export let options: Options; 
+    export let options: Options = {
+            focused: true,
+            minimised: false
+        }; 
 
-    let window: Window = createWindow(name, focused, minimised, options);
+    let window: Window = createWindow(name, options);
 
     /* trigger svelte state management
        i hate how we have to do this */
     $: $windowStore, window = window;
 
     const windowClick = () => {
-        if (window.focused || window.minimised) return;
+        if (window.options.focused || window.options.minimised) return;
 
         window.getFocus($windowStore);
 
@@ -36,9 +37,9 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
     class={position}
-    class:minimised={window.minimised}
-    class:focused={window.focused}
-    class:inactive={!window.focused}
+    class:minimised={window.options.minimised}
+    class:focused={window.options.focused}
+    class:inactive={!window.options.focused}
     on:click={() => windowClick()}
 >
     <div class="main pixel-corners">

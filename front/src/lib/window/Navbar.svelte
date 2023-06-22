@@ -5,7 +5,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="navbar" class:inactive={!window.focused}>
+<div class="navbar" class:inactive={!window.options.focused}>
     <div class="navbar-title">{window.name}</div>
     <div class="navbar-bg" style="width: 14px;" />
 

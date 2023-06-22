@@ -6,7 +6,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="footer"
-     class:inactive={!window.focused}>
+     class:inactive={!window.options.focused}>
     <div class="footer-btn-container">
         <div class="footer-btn">
             <div class="left-arrow" />

@@ -8,7 +8,7 @@
         {#each $windowStore as window}
             <div
                 class="iconman-button"
-                class:active={window.focused}
+                class:active={window.options.focused}
                 on:click={() => {
                     window.taskbarClk($windowStore);
                     window = window; // tells svelte object changed
