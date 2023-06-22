@@ -7,6 +7,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="navbar" class:inactive={!window.options.focused}>
     <div class="navbar-title">{window.name}</div>
+
     <div class="navbar-bg" style="width: 14px;" />
 
     <!-- maximise button (left) -->
@@ -19,6 +20,7 @@
     <div class="navbar-bg" />
 
     <!-- minimise button (right) -->
+    {#if window.options.navbarMinimise}
     <div class="navbar-btn-base">
         <div
             class="navbar-btn-inner navbar-btn-right"
@@ -28,6 +30,8 @@
             }}
         />
     </div>
+    {/if}
+
     <div class="navbar-bg" style="width: 14px;" />
 </div>
 
