@@ -84,7 +84,7 @@
 
 <!-- SVG Window -->
 {#each layoutResponse as layout}
-    <Window name={layoutName} position="position-layout" options={{ navbarMaximise: true }}>
+    <Window name={layoutName} options={{ position: "position-layout", navbarMaximise: true }}>
         <div class="map-svg">
             {@html layout}
         </div>

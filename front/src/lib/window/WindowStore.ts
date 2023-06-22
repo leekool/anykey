@@ -3,6 +3,7 @@ import { writable } from "svelte/store";
 export interface Options {
     focused?: boolean,
     minimised?: boolean,
+    position?: string,
     navbarMaximise?: boolean,
     navbarMinimise?: boolean
 }
@@ -15,8 +16,9 @@ export class Window {
     id: number;
 
     options: Options = {
-        focused: false,
+        focused: true,
         minimised: false,
+        position: 'position-main',
         navbarMaximise: false,
         navbarMinimise: true
     };
@@ -24,8 +26,7 @@ export class Window {
     constructor(name: string, options?: Options) {
         this.name = name;
         this.icon = (this.name.includes(' layout')) ? 'keymap-icon.png' : name + '-icon.png';
-
-        if (options) this.options = options;
+        this.options = { ...this.options, ...options };
 
         this.id = count;
         count++

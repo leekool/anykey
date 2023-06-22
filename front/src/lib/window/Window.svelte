@@ -5,11 +5,7 @@
     import Footer from "./Footer.svelte";
 
     export let name: string;
-    export let position: string = "position-main";
-    export let options: Options = {
-            focused: true,
-            minimised: false
-        }; 
+    export let options: Options = {}; 
 
     let window: Window = createWindow(name, options);
 
@@ -36,7 +32,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-    class={position}
+    class={window.options.position}
     class:minimised={window.options.minimised}
     class:focused={window.options.focused}
     class:inactive={!window.options.focused}
