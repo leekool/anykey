@@ -34,6 +34,7 @@
 <div
     class={window.options.position}
     class:minimised={window.options.minimised}
+    class:maximised={window.options.maximised}
     class:focused={window.options.focused}
     class:inactive={!window.options.focused}
     on:click={() => windowClick()}
@@ -62,12 +63,23 @@
         flex-direction: column;
         font-family: "Tamzen", sans-serif;
         background-color: #d5d5d5;
+        min-height: 100%;
     }
 
     .minimised {
         display: none;
         visibility: hidden;
         z-index: 0;
+    }
+
+    .maximised {
+        position: absolute;
+        width: 100%;
+        height: calc(100% - 38px);
+        max-height: calc(100% - 38px) !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
     }
 
     .focused {

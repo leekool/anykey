@@ -13,7 +13,13 @@
     <!-- maximise button (left) -->
     {#if window.options.navbarMaximise}
         <div class="navbar-btn-base">
-            <div class="navbar-btn-inner" />
+            <div 
+                class="navbar-btn-inner" 
+                on:click={() => {
+                    window.toggleMaximise();
+                    $windowStore = $windowStore; // tells svelte object changed
+                }}
+            />
         </div>
     {/if}
 

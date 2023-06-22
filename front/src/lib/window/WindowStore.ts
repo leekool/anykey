@@ -1,14 +1,15 @@
 import { writable } from "svelte/store";
 
+let count: number = 1;
+
 export interface Options {
     focused?: boolean,
     minimised?: boolean,
+    maximised?: boolean,
     position?: string,
     navbarMaximise?: boolean,
     navbarMinimise?: boolean
 }
-
-let count: number = 1;
 
 export class Window {
     name: string;
@@ -18,6 +19,7 @@ export class Window {
     options: Options = {
         focused: true,
         minimised: false,
+        maximised: false,
         position: 'position-main',
         navbarMaximise: false,
         navbarMinimise: true
@@ -36,6 +38,10 @@ export class Window {
         this.options.minimised = !this.options.minimised;
 
         this.options.minimised ? this.dropFocus(store) : this.getFocus(store);
+    }
+
+    toggleMaximise(): void {
+        this.options.maximised = !this.options.maximised;
     }
 
     taskbarClk(store: Window[]): void {
