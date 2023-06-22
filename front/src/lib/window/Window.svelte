@@ -80,10 +80,11 @@
         top: 0 !important;
         left: 0 !important;
         transform: none !important;
+        z-index: 1 !important;
     }
 
     .focused {
-        z-index: 10;
+        z-index: 10 !important;
     }
 
     .content {
@@ -109,6 +110,7 @@
         width: 80%;
         max-width: 500px;
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+        z-index: 5;
     }
 
     .position-layout {
@@ -121,5 +123,6 @@
         transform: translate(-50%, -52.5%);
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
         max-height: 80%;
+        z-index: 5;
     }
 </style>
