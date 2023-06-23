@@ -1,4 +1,5 @@
 import json
+import uuid
 
 class KeyboardCap:
     def __init__(self, pos_x, pos_y, key_h, key_w, key_r, inner_pos_x, inner_pos_y, inner_key_h, inner_key_w, key_text_x, key_text_y, key_text_r, coord_multiplier, baseline_text):
@@ -33,9 +34,8 @@ def get_keymap_svg(mapPath, fullLayout):
     kCap = KeyboardCap(10, 10, 60, 60, 0, 10, 10, 96, 96, 35, 35, 0, 60, '')
 
     with open('layout.svg', 'w') as file:
-        print('mapPath')
-        print(mapPath)
-        mapNameId = mapPath[mapPath.rfind('\\') + 1:mapPath.rfind('.')]
+        # we add the x because an ID needs to start with a letter
+        mapNameId = 'x' + uuid.uuid4().hex
         coords = getKeyboardCoords(mapPath)
 
         largest_x = max(coords, key=lambda x: x['x'])['x']
