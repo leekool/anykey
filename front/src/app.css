@@ -6,6 +6,10 @@
     font-style: normal;
 }
 
+* {
+    scrollbar-width: none !important;
+}
+
 body {
     margin: 0;
     background-image: url('images/bg.svg');
