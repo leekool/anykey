@@ -33,6 +33,9 @@ def get_keymap_svg(mapPath, fullLayout):
     kCap = KeyboardCap(10, 10, 60, 60, 0, 10, 10, 96, 96, 35, 35, 0, 60, '')
 
     with open('layout.svg', 'w') as file:
+        print('mapPath')
+        print(mapPath)
+        mapNameId = mapPath[mapPath.rfind('\\') + 1:mapPath.rfind('.')]
         coords = getKeyboardCoords(mapPath)
 
         largest_x = max(coords, key=lambda x: x['x'])['x']
@@ -45,8 +48,8 @@ def get_keymap_svg(mapPath, fullLayout):
         svg_h = step3 + kCap.key_h * len(fullLayout)
 
         
-        svg_string = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg">'
-        svg_string += '<style>svg {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
+        svg_string = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" id="{0}">'.format(mapNameId)
+        svg_string += '<style>#' + mapNameId + ' {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
         svg_string += """
                     rect {transform-origin: center; transform-box: fill-box;}'
                     text {transform-origin: center; transform-box: fill-box;}
