@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-let count: number = 1;
+let count: number = 0;
 
 export interface Options {
     focused?: boolean,

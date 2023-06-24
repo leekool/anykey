@@ -9,9 +9,12 @@
 
     let window: Window = createWindow(name, options);
 
+    const offset: number = 50 + (window.options.position === 'position-main' ? 0 : (window.id - 1) * 3);
+    const offsetStyle: string = `top: ${offset}%; left: ${offset}%;`;
+
     /* trigger svelte state management
        i hate how we have to do this */
-    $: $windowStore, window = window;
+    $: $windowStore, window = window, console.log(window);
 
     const windowClick = () => {
         if (window.options.focused || window.options.minimised) return;
@@ -37,6 +40,9 @@
     class:maximised={window.options.maximised}
     class:focused={window.options.focused}
     class:inactive={!window.options.focused}
+    
+    style={offsetStyle}
+
     on:click={() => windowClick()}
 >
     <div class="main pixel-corners">
@@ -102,8 +108,8 @@
         display: flex;
         flex: 1 1 auto;
         position: absolute;
-        top: 50%;
-        left: 50%;
+        /* top: 50%; */
+        /* left: 50%; */
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         min-height: 300px;
@@ -117,8 +123,8 @@
         display: flex;
         flex: 1 1 auto;
         position: absolute;
-        top: 50%;
-        left: 50%;
+        /* top: 50%; */
+        /* left: 50%; */
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
