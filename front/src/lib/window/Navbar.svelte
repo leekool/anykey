@@ -1,22 +1,22 @@
 <script lang="ts">
     import { Window, windowStore } from "./WindowStore";
 
-    export let window: Window;
+    export let window_: Window;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="navbar" class:inactive={!window.options.focused}>
-    <div class="navbar-title">{window.name}</div>
+<div class="navbar" class:inactive={!window_.options.focused}>
+    <div class="navbar-title">{window_.name}</div>
 
     <div class="navbar-bg" style="width: 14px;" />
 
     <!-- maximise button (left) -->
-    {#if window.options.navbarMaximise}
+    {#if window_.options.navbarMaximise}
         <div class="navbar-btn-base">
             <div 
                 class="navbar-btn-inner" 
                 on:click={() => {
-                    window.toggleMaximise();
+                    window_.toggleMaximise();
                     $windowStore = $windowStore; // tells svelte object changed
                 }}
             />
@@ -26,12 +26,12 @@
     <div class="navbar-bg" />
 
     <!-- minimise button (right) -->
-    {#if window.options.navbarMinimise}
+    {#if window_.options.navbarMinimise}
     <div class="navbar-btn-base">
         <div
             class="navbar-btn-inner navbar-btn-right"
             on:click={() => {
-                window.toggleMinimise($windowStore);
+                window_.toggleMinimise($windowStore);
                 $windowStore = $windowStore; // tells svelte object changed
             }}
         />

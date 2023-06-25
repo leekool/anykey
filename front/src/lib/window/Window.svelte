@@ -1,41 +1,83 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { windowStore, createWindow, type Window, type Options } from "./WindowStore";
+    import {
+        windowStore,
+        createWindow,
+        type Window,
+        type Options,
+    } from "./WindowStore";
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
 
     export let name: string;
-    export let options: Options = {}; 
-    let windowDomRect: any;
+    export let options: Options = {};
+    let windowElement: HTMLElement;
 
-    let window: Window = createWindow(name, options);
+    let window_: Window = createWindow(name, options);
 
     /* todo: because top/left move the window based on the centre of the page,
              windows of different sizes knock the stagger out of alignment.
              it needs to find the top & left borders of the previous window and
              base the next one's position off of that instead. */
-    const offset: number = 50 + (window.options.type === 'window-main' ? 0 : (window.id - 1) * 3);
-    const offsetStyle: string = `top: ${offset}%; left: ${offset}%;`;
+
+    const getOffsetStyle = (): string => {
+        if (window_.id <= 1) {
+            window_.position.top = window.innerHeight / 2;
+            window_.position.left = window.innerWidth / 2;
+            return `top: 50%; left: 50%;`;
+        }
+
+        const prevPos: DOMRect = $windowStore[window_.id - 1].position;
+
+        if (!prevPos) return "";
+
+        /* todo: height difference...can be positive/negative based on if window bigger/smaller...maybe...
+                 currently it spazzes out if you submit two layouts that aren't the same size as the first
+                 generated layout */
+
+        const top = prevPos.top + ((window_.position.height - prevPos.height) / 2) + 10;
+        const left = prevPos.left + ((window_.position.width - prevPos.width) / 2) + 10;
+
+        window_.position.top = prevPos.top + 10;
+        window_.position.left = prevPos.left + 10;
+
+        console.log(`PREVIOUS ${$windowStore[window_.id - 1].id}`, prevPos);
+        console.log(`CURRENT ${window_.id}`, window_.position);
+
+        return `top: ${top}px; left: ${left}px;`;
+    };
+
+    let offsetStyle: string = "top: 50%; left: 50%;";
 
     /* trigger svelte state management
        i hate how we have to do this */
-    $: $windowStore, window = window//, console.log(window);
+    $: $windowStore, (window_ = window_); //, console.log(window);
 
     const windowClick = () => {
-        if (window.options.focused || window.options.minimised) return;
+        if (window_.options.focused || window_.options.minimised) return;
 
-        window.getFocus($windowStore);
+        window_.getFocus($windowStore);
 
         $windowStore = $windowStore;
     };
 
     onMount(async () => {
-        for (let window of $windowStore) {
-            if (window.name == name) window.getFocus($windowStore);
+        const windowRect = windowElement.getBoundingClientRect();
+
+        window_.position = {
+            x: windowRect.x,
+            y: windowRect.y,
+            width: windowRect.width,
+            height: windowRect.height,
+            top: windowRect.top,
+            left: windowRect.left,
         }
-        
-        // windowDomRect = windowDomRect.getBoundingClientRect();
-        // console.log(windowDomRect)
+
+        offsetStyle = getOffsetStyle();
+
+        for (let window of $windowStore) {
+            if (window_.name == name) window.getFocus($windowStore);
+        }
 
         $windowStore = $windowStore; // trigger svelte state management
     });
@@ -43,26 +85,23 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-    bind:this={windowDomRect}
-    
-    class={window.options.type}
-    class:minimised={window.options.minimised}
-    class:maximised={window.options.maximised}
-    class:focused={window.options.focused}
-    class:inactive={!window.options.focused}
-    
+    bind:this={windowElement}
+    class={window_.options.type}
+    class:minimised={window_.options.minimised}
+    class:maximised={window_.options.maximised}
+    class:focused={window_.options.focused}
+    class:inactive={!window_.options.focused}
     style={offsetStyle}
-
     on:click={() => windowClick()}
 >
     <div class="main pixel-corners">
-        <Navbar {window} />
+        <Navbar {window_} />
 
         <div class="content">
             <slot />
         </div>
 
-        <Footer {window} />
+        <Footer {window_} />
     </div>
 </div>
 
