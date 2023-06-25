@@ -9,6 +9,10 @@
 
     let window: Window = createWindow(name, options);
 
+    /* todo: because top/left move the window based on the centre of the page,
+             windows of different sizes knock the stagger out of alignment.
+             it needs to find the top & left borders of the previous window and
+             base the next one's position off of that instead. */
     const offset: number = 50 + (window.options.position === 'position-main' ? 0 : (window.id - 1) * 3);
     const offsetStyle: string = `top: ${offset}%; left: ${offset}%;`;
 
