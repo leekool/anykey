@@ -6,7 +6,7 @@ export interface Options {
     focused?: boolean,
     minimised?: boolean,
     maximised?: boolean,
-    position?: string,
+    type?: string,
     navbarMaximise?: boolean,
     navbarMinimise?: boolean
 }
@@ -20,7 +20,7 @@ export class Window {
         focused: true,
         minimised: false,
         maximised: false,
-        position: 'position-main',
+        type: 'window-main',
         navbarMaximise: false,
         navbarMinimise: true
     };

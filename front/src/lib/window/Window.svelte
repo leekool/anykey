@@ -6,6 +6,7 @@
 
     export let name: string;
     export let options: Options = {}; 
+    let windowDomRect: any;
 
     let window: Window = createWindow(name, options);
 
@@ -13,12 +14,12 @@
              windows of different sizes knock the stagger out of alignment.
              it needs to find the top & left borders of the previous window and
              base the next one's position off of that instead. */
-    const offset: number = 50 + (window.options.position === 'position-main' ? 0 : (window.id - 1) * 3);
+    const offset: number = 50 + (window.options.type === 'window-main' ? 0 : (window.id - 1) * 3);
     const offsetStyle: string = `top: ${offset}%; left: ${offset}%;`;
 
     /* trigger svelte state management
        i hate how we have to do this */
-    $: $windowStore, window = window, console.log(window);
+    $: $windowStore, window = window//, console.log(window);
 
     const windowClick = () => {
         if (window.options.focused || window.options.minimised) return;
@@ -32,6 +33,9 @@
         for (let window of $windowStore) {
             if (window.name == name) window.getFocus($windowStore);
         }
+        
+        // windowDomRect = windowDomRect.getBoundingClientRect();
+        // console.log(windowDomRect)
 
         $windowStore = $windowStore; // trigger svelte state management
     });
@@ -39,7 +43,9 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-    class={window.options.position}
+    bind:this={windowDomRect}
+    
+    class={window.options.type}
     class:minimised={window.options.minimised}
     class:maximised={window.options.maximised}
     class:focused={window.options.focused}
@@ -108,7 +114,7 @@
         overflow: scroll;
     }
 
-    .position-main {
+    .window-main {
         display: flex;
         flex: 1 1 auto;
         position: absolute;
@@ -123,7 +129,7 @@
         z-index: 5;
     }
 
-    .position-layout {
+    .window-layout {
         display: flex;
         flex: 1 1 auto;
         position: absolute;
