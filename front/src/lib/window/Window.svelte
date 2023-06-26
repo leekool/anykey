@@ -15,11 +15,6 @@
 
     let window_: Window = createWindow(name, options);
 
-    /* todo: because top/left move the window based on the centre of the page,
-             windows of different sizes knock the stagger out of alignment.
-             it needs to find the top & left borders of the previous window and
-             base the next one's position off of that instead. */
-
     const getOffsetStyle = (): string => {
         if (window_.id <= 1) {
             window_.position.top = window.innerHeight / 2;
@@ -27,22 +22,17 @@
             return `top: 50%; left: 50%;`;
         }
 
-        const prevPos: DOMRect = $windowStore[window_.id - 1].position;
+        const prevPos = $windowStore[window_.id - 1].position;
 
         if (!prevPos) return "";
 
-        /* todo: height difference...can be positive/negative based on if window bigger/smaller...maybe...
-                 currently it spazzes out if you submit two layouts that aren't the same size as the first
-                 generated layout */
+        const top = prevPos.top + ((window_.position.height - prevPos.height) / 2) + 20;
+        const left = prevPos.left + ((window_.position.width - prevPos.width) / 2) + 20;
 
-        const top = prevPos.top + ((window_.position.height - prevPos.height) / 2) + 10;
-        const left = prevPos.left + ((window_.position.width - prevPos.width) / 2) + 10;
+        console.log(`TOP: ${top}, LEFT: ${left}`);
 
-        window_.position.top = prevPos.top + 10;
-        window_.position.left = prevPos.left + 10;
-
-        console.log(`PREVIOUS ${$windowStore[window_.id - 1].id}`, prevPos);
-        console.log(`CURRENT ${window_.id}`, window_.position);
+        window_.position.top = top;
+        window_.position.left = left;
 
         return `top: ${top}px; left: ${left}px;`;
     };

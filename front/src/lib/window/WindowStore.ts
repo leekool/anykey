@@ -15,7 +15,8 @@ export class Window {
     name: string;
     icon: string;
     id: number;
-    position?: DOMRect;
+    // position?: DOMRect;
+    position?: any;
 
     options: Options = {
         focused: true,
