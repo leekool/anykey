@@ -26,15 +26,19 @@
 
         if (!prevPos) return "";
 
-        const top = prevPos.top + ((window_.position.height - prevPos.height) / 2) + 20;
-        const left = prevPos.left + ((window_.position.width - prevPos.width) / 2) + 20;
+        const topPx = prevPos.top + ((window_.position.height - prevPos.height) / 2) + 20;
+        const leftPx = prevPos.left + ((window_.position.width - prevPos.width) / 2) + 20;
 
-        console.log(`TOP: ${top}, LEFT: ${left}`);
+        window_.position.top = topPx;
+        window_.position.left = leftPx;
 
-        window_.position.top = top;
-        window_.position.left = left;
+        const top = topPx - (window.innerHeight / 2);
+        const left = leftPx - (window.innerWidth / 2);
 
-        return `top: ${top}px; left: ${left}px;`;
+        const topCalc = `calc(50% + ${top}px)`;
+        const leftCalc = `calc(50% + ${left}px)`;
+
+        return `top: ${topCalc}; left: ${leftCalc};`;
     };
 
     let offsetStyle: string = "top: 50%; left: 50%;";
@@ -61,7 +65,7 @@
             height: windowRect.height,
             top: windowRect.top,
             left: windowRect.left,
-        }
+        };
 
         offsetStyle = getOffsetStyle();
 
