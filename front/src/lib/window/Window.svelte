@@ -15,7 +15,20 @@
 
     let window_: Window = createWindow(name, options);
 
+    // it's not ideal that this depends on window_.id
     const getOffsetStyle = (): string => {
+        const windowRect: any = windowElement.getBoundingClientRect();
+
+        // deep copy windowRect
+        window_.position = {
+            x: windowRect.x,
+            y: windowRect.y,
+            width: windowRect.width,
+            height: windowRect.height,
+            top: windowRect.top,
+            left: windowRect.left,
+        };
+
         if (window_.id <= 1) {
             window_.position.top = window.innerHeight / 2;
             window_.position.left = window.innerWidth / 2;
@@ -24,28 +37,22 @@
 
         const prevPos = $windowStore[window_.id - 1].position;
 
-        if (!prevPos) return "";
+        window_.position.top =
+            prevPos.top + (window_.position.height - prevPos.height) / 2 + 20;
+        window_.position.left =
+            prevPos.left + (window_.position.width - prevPos.width) / 2 + 20;
 
-        const topPx = prevPos.top + ((window_.position.height - prevPos.height) / 2) + 20;
-        const leftPx = prevPos.left + ((window_.position.width - prevPos.width) / 2) + 20;
+        const top = window_.position.top - window.innerHeight / 2;
+        const left = window_.position.left - window.innerWidth / 2;
 
-        window_.position.top = topPx;
-        window_.position.left = leftPx;
-
-        const top = topPx - (window.innerHeight / 2);
-        const left = leftPx - (window.innerWidth / 2);
-
-        const topCalc = `calc(50% + ${top}px)`;
-        const leftCalc = `calc(50% + ${left}px)`;
-
-        return `top: ${topCalc}; left: ${leftCalc};`;
+        return `top: calc(50% + ${top}px); left: calc(50% + ${left}px);`;
     };
 
     let offsetStyle: string = "top: 50%; left: 50%;";
 
     /* trigger svelte state management
        i hate how we have to do this */
-    $: $windowStore, (window_ = window_); //, console.log(window);
+    $: $windowStore, (window_ = window_);
 
     const windowClick = () => {
         if (window_.options.focused || window_.options.minimised) return;
@@ -56,22 +63,11 @@
     };
 
     onMount(async () => {
-        const windowRect = windowElement.getBoundingClientRect();
-
-        window_.position = {
-            x: windowRect.x,
-            y: windowRect.y,
-            width: windowRect.width,
-            height: windowRect.height,
-            top: windowRect.top,
-            left: windowRect.left,
-        };
-
-        offsetStyle = getOffsetStyle();
-
         for (let window of $windowStore) {
             if (window_.name == name) window.getFocus($windowStore);
         }
+
+        offsetStyle = getOffsetStyle();
 
         $windowStore = $windowStore; // trigger svelte state management
     });
