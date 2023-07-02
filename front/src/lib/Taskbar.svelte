@@ -64,6 +64,10 @@
         overflow: hidden;
     }
 
+    .iconman-button:hover {
+        text-shadow: 1px 0 #aaa;
+    }
+
     .iconman-button img {
         /* max-height: 32px; */
         margin: 8px;
@@ -82,6 +86,10 @@
         /* background-size: 8%; */
         background-color: #aaa;
         box-shadow: -2px -2px #ccccff inset, 2px 2px #9c9cd3 inset;
+    }
+
+    .active:hover {
+        text-shadow: 1px 0 #ccccff;
     }
 
     @media screen and (max-width: 700px) {
