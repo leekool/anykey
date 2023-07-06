@@ -71,7 +71,7 @@ def get_keymap_svg(mapPath, fullLayout):
                     kCap.key_w, kCap.key_h, kCap.pos_x, kCap.pos_y, kCap.key_r)
                 svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format(
                     kCap.inner_key_w, kCap.inner_key_h, kCap.inner_pos_x, kCap.inner_pos_y, kCap.key_r)
-                svg_string += '<text class="key-text" {0} transform="translate({1}, {2}) rotate({3})"><tspan>{4}</tspan></text>'.format(
+                svg_string += '<text class="key-text" {0} transform="translate({1}, {2}) rotate({3})"><tspan font-weight="600">{4}</tspan></text>'.format(
                     kCap.baseline_text, kCap.key_text_x, kCap.key_text_y, kCap.key_text_r, key_cap)
 
                 kCap.key_h = 60
