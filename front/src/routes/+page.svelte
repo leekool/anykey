@@ -4,6 +4,7 @@
     import Window from "../lib/window/Window.svelte";
     import Taskbar from "../lib/Taskbar.svelte";
     import { onMount } from "svelte";
+    import html2canvas from "html2canvas";
 
     // from UploadMenu
     let file: File;
@@ -42,6 +43,7 @@
         postLayout();
     };
 
+    // Get keyboard SVG Image
     async function postLayout() {
         formData = new FormData();
 
@@ -86,10 +88,13 @@
 {#each layoutResponse as layout}
     <Window
         name={layoutName}
+        content={layout}
         options={{ type: "window-layout", navbarMaximise: true }}
     >
-        <div class="map-svg">
-            {@html layout}
+        <div class="map-svg" id="canvas">
+            <viewBox >
+                {@html layout}
+            </viewBox>
         </div>
     </Window>
 {/each}

@@ -49,7 +49,7 @@ def get_keymap_svg(mapPath, fullLayout):
         step3 = step2 * len(fullLayout)
         svg_h = step3 + kCap.key_h * len(fullLayout)
 
-        svg_string = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" id="{0}">'.format(
+        svg_string = '<svg viewBox="0 0 ' + str(svg_w) + ' ' + str(svg_h) + '" preserveAspectRatio="xMidYMid meet" version="1.1" xmlns="http://www.w3.org/2000/svg" id="{0}">'.format(
             mapNameId)
         svg_string += '<style>#' + mapNameId + \
             ' {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'

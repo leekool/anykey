@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { Window, windowStore } from "./WindowStore";
+    import Layout from "../../routes/+layout.svelte";
+  import Page from "../../routes/+page.svelte";
+import { Window, windowStore } from "./WindowStore";
 
     export let window_: Window;
 </script>
@@ -10,6 +12,21 @@
 
     <div class="navbar-bg" style="width: 14px;" />
 
+    <!-- download button (right) -->
+    {#if window_.options.navbarMinimise}
+    <div class="navbar-btn-base">
+        <div
+            class="navbar-btn-inner navbar-btn-left"
+            on:click={() => {
+                window_.screenshotCanvas(window_.content);
+                $windowStore = $windowStore; // tells svelte object changed
+            }}
+        />
+    </div>
+    {/if}
+
+    <div class="navbar-bg" />
+    
     <!-- maximise button (left) -->
     {#if window_.options.navbarMaximise}
         <div class="navbar-btn-base">
@@ -22,8 +39,6 @@
             />
         </div>
     {/if}
-
-    <div class="navbar-bg" />
 
     <!-- minimise button (right) -->
     {#if window_.options.navbarMinimise}
@@ -110,6 +125,14 @@
     .navbar-btn-right {
         box-shadow: -2px -2px 0 0 #333366 inset, -6px -6px 0 0 #a4a4a4 inset,
             -8px -8px 0 0 #333366 inset;
+    }
+
+    .navbar-btn-left {
+        width: 0; 
+        height: 0; 
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 20px solid #333366;
     }
 
     .inactive {

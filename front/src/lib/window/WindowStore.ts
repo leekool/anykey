@@ -1,4 +1,5 @@
 import { writable } from "svelte/store";
+import html2canvas from "html2canvas";
 
 let count: number = 0;
 
@@ -27,8 +28,9 @@ export class Window {
         navbarMinimise: true
     };
 
-    constructor(name: string, options?: Options) {
+    constructor(name: string, content: string, options?: Options) {
         this.name = name;
+        this.content = content;
         this.icon = (this.name.includes(' layout')) ? 'keymap-icon.png' : name + '-icon.png';
         this.options = { ...this.options, ...options };
 
@@ -73,10 +75,51 @@ export class Window {
         }
     }
 
+    screenshotCanvas = async (element: string): Promise<File | null> => {
+        // Get the id from the <svg> element
+        const svgId = element.substring(element.indexOf("id=") + 4, element.indexOf("<style>") - 2)
+        const el: HTMLElement | null | undefined = document.getElementById(svgId)?.parentElement;
+        const svgAssets = document.querySelectorAll('img');
+        
+        if (el) {
+            const canvas = await html2canvas(el, {
+                allowTaint: true,
+                useCORS: true,
+                logging: true,
+                imageTimeout: 0,
+                onclone: (doc) => {
+                    svgAssets.forEach((asset) => {
+                        console.log('assets', asset, asset.width, asset.height)
+                        const img = doc.createElement('img');
+                        img.src = asset.src;
+                        img.width = asset.width;
+                        img.height = asset.height;
+                        doc.body.appendChild(img);
+                    });
+                }
+            });
+
+            const blob = await new Promise((resolve) => canvas.toBlob(resolve));
+            // TODO handle error if blob is null somehow
+            const file = new File([blob as BlobPart], 'thumbnail.png', { type: 'image/png' });
+            this.downloadData(file, this.name);
+            return file;
+        }
+        return null;
+    }
+
+    downloadData(blob: Blob, name: string){
+        var a = document.createElement('a');
+        document.body.append(a);
+        a.download = name;
+        a.href = URL.createObjectURL(blob);
+        a.click();
+        a.remove();
+    }
 }
 
-export function createWindow(name: string, options?: Options) {
-    const window = new Window(name, options);
+export function createWindow(name: string, content: string, options?: Options) {
+    const window = new Window(name, content, options);
 
     windowStore.update((store) => [...store, window]);
 
