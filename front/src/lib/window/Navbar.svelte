@@ -1,7 +1,7 @@
 <script lang="ts">
     import Layout from "../../routes/+layout.svelte";
-  import Page from "../../routes/+page.svelte";
-import { Window, windowStore } from "./WindowStore";
+    import Page from "../../routes/+page.svelte";
+    import { Window, windowStore } from "./WindowStore";
 
     export let window_: Window;
 </script>
@@ -14,24 +14,24 @@ import { Window, windowStore } from "./WindowStore";
 
     <!-- download button (right) -->
     {#if window_.options.navbarMinimise}
-    <div class="navbar-btn-base">
-        <div
-            class="navbar-btn-inner navbar-btn-left"
-            on:click={() => {
-                window_.screenshotCanvas(window_.content);
-                $windowStore = $windowStore; // tells svelte object changed
-            }}
-        />
-    </div>
+        <div class="navbar-btn-base">
+            <div
+                class="navbar-btn-inner navbar-btn-left"
+                on:click={() => {
+                    window_.screenshotCanvas(window_.content);
+                    $windowStore = $windowStore; // tells svelte object changed
+                }}
+            />
+        </div>
     {/if}
 
     <div class="navbar-bg" />
-    
+
     <!-- maximise button (left) -->
     {#if window_.options.navbarMaximise}
         <div class="navbar-btn-base">
-            <div 
-                class="navbar-btn-inner" 
+            <div
+                class="navbar-btn-inner"
                 on:click={() => {
                     window_.toggleMaximise();
                     $windowStore = $windowStore; // tells svelte object changed
@@ -42,15 +42,15 @@ import { Window, windowStore } from "./WindowStore";
 
     <!-- minimise button (right) -->
     {#if window_.options.navbarMinimise}
-    <div class="navbar-btn-base">
-        <div
-            class="navbar-btn-inner navbar-btn-right"
-            on:click={() => {
-                window_.toggleMinimise($windowStore);
-                $windowStore = $windowStore; // tells svelte object changed
-            }}
-        />
-    </div>
+        <div class="navbar-btn-base">
+            <div
+                class="navbar-btn-inner navbar-btn-right"
+                on:click={() => {
+                    window_.toggleMinimise($windowStore);
+                    $windowStore = $windowStore; // tells svelte object changed
+                }}
+            />
+        </div>
     {/if}
 
     <div class="navbar-bg" style="width: 14px;" />
@@ -127,13 +127,13 @@ import { Window, windowStore } from "./WindowStore";
             -8px -8px 0 0 #333366 inset;
     }
 
-    .navbar-btn-left {
-        width: 0; 
-        height: 0; 
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 20px solid #333366;
-    }
+    /* .navbar-btn-left { */
+    /*     width: 0; */
+    /*     height: 0; */
+    /*     border-left: 10px solid transparent; */
+    /*     border-right: 10px solid transparent; */
+    /*     border-top: 20px solid #333366; */
+    /* } */
 
     .inactive {
         border-color: #d0d0d0 #a7a7a7 #a7a7a7 #d0d0d0;
