@@ -15,7 +15,7 @@ export interface Options {
 
 export class Window {
     name: string;
-    content: string;
+    content?: string;
     icon: string;
     id: number;
     // position?: DOMRect;

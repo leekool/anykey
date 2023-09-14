@@ -89,7 +89,7 @@
     <Window
         name={layoutName}
         content={layout}
-        options={{ type: "window-layout", navbarMaximise: true }}
+        options={{ type: "window-layout", navbarMaximise: true, navbarInfo: true }}
     >
         <div class="map-svg" id="canvas">
             <viewBox >

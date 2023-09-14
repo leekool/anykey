@@ -11,7 +11,7 @@
 
     export let name: string;
     export let options: Options = {};
-    export let content: string;
+    export let content: string = "";
     let windowElement: HTMLElement;
 
     let window_: Window = createWindow(name, content, options);
