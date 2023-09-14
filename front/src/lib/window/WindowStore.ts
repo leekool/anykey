@@ -10,10 +10,12 @@ export interface Options {
     type?: string,
     navbarMaximise?: boolean,
     navbarMinimise?: boolean
+    navbarInfo?: boolean
 }
 
 export class Window {
     name: string;
+    content: string;
     icon: string;
     id: number;
     // position?: DOMRect;
@@ -25,7 +27,8 @@ export class Window {
         maximised: false,
         type: 'window-main',
         navbarMaximise: false,
-        navbarMinimise: true
+        navbarMinimise: true,
+        navbarInfo: false
     };
 
     constructor(name: string, content: string, options?: Options) {

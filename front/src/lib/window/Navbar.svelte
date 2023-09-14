@@ -12,8 +12,8 @@
 
     <div class="navbar-bg" style="width: 14px;" />
 
-    <!-- download button (right) -->
-    {#if window_.options.navbarMinimise}
+    <!-- info button -->
+    {#if window_.options.navbarInfo}
         <div class="navbar-btn-base">
             <div
                 class="navbar-btn-inner navbar-btn-left"
@@ -128,11 +128,11 @@
     }
 
     /* .navbar-btn-left { */
-    /*     width: 0; */
-    /*     height: 0; */
-    /*     border-left: 10px solid transparent; */
-    /*     border-right: 10px solid transparent; */
-    /*     border-top: 20px solid #333366; */
+    /*     display: flex; */
+    /*     height: 80%; */
+    /*     width: 80%; */
+    /*     content: url("images/left-arrow.svg"); */
+    /*     transform: rotate(270deg); */
     /* } */
 
     .inactive {
