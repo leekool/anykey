@@ -22,7 +22,7 @@
     let submitDisabled: boolean = true;
     let submitState: string = "submit-invalid";
 
-    // This is a watcher
+    // this is a watcher
     $: if (fileName && selectedItem.name !== "") {
         submitState = "submit-valid";
         submitDisabled = false;
@@ -88,7 +88,6 @@
 {#each layoutResponse as layout}
     <Window
         name={layoutName}
-        content={layout}
         options={{ type: "window-layout", navbarMaximise: true, navbarInfo: true }}
     >
         <div class="map-svg" id="canvas">

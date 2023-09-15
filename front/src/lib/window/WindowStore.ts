@@ -15,7 +15,6 @@ export interface Options {
 
 export class Window {
     name: string;
-    content?: string;
     icon: string;
     id: number;
     // position?: DOMRect;
@@ -31,9 +30,8 @@ export class Window {
         navbarInfo: false
     };
 
-    constructor(name: string, content: string, options?: Options) {
+    constructor(name: string, options?: Options) {
         this.name = name;
-        this.content = content;
         this.icon = (this.name.includes(' layout')) ? 'keymap-icon.png' : name + '-icon.png';
         this.options = { ...this.options, ...options };
 
@@ -121,8 +119,8 @@ export class Window {
     }
 }
 
-export function createWindow(name: string, content: string, options?: Options) {
-    const window = new Window(name, content, options);
+export function createWindow(name: string, options?: Options) {
+    const window = new Window(name, options);
 
     windowStore.update((store) => [...store, window]);
 

@@ -11,10 +11,9 @@
 
     export let name: string;
     export let options: Options = {};
-    export let content: string = "";
     let windowElement: HTMLElement;
 
-    let window_: Window = createWindow(name, content, options);
+    let window_: Window = createWindow(name, options);
 
     // it's not ideal that this depends on window_.id
     const getOffsetStyle = (): string => {
