@@ -35,12 +35,12 @@
             return `top: 50%; left: 50%;`;
         }
 
-        const prevPos = $windowStore[window_.id - 1].position;
+        const prevPos = $windowStore[window_.id - 1].position as DOMRect;
 
         window_.position.top =
-            prevPos.top + (window_.position.height - prevPos.height) / 2 + 20;
+            prevPos.top + (window_.position.height! - prevPos.height) / 2 + 20;
         window_.position.left =
-            prevPos.left + (window_.position.width - prevPos.width) / 2 + 20;
+            prevPos.left + (window_.position.width! - prevPos.width) / 2 + 20;
 
         const top = window_.position.top - window.innerHeight / 2;
         const left = window_.position.left - window.innerWidth / 2;
