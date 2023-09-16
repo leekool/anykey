@@ -10,7 +10,8 @@ export interface Options {
     type?: string,
     navbarMaximise?: boolean,
     navbarMinimise?: boolean
-    navbarInfo?: boolean
+    navbarInfo?: boolean,
+    svgLayout?: string
 }
 
 export class Window {
@@ -26,13 +27,15 @@ export class Window {
         type: 'window-main',
         navbarMaximise: false,
         navbarMinimise: true,
-        navbarInfo: false
+        navbarInfo: false,
+        svgLayout: ''
     };
 
     constructor(name: string, options?: Options) {
-        this.name = name;
-        this.icon = (this.name.includes(' layout')) ? 'keymap-icon.png' : name + '-icon.png';
         this.options = { ...this.options, ...options };
+
+        this.name = name;
+        this.icon = (this.options.type?.includes('layout')) ? 'keymap-icon.png' : name + '-icon.png';
 
         this.id = count;
         count++

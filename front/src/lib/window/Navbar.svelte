@@ -18,7 +18,7 @@
             <div
                 class="navbar-btn-inner navbar-btn-left"
                 on:click={() => {
-                    window_.screenshotCanvas(window_.content);
+                    window_.screenshotCanvas(window_.options.svgLayout || '');
                     $windowStore = $windowStore; // tells svelte object changed
                 }}
             />

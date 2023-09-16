@@ -56,6 +56,7 @@
         });
         const json = await response.json();
         layoutResponse.push(json.message);
+        console.log("TEST", layoutResponse)
         layoutResponse = layoutResponse; // trigger svelte state management
     }
 </script>
@@ -88,10 +89,10 @@
 {#each layoutResponse as layout}
     <Window
         name={layoutName}
-        options={{ type: "window-layout", navbarMaximise: true, navbarInfo: true }}
+        options={{ type: "window-layout", svgLayout: layout, navbarMaximise: true, navbarInfo: true }}
     >
         <div class="map-svg" id="canvas">
-            <viewBox >
+            <viewBox>
                 {@html layout}
             </viewBox>
         </div>
