@@ -23,7 +23,9 @@
             <!--     }} -->
             <!-- /> -->
             <div class="navbar-btn-inner info-btn">
-                <div class="info"></div>
+                {#if window_.options.focused}
+                    <div class="info" />
+                {/if}
             </div>
         </div>
     {/if}
@@ -131,7 +133,6 @@
     }
 
     .info-btn {
-
     }
 
     .info-btn:hover .info {
