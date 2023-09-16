@@ -129,7 +129,7 @@
     }
 
     .focused {
-        z-index: 10 !important;
+        z-index: 9 !important;
     }
 
     .content {

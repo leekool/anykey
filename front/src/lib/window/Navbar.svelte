@@ -15,13 +15,16 @@
     <!-- info button -->
     {#if window_.options.navbarInfo}
         <div class="navbar-btn-base">
-            <div
-                class="navbar-btn-inner navbar-btn-left"
-                on:click={() => {
-                    window_.screenshotCanvas(window_.options.svgLayout || '');
-                    $windowStore = $windowStore; // tells svelte object changed
-                }}
-            />
+            <!-- <div -->
+            <!--     class="navbar-btn-inner navbar-btn-left" -->
+            <!--     on:click={() => { -->
+            <!--         window_.screenshotCanvas(window_.options.svgLayout || ''); -->
+            <!--         $windowStore = $windowStore; // tells svelte object changed -->
+            <!--     }} -->
+            <!-- /> -->
+            <div class="navbar-btn-inner info-btn">
+                <div class="info"></div>
+            </div>
         </div>
     {/if}
 
@@ -44,7 +47,7 @@
     {#if window_.options.navbarMinimise}
         <div class="navbar-btn-base">
             <div
-                class="navbar-btn-inner navbar-btn-right"
+                class="navbar-btn-inner minimise-btn"
                 on:click={() => {
                     window_.toggleMinimise($windowStore);
                     $windowStore = $windowStore; // tells svelte object changed
@@ -122,18 +125,32 @@
         box-shadow: 2px 2px 0 0 #333366 inset;
     }
 
-    .navbar-btn-right {
+    .minimise-btn {
         box-shadow: -2px -2px 0 0 #333366 inset, -6px -6px 0 0 #a4a4a4 inset,
             -8px -8px 0 0 #333366 inset;
     }
 
-    /* .navbar-btn-left { */
-    /*     display: flex; */
-    /*     height: 80%; */
-    /*     width: 80%; */
-    /*     content: url("images/left-arrow.svg"); */
-    /*     transform: rotate(270deg); */
-    /* } */
+    .info-btn {
+
+    }
+
+    .info-btn:hover .info {
+        display: block;
+        position: absolute;
+        background-color: #e4e4e4;
+        top: 2.9%;
+        left: 1.9%;
+        width: 200px;
+        height: 200px;
+        border: 2px solid #000;
+        box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
+        /* box-sizing: border-box; */
+        /* z-index: 10 !important; */
+    }
+
+    .info {
+        display: hidden;
+    }
 
     .inactive {
         border-color: #d0d0d0 #a7a7a7 #a7a7a7 #d0d0d0;
