@@ -50,13 +50,15 @@
         formData.append("file", file);
         formData.append("mapPath", selectedItem.path);
         formData.append("mergeLayers", mergeLayers == true ? "true" : "false");
+
         const response = await fetch("http://localhost:5000/api/layout", {
             method: "POST",
             body: formData,
         });
+
         const json = await response.json();
+
         layoutResponse.push(json.message);
-        console.log("TEST", layoutResponse)
         layoutResponse = layoutResponse; // trigger svelte state management
     }
 </script>
@@ -89,7 +91,18 @@
 {#each layoutResponse as layout}
     <Window
         name={layoutName}
-        options={{ type: "window-layout", svgLayout: layout, navbarMaximise: true, navbarInfo: true }}
+        options={{ 
+            type: "window-layout", 
+            navbarMaximise: true, 
+            navbarInfo: true, 
+            layoutInfo: {
+                svg: layout,
+                name: selectedItem.name,
+                fileName: fileName,
+                filePath: selectedItem.path,
+                fileSize: fileSize
+            }
+        }}
     >
         <div class="map-svg" id="canvas">
             <viewBox>

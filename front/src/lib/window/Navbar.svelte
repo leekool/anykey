@@ -18,13 +18,18 @@
             <!-- <div -->
             <!--     class="navbar-btn-inner navbar-btn-left" -->
             <!--     on:click={() => { -->
-            <!--         window_.screenshotCanvas(window_.options.svgLayout || ''); -->
+            <!--         window_.screenshotCanvas(window_.options.layoutInfo?.svg || ""); -->
             <!--         $windowStore = $windowStore; // tells svelte object changed -->
             <!--     }} -->
             <!-- /> -->
             <div class="navbar-btn-inner info-btn">
                 {#if window_.options.focused}
-                    <div class="info" />
+                    <div
+                        class="info"
+                        on:click={() => {
+                            console.log("TEST", window_)
+                        }}
+                    />
                 {/if}
             </div>
         </div>
@@ -137,7 +142,7 @@
     }
 
     .info-btn:after {
-        content: 'i';
+        content: "i";
         position: relative;
         transform: translate(-50%, -50%);
         left: 50%;
@@ -145,7 +150,7 @@
         color: #333366;
         font-weight: bold;
         font-size: 14px;
-        text-shadow: 0 1px #f5f5f5, 0 2px rgba(138, 134, 160, 0.7); 
+        text-shadow: 0 1px #f5f5f5, 0 2px rgba(138, 134, 160, 0.7);
     }
 
     .info {
@@ -164,7 +169,7 @@
 
     /* to add padding without affecting .info's border/box shadow */
     .info:after {
-        content: '';
+        content: "";
         position: absolute;
         height: calc(100% + 50px);
         width: calc(100% + 50px);

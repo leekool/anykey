@@ -11,7 +11,15 @@ export interface Options {
     navbarMaximise?: boolean,
     navbarMinimise?: boolean
     navbarInfo?: boolean,
-    svgLayout?: string
+    layoutInfo?: LayoutInfo
+}
+
+interface LayoutInfo {
+    svg: string,
+    name: string,
+    fileName: string,
+    filePath: string,
+    fileSize: string
 }
 
 export class Window {
@@ -28,7 +36,13 @@ export class Window {
         navbarMaximise: false,
         navbarMinimise: true,
         navbarInfo: false,
-        svgLayout: ''
+        layoutInfo: {
+            svg: '',
+            name: '',
+            fileName: '',
+            filePath: '',
+            fileSize: ''
+        }
     };
 
     constructor(name: string, options?: Options) {
