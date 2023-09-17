@@ -14,7 +14,10 @@
 
     <!-- info button -->
     {#if window_.options.navbarInfo}
-        <div class="navbar-btn-base">
+        <div 
+            class="navbar-btn-base"
+            on:click={ () => console.log("window info: ", window_) }
+        >
             <!-- <div -->
             <!--     class="navbar-btn-inner navbar-btn-left" -->
             <!--     on:click={() => { -->
@@ -24,12 +27,14 @@
             <!-- /> -->
             <div class="navbar-btn-inner info-btn">
                 {#if window_.options.focused}
-                    <div
-                        class="info"
-                        on:click={() => {
-                            console.log("TEST", window_)
-                        }}
-                    />
+                    <div class="info">
+                        {#if window_.options.type?.includes('layout')}
+                            <div>{ window_.options.layoutInfo?.name }</div>
+                            <div>{ window_.options.layoutInfo?.fileName }</div>
+                            <div>{ window_.options.layoutInfo?.fileSize }</div>
+                            <div>{ window_.options.layoutInfo?.filePath }</div>
+                        {/if}
+                    </div>
                 {/if}
             </div>
         </div>
@@ -154,12 +159,11 @@
     }
 
     .info {
-        display: none;
+        display: block;
         position: absolute;
+        padding: 5px;
         top: 30px;
         left: 17px;
-        width: 200px;
-        height: 200px;
         background-color: #e4e4e4;
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
