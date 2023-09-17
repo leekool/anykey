@@ -136,11 +136,23 @@
         display: block;
     }
 
+    .info-btn:after {
+        content: 'i';
+        position: relative;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 8px;
+        color: #333366;
+        font-weight: bold;
+        font-size: 14px;
+        text-shadow: 0 1px #f5f5f5, 0 2px rgba(138, 134, 160, 0.7); 
+    }
+
     .info {
         display: none;
         position: absolute;
-        top: 2.9%;
-        left: 1.9%;
+        top: 30px;
+        left: 17px;
         width: 200px;
         height: 200px;
         background-color: #e4e4e4;
