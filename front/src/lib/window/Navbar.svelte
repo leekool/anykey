@@ -132,22 +132,8 @@
             -8px -8px 0 0 #333366 inset;
     }
 
-    /* .info-btn { */
-    /*     padding: 10px; */
-    /* } */
-
     .info-btn:hover .info {
         display: block;
-    }
-
-    /* fills the gap between .info-btn and .info */
-    .info-btn:after {
-        content: '';
-        position: absolute;
-        top: 5px;
-        left: 1.9%;
-        width: 22px;
-        height: 40px;
     }
 
     .info {
@@ -162,6 +148,17 @@
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
         /* box-sizing: border-box; */
         /* z-index: 10 !important; */
+    }
+
+    /* to add padding without affecting .info's border/box shadow */
+    .info:after {
+        content: '';
+        position: absolute;
+        height: calc(100% + 50px);
+        width: calc(100% + 50px);
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
     }
 
     .inactive {
