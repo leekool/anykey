@@ -132,14 +132,20 @@
             -8px -8px 0 0 #333366 inset;
     }
 
-    .info-btn {
-    }
+    /* .info-btn { */
+    /*     padding: 10px; */
+    /* } */
 
     .info-btn:hover .info {
         display: block;
+    }
+
+    .info {
+        display: none;
+        margin-top: 20px;
         position: absolute;
         background-color: #e4e4e4;
-        top: 2.9%;
+        top: calc(2.9% - 20px);
         left: 1.9%;
         width: 200px;
         height: 200px;
@@ -147,10 +153,6 @@
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
         /* box-sizing: border-box; */
         /* z-index: 10 !important; */
-    }
-
-    .info {
-        display: hidden;
     }
 
     .inactive {
