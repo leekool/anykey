@@ -140,15 +140,24 @@
         display: block;
     }
 
+    /* fills the gap between .info-btn and .info */
+    .info-btn:after {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 1.9%;
+        width: 22px;
+        height: 40px;
+    }
+
     .info {
         display: none;
-        margin-top: 20px;
         position: absolute;
-        background-color: #e4e4e4;
-        top: calc(2.9% - 20px);
+        top: 2.9%;
         left: 1.9%;
         width: 200px;
         height: 200px;
+        background-color: #e4e4e4;
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
         /* box-sizing: border-box; */
