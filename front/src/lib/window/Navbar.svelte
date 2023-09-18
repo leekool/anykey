@@ -22,27 +22,26 @@
             <!--         $windowStore = $windowStore; // tells svelte object changed -->
             <!--     }} -->
             <!-- /> -->
-            <div 
+            <div
                 class="navbar-btn-inner info-btn"
-                on:click|self={ () => console.log("window info: ", window_) }
+                on:click|self={() => console.log("window info: ", window_)}
             >
                 {#if window_.options.focused}
                     <div class="info">
-                        {#if window_.options.type?.includes('layout')}
-                            <div>{ window_.options.layoutInfo?.name }</div>
-                            <div>{ window_.options.layoutInfo?.fileName }</div>
-                            <div>{ window_.options.layoutInfo?.fileSize }</div>
-                            <div>{ window_.options.layoutInfo?.filePath }</div>
-                            <button 
+                        {#if window_.options.type?.includes("layout")}
+                            <div>{window_.options.layoutInfo?.name}</div>
+                            <div>{window_.options.layoutInfo?.fileName}</div>
+                            <div>{window_.options.layoutInfo?.fileSize}</div>
+                            <div>{window_.options.layoutInfo?.filePath}</div>
+                            <div
                                 class="download-btn"
-                                on:click={ () => {
+                                on:click={() => {
                                     console.log("TEST");
                                     window_.screenshotCanvas(window_.options.layoutInfo?.svg || "");
-                                    $windowStore = $windowStore; // tells svelte object changed
-                                } }
+                                }}
                             >
                                 download
-                            </button>
+                            </div>
                         {/if}
                     </div>
                 {/if}
@@ -177,8 +176,6 @@
         background-color: #e4e4e4;
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
-        /* box-sizing: border-box; */
-        /* z-index: 10 !important; */
     }
 
     /* to add padding without affecting .info's border/box shadow */
@@ -190,12 +187,18 @@
         transform: translate(-50%, -50%);
         left: 50%;
         top: 50%;
+        z-index: 0 !important;
     }
 
     .download-btn {
+        display: block;
+        position: absolute;
         height: 50px;
         width: 50px;
+        right: 0;
+        bottom: 0;
         background-color: #ccccff;
+        z-index: 10 !important;
     }
 
     .inactive {
