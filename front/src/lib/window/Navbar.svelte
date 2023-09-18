@@ -25,7 +25,7 @@
                             <div>{window_.options.layoutInfo?.fileSize}</div>
                             <div>{window_.options.layoutInfo?.filePath}</div>
                             <div
-                                class="download-btn"
+                                class="download-btn pixel-corners"
                                 on:click={() => {
                                     console.log("TEST");
                                     window_.screenshotCanvas();
@@ -72,6 +72,8 @@
 </div>
 
 <style>
+    @import url("../../../static/pixel-corners.css");
+
     .navbar {
         display: flex;
         height: 34px;
@@ -167,6 +169,7 @@
         background-color: #e4e4e4;
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
+        cursor: default;
     }
 
     /* to add padding without affecting .info's border/box shadow */
@@ -182,14 +185,29 @@
     }
 
     .download-btn {
-        display: block;
+        display: flex;
         position: absolute;
-        height: 50px;
-        width: 50px;
-        right: 0;
-        bottom: 0;
-        background-color: #ccccff;
+        height: 27px;
+        right: 6px;
+        bottom: 6px;
+        padding: 2px 8px;
+        font-family: "Tamzen", sans-serif;
+        font-size: 15px;
+        align-items: center;
+        background-color: #e0e0e0;
+        box-sizing: border-box;
+        box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
+        cursor: pointer;
         z-index: 10 !important;
+    }
+
+    .download-btn:hover {
+        box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
+    }
+
+    .download-btn > * {
+        user-select: none;
+        cursor: pointer;
     }
 
     .inactive {
