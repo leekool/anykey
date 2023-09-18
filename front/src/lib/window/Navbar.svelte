@@ -14,10 +14,7 @@
 
     <!-- info button -->
     {#if window_.options.navbarInfo}
-        <div 
-            class="navbar-btn-base"
-            on:click={ () => console.log("window info: ", window_) }
-        >
+        <div class="navbar-btn-base">
             <!-- <div -->
             <!--     class="navbar-btn-inner navbar-btn-left" -->
             <!--     on:click={() => { -->
@@ -25,7 +22,10 @@
             <!--         $windowStore = $windowStore; // tells svelte object changed -->
             <!--     }} -->
             <!-- /> -->
-            <div class="navbar-btn-inner info-btn">
+            <div 
+                class="navbar-btn-inner info-btn"
+                on:click|self={ () => console.log("window info: ", window_) }
+            >
                 {#if window_.options.focused}
                     <div class="info">
                         {#if window_.options.type?.includes('layout')}
@@ -33,6 +33,16 @@
                             <div>{ window_.options.layoutInfo?.fileName }</div>
                             <div>{ window_.options.layoutInfo?.fileSize }</div>
                             <div>{ window_.options.layoutInfo?.filePath }</div>
+                            <button 
+                                class="download-btn"
+                                on:click={ () => {
+                                    console.log("TEST");
+                                    window_.screenshotCanvas(window_.options.layoutInfo?.svg || "");
+                                    $windowStore = $windowStore; // tells svelte object changed
+                                } }
+                            >
+                                download
+                            </button>
                         {/if}
                     </div>
                 {/if}
@@ -159,7 +169,7 @@
     }
 
     .info {
-        display: block;
+        display: none;
         position: absolute;
         padding: 5px;
         top: 30px;
@@ -180,6 +190,12 @@
         transform: translate(-50%, -50%);
         left: 50%;
         top: 50%;
+    }
+
+    .download-btn {
+        height: 50px;
+        width: 50px;
+        background-color: #ccccff;
     }
 
     .inactive {

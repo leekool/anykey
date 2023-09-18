@@ -37,7 +37,6 @@
     const submitForm = (event: Event) => {
         if (submitState == "submit-invalid") return;
 
-        event.preventDefault(); // prevent default form submission behavior
         layoutName = `${selectedItem.name.toLowerCase()} layout`;
 
         postLayout();
@@ -77,7 +76,7 @@
         </div>
         <div
             class="{submitState} submit-btn pixel-corners"
-            on:click={(e) => submitForm(e)}
+            on:click|preventDefault={(e) => submitForm(e)}
         >
             <label>
                 <input class="" type="submit" disabled={submitDisabled} />
