@@ -1,6 +1,4 @@
 <script lang="ts">
-    import Layout from "../../routes/+layout.svelte";
-    import Page from "../../routes/+page.svelte";
     import { Window, windowStore } from "./WindowStore";
 
     export let window_: Window;
@@ -15,13 +13,6 @@
     <!-- info button -->
     {#if window_.options.navbarInfo}
         <div class="navbar-btn-base">
-            <!-- <div -->
-            <!--     class="navbar-btn-inner navbar-btn-left" -->
-            <!--     on:click={() => { -->
-            <!--         window_.screenshotCanvas(window_.options.layoutInfo?.svg || ""); -->
-            <!--         $windowStore = $windowStore; // tells svelte object changed -->
-            <!--     }} -->
-            <!-- /> -->
             <div
                 class="navbar-btn-inner info-btn"
                 on:click|self={() => console.log("window info: ", window_)}
@@ -37,7 +28,7 @@
                                 class="download-btn"
                                 on:click={() => {
                                     console.log("TEST");
-                                    window_.screenshotCanvas(window_.options.layoutInfo?.svg || "");
+                                    window_.screenshotCanvas();
                                 }}
                             >
                                 download

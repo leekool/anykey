@@ -92,9 +92,12 @@ export class Window {
         }
     }
 
-    screenshotCanvas = async (element: string): Promise<File | null> => {
+    screenshotCanvas = async (): Promise<File | null> => {
+        const layout = this.options.layoutInfo?.svg;
+        if (!layout) return null;
+
         // Get the id from the <svg> element
-        const svgId = element.substring(element.indexOf("id=") + 4, element.indexOf("<style>") - 2)
+        const svgId = layout.substring(layout.indexOf("id=") + 4, layout.indexOf("<style>") - 2)
         const el: HTMLElement | null | undefined = document.getElementById(svgId)?.parentElement;
         const svgAssets = document.querySelectorAll('img');
         
