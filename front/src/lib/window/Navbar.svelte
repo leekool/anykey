@@ -18,12 +18,12 @@
                 on:click|self={() => console.log("window info: ", window_)}
             >
                 {#if window_.options.focused}
-                    <div class="info">
+                    <div class="info-container">
                         {#if window_.options.type?.includes("layout")}
                             <div>{window_.options.layoutInfo?.name}</div>
                             <div>{window_.options.layoutInfo?.fileName}</div>
                             <div>{window_.options.layoutInfo?.fileSize}</div>
-                            <div>{window_.options.layoutInfo?.filePath}</div>
+                            <!-- <div>{window_.options.layoutInfo?.filePath}</div> -->
                             <div
                                 class="download-btn pixel-corners"
                                 on:click={() => {
@@ -144,10 +144,6 @@
             -8px -8px 0 0 #333366 inset;
     }
 
-    .info-btn:hover .info {
-        display: block;
-    }
-
     .info-btn:after {
         content: "i";
         position: relative;
@@ -160,20 +156,25 @@
         text-shadow: 0 1px #f5f5f5, 0 2px rgba(138, 134, 160, 0.7);
     }
 
-    .info {
+    .info-btn:hover .info-container {
+        display: block;
+    }
+
+    .info-container {
         display: none;
         position: absolute;
         padding: 5px;
         top: 30px;
         left: 17px;
+        min-width: 200px;
         background-color: #e4e4e4;
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
         cursor: default;
     }
 
-    /* to add padding without affecting .info's border/box shadow */
-    .info:after {
+    /* to add padding without affecting .info-container's border/box shadow */
+    .info-container:after {
         content: "";
         position: absolute;
         height: calc(100% + 50px);
