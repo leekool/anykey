@@ -20,10 +20,10 @@
                 {#if window_.options.focused}
                     <div class="info-container">
                         {#if window_.options.type?.includes("layout")}
-                            <div>{window_.options.layoutInfo?.name}</div>
-                            <div>{window_.options.layoutInfo?.fileName}</div>
-                            <div>{window_.options.layoutInfo?.fileSize}</div>
-                            <!-- <div>{window_.options.layoutInfo?.filePath}</div> -->
+                            <div>board: <span class="info-label">{window_.options.layoutInfo?.name}</span></div>
+                            <div>file: <span class="info-label">{window_.options.layoutInfo?.fileName}</span></div>
+                            <div>size: <span class="info-label">{window_.options.layoutInfo?.fileSize}</span></div>
+                            <div style="min-height: 22px;"></div>
                             <div
                                 class="download-btn pixel-corners"
                                 on:click={() => {
@@ -161,7 +161,7 @@
     }
 
     .info-container {
-        display: none;
+        display: block;
         position: absolute;
         padding: 5px;
         top: 30px;
@@ -171,6 +171,10 @@
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
         cursor: default;
+    }
+
+    .info-label {
+        font-style: italic;
     }
 
     /* to add padding without affecting .info-container's border/box shadow */
