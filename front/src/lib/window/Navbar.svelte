@@ -27,7 +27,6 @@
                             <div
                                 class="download-btn pixel-corners"
                                 on:click={() => {
-                                    console.log("TEST");
                                     window_.screenshotCanvas();
                                 }}
                             >
@@ -161,7 +160,7 @@
     }
 
     .info-container {
-        display: block;
+        display: none;
         position: absolute;
         padding: 5px;
         top: 30px;
