@@ -20,10 +20,16 @@
                 {#if window_.options.focused}
                     <div class="info-container">
                         {#if window_.options.type?.includes("layout")}
-                            <div>board: <span class="info-label">{window_.options.layoutInfo?.name}</span></div>
-                            <div>file: <span class="info-label">{window_.options.layoutInfo?.fileName}</span></div>
-                            <div>size: <span class="info-label">{window_.options.layoutInfo?.fileSize}</span></div>
-                            <div style="min-height: 22px;"></div>
+                            <div class="info-item">
+                                <span>board:</span><span class="info-label">{window_.options.layoutInfo?.name}</span>
+                            </div>
+                            <div class="info-item">
+                                <span>file:</span><span class="info-label">{window_.options.layoutInfo?.fileName}</span>
+                            </div>
+                            <div class="info-item">
+                                <span>size:</span><span class="info-label">{window_.options.layoutInfo?.fileSize}</span>
+                            </div>
+                            <div style="min-height: 30px;"></div>
                             <div
                                 class="download-btn pixel-corners"
                                 on:click={() => {
@@ -174,6 +180,11 @@
 
     .info-label {
         font-style: italic;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
     }
 
     /* to add padding without affecting .info-container's border/box shadow */
