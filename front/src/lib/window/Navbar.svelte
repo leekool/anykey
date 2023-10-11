@@ -20,14 +20,26 @@
                 {#if window_.options.focused}
                     <div class="info-container">
                         {#if window_.options.type?.includes("layout")}
-                            <div class="info-item">
-                                <span>board:</span><span class="info-label">{window_.options.layoutInfo?.name}</span>
-                            </div>
-                            <div class="info-item">
-                                <span>file:</span><span class="info-label">{window_.options.layoutInfo?.fileName}</span>
-                            </div>
-                            <div class="info-item">
-                                <span>size:</span><span class="info-label">{window_.options.layoutInfo?.fileSize}</span>
+                            <!-- <div class="info-item"> -->
+                            <!--     <span>board:</span><span class="info-label">{window_.options.layoutInfo?.name}</span> -->
+                            <!-- </div> -->
+                            <!-- <div class="info-item"> -->
+                            <!--     <span>file:</span><span class="info-label">{window_.options.layoutInfo?.fileName}</span> -->
+                            <!-- </div> -->
+                            <!-- <div class="info-item"> -->
+                            <!--     <span>size:</span><span class="info-label">{window_.options.layoutInfo?.fileSize}</span> -->
+                            <!-- </div> -->
+                            <div class="info-layout-container">
+                                <div class="info-layout-column" style="width: 35%;">
+                                    <div class="info-layout-item">board:</div>
+                                    <div class="info-layout-item">file:</div>
+                                    <div class="info-layout-item">size:</div>
+                                </div>
+                                <div class="info-layout-column">
+                                    <div class="info-layout-item" style="font-style: italic;">{window_.options.layoutInfo?.name}</div>
+                                    <div class="info-layout-item" style="font-style: italic;">{window_.options.layoutInfo?.fileName}</div>
+                                    <div class="info-layout-item" style="font-style: italic;">{window_.options.layoutInfo?.fileSize}</div>
+                                </div>
                             </div>
                             <div style="min-height: 30px;"></div>
                             <div
@@ -166,25 +178,32 @@
     }
 
     .info-container {
-        display: none;
+        display: block;
+        /* display: none; */
         position: absolute;
         padding: 5px;
         top: 30px;
         left: 17px;
-        min-width: 200px;
+        max-width: 180px;
         background-color: #e4e4e4;
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
         cursor: default;
     }
 
-    .info-label {
-        font-style: italic;
+    .info-layout-container {
+        display: flex;
     }
 
-    .info-item {
+    .info-layout-column {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 50%;
+    }
+
+    .info-layout-item {
+        display: flex;
+        width: 100%;
     }
 
     /* to add padding without affecting .info-container's border/box shadow */
