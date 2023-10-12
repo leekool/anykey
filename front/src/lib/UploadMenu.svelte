@@ -1,23 +1,21 @@
 <script lang="ts">
     export let file: File;
-    export let fileName: string = "";
-    export let fileSize: string = "";
+    export let fileName: string, fileSize: string = "";
     export let mergeLayers: boolean = false;
 
     let mergeLayersSelected: boolean = false;
 
-    const fileSizeKb = (file: File) => {
-        var i = Math.floor(Math.log(file.size) / Math.log(1024));
-        return `${parseFloat((file.size / Math.pow(1024, i)).toFixed(1))}kB`;
+    const fileSizeKb = (file: File): string => {
+        const i = Math.floor(Math.log(file.size) / Math.log(1024));
+        return parseFloat((file.size / Math.pow(1024, i)).toFixed(1)) + "kB";
     };
 
-    const onFileSelected = (e: { currentTarget: HTMLInputElement }) => {
+    const onFileSelected = (e: { currentTarget: HTMLInputElement }): void => {
         if (!e.currentTarget.files) return;
 
         file = e.currentTarget.files[0];
         fileName = file.name;
         fileSize = fileSizeKb(file);
-        console.log(file);
     };
 </script>
 
