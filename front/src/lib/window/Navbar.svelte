@@ -19,16 +19,8 @@
             >
                 {#if window_.options.focused}
                     <div class="info-container">
+
                         {#if window_.options.type?.includes("layout")}
-                            <!-- <div class="info-item"> -->
-                            <!--     <span>board:</span><span class="info-label">{window_.options.layoutInfo?.name}</span> -->
-                            <!-- </div> -->
-                            <!-- <div class="info-item"> -->
-                            <!--     <span>file:</span><span class="info-label">{window_.options.layoutInfo?.fileName}</span> -->
-                            <!-- </div> -->
-                            <!-- <div class="info-item"> -->
-                            <!--     <span>size:</span><span class="info-label">{window_.options.layoutInfo?.fileSize}</span> -->
-                            <!-- </div> -->
                             <div class="info-layout-container">
                                 <div class="info-layout-column" style="width: 35%;">
                                     <div class="info-layout-item">board:</div>
@@ -48,9 +40,10 @@
                                     window_.screenshotCanvas();
                                 }}
                             >
-                                download
+                                <div class="download-btn-icon" />
                             </div>
                         {/if}
+
                     </div>
                 {/if}
             </div>
@@ -222,17 +215,26 @@
         display: flex;
         position: absolute;
         height: 27px;
+        aspect-ratio: 1 / 1;
         right: 6px;
         bottom: 6px;
-        padding: 2px 8px;
+        align-items: center;
+        justify-content: center;
         font-family: "Tamzen", sans-serif;
         font-size: 15px;
-        align-items: center;
         background-color: #e0e0e0;
         box-sizing: border-box;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
         cursor: pointer;
         z-index: 10 !important;
+    }
+
+    /* maybe make it a floppy disc or something */
+    .download-btn-icon {
+        height: 70%;
+        width: 70%;
+        content: url("images/left-arrow.svg");
+        transform: rotate(270deg);
     }
 
     .download-btn:hover {
