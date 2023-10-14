@@ -171,8 +171,8 @@
     }
 
     .info-container {
-        display: block;
-        /* display: none; */
+        /* display: block; */
+        display: none;
         position: absolute;
         padding: 5px;
         top: 30px;
@@ -229,14 +229,6 @@
         z-index: 10 !important;
     }
 
-    /* maybe make it a floppy disc or something */
-    .download-btn-icon {
-        height: 70%;
-        width: 70%;
-        content: url("images/left-arrow.svg");
-        transform: rotate(270deg);
-    }
-
     .download-btn:hover {
         box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
     }
@@ -245,6 +237,15 @@
         user-select: none;
         cursor: pointer;
     }
+
+    /* maybe make it a floppy disc or something */
+    .download-btn-icon {
+        height: 70%;
+        width: 70%;
+        content: url("images/left-arrow.svg");
+        transform: rotate(270deg);
+    }
+
 
     .inactive {
         border-color: #d0d0d0 #a7a7a7 #a7a7a7 #d0d0d0;
