@@ -39,10 +39,8 @@
 
         const prevPos = $windowStore[window_.id - 1].position as DOMRect;
 
-        window_.position.top =
-            prevPos.top + (window_.position.height! - prevPos.height) / 2 + 20;
-        window_.position.left =
-            prevPos.left + (window_.position.width! - prevPos.width) / 2 + 20;
+        window_.position.top = prevPos.top + (window_.position.height! - prevPos.height) / 2 + 20;
+        window_.position.left = prevPos.left + (window_.position.width! - prevPos.width) / 2 + 20;
 
         const top = window_.position.top - window.innerHeight / 2;
         const left = window_.position.left - window.innerWidth / 2;
@@ -73,7 +71,6 @@
         if (moving) {
             dragLeft += e.movementX;
             dragTop += e.movementY;
-            console.log(dragLeft, dragTop);
         }
     };
     // -----
@@ -90,49 +87,27 @@
 
     /* trigger svelte state management
        there has to be a way to not have to do this */
-    $: $windowStore, (window_ = window_);
+    $: $windowStore, window_ = window_;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- for now only the main window is draggable (working on it) -->
-{#if window_.options.type?.includes("main")}
-    <section style="left: {dragLeft}px; top: {dragTop}px;" class="draggable">
-        <div
-            bind:this={windowElement}
-            class={window_.options.type}
-            class:minimised={window_.options.minimised}
-            class:maximised={window_.options.maximised}
-            class:focused={window_.options.focused}
-            class:inactive={!window_.options.focused}
-            style={offsetStyle}
-            on:click={() => windowClick()}
-        >
-            <div class="main pixel-corners">
-                <div on:mousedown={dragMouseDown}>
-                    <Navbar {window_} />
-                </div>
-
-                <div class="content">
-                    <slot />
-                </div>
-
-                <Footer {window_} />
-            </div>
-        </div>
-    </section>
-{:else}
+<section 
+    class="draggable"
+    class:focused={window_.options.focused}
+    style="left: {dragLeft}px; top: {dragTop}px;"
+>
     <div
         bind:this={windowElement}
         class={window_.options.type}
         class:minimised={window_.options.minimised}
         class:maximised={window_.options.maximised}
-        class:focused={window_.options.focused}
-        class:inactive={!window_.options.focused}
         style={offsetStyle}
         on:click={() => windowClick()}
     >
         <div class="main pixel-corners">
-            <Navbar {window_} />
+            <div on:mousedown={dragMouseDown}>
+                <Navbar {window_} />
+            </div>
 
             <div class="content">
                 <slot />
@@ -141,7 +116,7 @@
             <Footer {window_} />
         </div>
     </div>
-{/if}
+</section>
 
 <svelte:window on:mouseup={dragMouseUp} on:mousemove={dragMouseMove} />
 
@@ -195,14 +170,14 @@
 
     .window-main {
         display: flex;
-        flex: 1 1 auto;
+        flex: 1 0 auto;
         position: absolute;
         /* top: 50%; */
         /* left: 50%; */
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         min-height: 300px;
-        min-width: 438px;
+        max-width: 438px;
         width: 80%;
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
         z-index: 5;
@@ -210,7 +185,7 @@
 
     .window-layout {
         display: flex;
-        flex: 1 1 auto;
+        flex: 1 0 auto;
         position: absolute;
         /* top: 50%; */
         /* left: 50%; */
@@ -223,9 +198,16 @@
 
     .draggable {
         position: absolute;
+        height: 100%;
+        width: 100%;
         top: 50%;
         left: 50%;
-        /* user-select: none; */
-        /* cursor: move; */
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    .draggable > * {
+        pointer-events: auto;
     }
 </style>
