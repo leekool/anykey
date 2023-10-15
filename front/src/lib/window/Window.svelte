@@ -159,7 +159,6 @@
         font-family: "Tamzen", sans-serif;
         background-color: #d5d5d5;
         min-height: 100%;
-        min-width: 434px;
     }
 
     .minimised {
@@ -203,8 +202,8 @@
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         min-height: 300px;
+        min-width: 438px;
         width: 80%;
-        max-width: 500px;
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
         z-index: 5;
     }
