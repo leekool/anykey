@@ -64,8 +64,12 @@
     let dragTop: number;
     let moving = false;
 
-    const dragMouseDown = () => (moving = true);
-    const dragMouseUp = () => (moving = false);
+    const dragMouseDown = () => {
+        moving = true;
+        windowClick();
+    };
+
+    const dragMouseUp = () => moving = false;
 
     const dragMouseMove = (e: MouseEvent) => {
         if (moving) {
