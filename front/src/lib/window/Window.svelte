@@ -45,10 +45,9 @@
         const top = window_.position.top - window.innerHeight / 2;
         const left = window_.position.left - window.innerWidth / 2;
 
-        console.log("window: ", window_.position, prevPos)
-
+        // this maths isn't right but it's close
         dragTop = window.innerHeight / 2 + (window_.position.height! / 2) + 20;
-        dragLeft = window.innerWidth / 2 + (window_.position.width! / 2) + 20;
+        dragLeft = window.innerWidth / 2 + (window_.position.width! / 2);
 
         return `top: calc(50% + ${top}px); left: calc(50% + ${left}px);`;
     };
