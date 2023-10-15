@@ -8,7 +8,6 @@
     } from "./WindowStore";
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
-    import Draggable from "../Draggable.svelte";
 
     export let name: string;
     export let options: Options = {};
@@ -16,14 +15,13 @@
     let windowElement: HTMLElement;
     let window_: Window = createWindow(name, options);
 
-    let dragLeft: number;
-    let dragTop: number;
+    let offsetStyle: string = "top: 50%; left: 50%;";
 
     // it's not ideal that this depends on window_.id
     const getOffsetStyle = (): string => {
         const windowRect: any = windowElement.getBoundingClientRect();
 
-        // deep copy windowRect
+        // deep copy windowRect, maybe lodash time
         window_.position = {
             x: windowRect.x,
             y: windowRect.y,
@@ -34,8 +32,8 @@
         };
 
         if (window_.id <= 1) {
-            window_.position.top, (dragTop = window.innerHeight / 2);
-            window_.position.left, (dragLeft = window.innerWidth / 2);
+            window_.position.top, dragTop = window.innerHeight / 2;
+            window_.position.left, dragLeft = window.innerWidth / 2;
             return `top: 50%; left: 50%;`;
         }
 
@@ -55,12 +53,6 @@
         return `top: calc(50% + ${top}px); left: calc(50% + ${left}px);`;
     };
 
-    let offsetStyle: string = "top: 50%; left: 50%;";
-
-    /* trigger svelte state management
-       there has to be a way to not have to do this */
-    $: $windowStore, (window_ = window_);
-
     const windowClick = () => {
         if (window_.options.focused || window_.options.minimised) return;
 
@@ -68,6 +60,23 @@
 
         $windowStore = $windowStore;
     };
+
+    // draggable navbar functions
+    let dragLeft: number;
+    let dragTop: number;
+    let moving = false;
+
+    const dragMouseDown = () => (moving = true);
+    const dragMouseUp = () => (moving = false);
+
+    const dragMouseMove = (e: MouseEvent) => {
+        if (moving) {
+            dragLeft += e.movementX;
+            dragTop += e.movementY;
+            console.log(dragLeft, dragTop);
+        }
+    };
+    // -----
 
     onMount(async () => {
         for (let window of $windowStore) {
@@ -78,12 +87,16 @@
 
         $windowStore = $windowStore; // trigger svelte state management
     });
+
+    /* trigger svelte state management
+       there has to be a way to not have to do this */
+    $: $windowStore, (window_ = window_);
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- for now only the main window is draggable (working on layouts) -->
+<!-- for now only the main window is draggable (working on it) -->
 {#if window_.options.type?.includes("main")}
-    <Draggable bind:dragLeft bind:dragTop>
+    <section style="left: {dragLeft}px; top: {dragTop}px;" class="draggable">
         <div
             bind:this={windowElement}
             class={window_.options.type}
@@ -95,7 +108,9 @@
             on:click={() => windowClick()}
         >
             <div class="main pixel-corners">
-                <Navbar {window_} />
+                <div on:mousedown={dragMouseDown}>
+                    <Navbar {window_} />
+                </div>
 
                 <div class="content">
                     <slot />
@@ -104,7 +119,7 @@
                 <Footer {window_} />
             </div>
         </div>
-    </Draggable>
+    </section>
 {:else}
     <div
         bind:this={windowElement}
@@ -127,6 +142,8 @@
         </div>
     </div>
 {/if}
+
+<svelte:window on:mouseup={dragMouseUp} on:mousemove={dragMouseMove} />
 
 <style>
     @import url("../../../static/pixel-corners.css");
@@ -203,5 +220,13 @@
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
         max-height: 80%;
         z-index: 5;
+    }
+
+    .draggable {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /* user-select: none; */
+        /* cursor: move; */
     }
 </style>
