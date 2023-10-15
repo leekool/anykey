@@ -34,7 +34,6 @@
         if (window_.id <= 1) {
             window_.position.top, dragTop = window.innerHeight / 2;
             window_.position.left, dragLeft = window.innerWidth / 2;
-            console.log("window2: ", window_.position)
             return `top: 50%; left: 50%;`;
         }
 
@@ -46,10 +45,10 @@
         const top = window_.position.top - window.innerHeight / 2;
         const left = window_.position.left - window.innerWidth / 2;
 
-        dragTop = top;
-        dragLeft = left;
+        console.log("window: ", window_.position, prevPos)
 
-        console.log("window: ", window_.position)
+        dragTop = window.innerHeight / 2 + (window_.position.height! / 2) + 20;
+        dragLeft = window.innerWidth / 2 + (window_.position.width! / 2) + 20;
 
         return `top: calc(50% + ${top}px); left: calc(50% + ${left}px);`;
     };
@@ -78,6 +77,8 @@
         if (moving) {
             dragLeft += e.movementX;
             dragTop += e.movementY;
+
+            // offsetStyle = `top: ${dragTop}; left: ${dragLeft};`;
         }
     };
     // -----
