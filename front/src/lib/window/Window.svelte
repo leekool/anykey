@@ -8,12 +8,16 @@
     } from "./WindowStore";
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
+    import Draggable from "../Draggable.svelte";
 
     export let name: string;
     export let options: Options = {};
-    let windowElement: HTMLElement;
 
+    let windowElement: HTMLElement;
     let window_: Window = createWindow(name, options);
+
+    let dragLeft: number;
+    let dragTop: number;
 
     // it's not ideal that this depends on window_.id
     const getOffsetStyle = (): string => {
@@ -30,8 +34,8 @@
         };
 
         if (window_.id <= 1) {
-            window_.position.top = window.innerHeight / 2;
-            window_.position.left = window.innerWidth / 2;
+            window_.position.top, (dragTop = window.innerHeight / 2);
+            window_.position.left, (dragLeft = window.innerWidth / 2);
             return `top: 50%; left: 50%;`;
         }
 
@@ -45,13 +49,16 @@
         const top = window_.position.top - window.innerHeight / 2;
         const left = window_.position.left - window.innerWidth / 2;
 
+        dragTop = top;
+        dragLeft = left;
+
         return `top: calc(50% + ${top}px); left: calc(50% + ${left}px);`;
     };
 
     let offsetStyle: string = "top: 50%; left: 50%;";
 
     /* trigger svelte state management
-       i hate how we have to do this */
+       there has to be a way to not have to do this */
     $: $windowStore, (window_ = window_);
 
     const windowClick = () => {
@@ -74,26 +81,52 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div
-    bind:this={windowElement}
-    class={window_.options.type}
-    class:minimised={window_.options.minimised}
-    class:maximised={window_.options.maximised}
-    class:focused={window_.options.focused}
-    class:inactive={!window_.options.focused}
-    style={offsetStyle}
-    on:click={() => windowClick()}
->
-    <div class="main pixel-corners">
-        <Navbar {window_} />
+<!-- for now only the main window is draggable (working on layouts) -->
+{#if window_.options.type?.includes("main")}
+    <Draggable bind:dragLeft bind:dragTop>
+        <div
+            bind:this={windowElement}
+            class={window_.options.type}
+            class:minimised={window_.options.minimised}
+            class:maximised={window_.options.maximised}
+            class:focused={window_.options.focused}
+            class:inactive={!window_.options.focused}
+            style={offsetStyle}
+            on:click={() => windowClick()}
+        >
+            <div class="main pixel-corners">
+                <Navbar {window_} />
 
-        <div class="content">
-            <slot />
+                <div class="content">
+                    <slot />
+                </div>
+
+                <Footer {window_} />
+            </div>
         </div>
+    </Draggable>
+{:else}
+    <div
+        bind:this={windowElement}
+        class={window_.options.type}
+        class:minimised={window_.options.minimised}
+        class:maximised={window_.options.maximised}
+        class:focused={window_.options.focused}
+        class:inactive={!window_.options.focused}
+        style={offsetStyle}
+        on:click={() => windowClick()}
+    >
+        <div class="main pixel-corners">
+            <Navbar {window_} />
 
-        <Footer {window_} />
+            <div class="content">
+                <slot />
+            </div>
+
+            <Footer {window_} />
+        </div>
     </div>
-</div>
+{/if}
 
 <style>
     @import url("../../../static/pixel-corners.css");
@@ -104,11 +137,12 @@
 
     .main {
         display: flex;
-        flex: 1 1 auto;
+        flex: 1 0 auto;
         flex-direction: column;
         font-family: "Tamzen", sans-serif;
         background-color: #d5d5d5;
         min-height: 100%;
+        min-width: 434px;
     }
 
     .minimised {
