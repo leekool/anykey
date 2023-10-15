@@ -34,6 +34,7 @@
         if (window_.id <= 1) {
             window_.position.top, dragTop = window.innerHeight / 2;
             window_.position.left, dragLeft = window.innerWidth / 2;
+            console.log("window2: ", window_.position)
             return `top: 50%; left: 50%;`;
         }
 
@@ -47,6 +48,8 @@
 
         dragTop = top;
         dragLeft = left;
+
+        console.log("window: ", window_.position)
 
         return `top: calc(50% + ${top}px); left: calc(50% + ${left}px);`;
     };
@@ -96,7 +99,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <section 
-    class="draggable"
+    class:draggable={!window_.options.maximised}
     class:focused={window_.options.focused}
     style="left: {dragLeft}px; top: {dragTop}px;"
 >
