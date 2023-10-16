@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Window, windowStore } from "./WindowStore";
+    import { Window, windowStore, killWindow } from "./WindowStore";
 
     export let window_: Window;
 </script>
@@ -52,7 +52,20 @@
 
     <div class="navbar-bg" />
 
-    <!-- maximise button (left) -->
+    <!-- minimise button (left) -->
+    {#if window_.options.navbarMinimise}
+        <div class="navbar-btn-base">
+            <div
+                class="navbar-btn-inner minimise-btn"
+                on:click={() => {
+                    window_.toggleMinimise($windowStore);
+                    $windowStore = $windowStore; // tells svelte object changed
+                }}
+            />
+        </div>
+    {/if}
+
+    <!-- maximise button (centre) -->
     {#if window_.options.navbarMaximise}
         <div class="navbar-btn-base">
             <div
@@ -65,13 +78,13 @@
         </div>
     {/if}
 
-    <!-- minimise button (right) -->
-    {#if window_.options.navbarMinimise}
+    <!-- close button (right) -->
+    {#if window_.options.navbarClose}
         <div class="navbar-btn-base">
             <div
-                class="navbar-btn-inner minimise-btn"
+                class="navbar-btn-inner close-btn"
                 on:click={() => {
-                    window_.toggleMinimise($windowStore);
+                    killWindow(window_);
                     $windowStore = $windowStore; // tells svelte object changed
                 }}
             />

@@ -93,6 +93,7 @@
         options={{ 
             type: "window-layout", 
             navbarMaximise: true, 
+            navbarClose: true, 
             navbarInfo: true, 
             layoutInfo: {
                 svg: layout,
@@ -118,10 +119,11 @@
 
     .bottom-container {
         display: flex;
+        min-height: 40px;
+        max-width: 100%;
         justify-content: space-between;
         align-items: center;
         box-sizing: border-box;
-        min-height: 40px;
         margin: 2px 10px;
         font-weight: bold;
     }
@@ -162,9 +164,13 @@
     }
 
     .info {
-        width: 90%;
+        max-width: 90%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         line-height: 28px;
         padding-left: 5px;
+        margin-right: 2px;
     }
 
     .map-svg {

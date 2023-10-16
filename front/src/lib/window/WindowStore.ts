@@ -10,6 +10,7 @@ export interface Options {
     type?: string,
     navbarMaximise?: boolean,
     navbarMinimise?: boolean
+    navbarClose?: boolean,
     navbarInfo?: boolean,
     layoutInfo?: LayoutInfo
 }
@@ -26,14 +27,7 @@ export class Window {
     name: string;
     icon: string;
     id: number;
-    position?: Partial<{ -readonly [K in keyof DOMRect]: DOMRect[K] }> = {
-        // x: 0,
-        // y: 0,
-        // width: 0,
-        // height: 0,
-        // top: 50,
-        // left: 50
-    };
+    position?: Partial<{ -readonly [K in keyof DOMRect]: DOMRect[K] }>;
 
     options: Options = {
         focused: true,
@@ -42,6 +36,7 @@ export class Window {
         type: 'window-main',
         navbarMaximise: false,
         navbarMinimise: true,
+        navbarClose: false,
         navbarInfo: false,
         layoutInfo: {
             svg: '',
@@ -135,8 +130,8 @@ export class Window {
         return null;
     }
 
-    downloadData(blob: Blob, name: string){
-        var a = document.createElement('a');
+    downloadData(blob: Blob, name: string) {
+        let a = document.createElement("a");
         document.body.append(a);
         a.download = name;
         a.href = URL.createObjectURL(blob);
@@ -151,6 +146,12 @@ export function createWindow(name: string, options?: Options) {
     windowStore.update((store) => [...store, window]);
 
     return window;
+}
+
+export function killWindow(window: Window) {
+    windowStore.update((store) => {
+        return store.filter(x => x.id !== window.id);
+    });
 }
 
 export const windowStore = writable<Window[]>([]);
