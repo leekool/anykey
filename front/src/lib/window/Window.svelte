@@ -15,10 +15,8 @@
     let windowElement: HTMLElement;
     let window_: Window = createWindow(name, options);
 
-    let offsetStyle: string = "top: 50%; left: 50%;";
-
     // it's not ideal that this depends on window_.id
-    const getOffsetStyle = (): string => {
+    const getOffsetStyle = (): string | void => {
         const windowRect: any = windowElement.getBoundingClientRect();
 
         // deep copy windowRect, maybe lodash time
@@ -28,13 +26,13 @@
             width: windowRect.width,
             height: windowRect.height,
             top: windowRect.top,
-            left: windowRect.left,
+            left: windowRect.left
         };
 
         if (window_.id <= 1) {
             window_.position.top = window.innerHeight / 2;
             window_.position.left = window.innerWidth / 2;
-            return `top: 50%; left: 50%;`;
+            return;
         }
 
         const prevPos = $windowStore[window_.id - 1].position as DOMRect;
@@ -42,10 +40,8 @@
         window_.position.top = prevPos.top + (window_.position.height! - prevPos.height) / 2 + 20;
         window_.position.left = prevPos.left + (window_.position.width! - prevPos.width) / 2 + 20;
 
-        const top = window_.position.top - window.innerHeight / 2;
-        const left = window_.position.left - window.innerWidth / 2;
-
-        return `top: calc(50% + ${top}px); left: calc(50% + ${left}px);`;
+        dragTop = (window_.position.top / window.innerHeight) * 100;
+        dragLeft = (window_.position.left / window.innerWidth) * 100;
     };
 
     const windowClick = () => {
@@ -57,6 +53,7 @@
     };
 
     // draggable navbar functions
+    let dragTop = 50, dragLeft = 50 // start centred;
     let moving = false;
 
     const dragMouseDown = () => {
@@ -68,18 +65,18 @@
 
     const dragMouseMove = (e: MouseEvent) => {
         if (moving) {
-            window_.position!.left! += e.movementX;
-            window_.position!.top! += e.movementY;
+            dragTop = ((window_.position!.top! += e.movementY) / window.innerHeight) * 100;
+            dragLeft = ((window_.position!.left! += e.movementX) / window.innerWidth) * 100;
         }
     };
     // -----
 
     onMount(async () => {
-        for (let window of $windowStore) {
-            if (window_.name == name) window.getFocus($windowStore);
-        }
+        getOffsetStyle();
 
-        offsetStyle = getOffsetStyle();
+        for (let window of $windowStore) {
+            if (window_.name === name) window.getFocus($windowStore);
+        }
 
         $windowStore = $windowStore; // trigger svelte state management
     });
@@ -90,32 +87,28 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<section 
+<div
+    bind:this={windowElement}
+    class={window_.options.type}
+    class:minimised={window_.options.minimised}
+    class:maximised={window_.options.maximised}
     class:draggable={!window_.options.maximised}
     class:focused={window_.options.focused}
-    style="left: {window_.position?.left}px; top: {window_.position?.top}px;"
+    style="left: {dragLeft}%; top: {dragTop}%;"
+    on:click={() => windowClick()}
 >
-    <div
-        bind:this={windowElement}
-        class={window_.options.type}
-        class:minimised={window_.options.minimised}
-        class:maximised={window_.options.maximised}
-        style={offsetStyle}
-        on:click={() => windowClick()}
-    >
-        <div class="main pixel-corners">
-            <div on:mousedown={dragMouseDown}>
-                <Navbar {window_} />
-            </div>
-
-            <div class="content">
-                <slot />
-            </div>
-
-            <Footer {window_} />
+    <div class="main pixel-corners">
+        <div on:mousedown={dragMouseDown}>
+            <Navbar {window_} />
         </div>
+
+        <div class="content">
+            <slot />
+        </div>
+
+        <Footer {window_} />
     </div>
-</section>
+</div>
 
 <svelte:window on:mouseup={dragMouseUp} on:mousemove={dragMouseMove} />
 
@@ -197,12 +190,12 @@
 
     .draggable {
         position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+        /* height: 100%; */
+        /* width: 100%; */
+        /* top: 50%; */
+        /* left: 50%; */
+        /* -ms-transform: translate(-50%, -50%); */
+        /* transform: translate(-50%, -50%); */
         pointer-events: none;
     }
 

@@ -26,7 +26,14 @@ export class Window {
     name: string;
     icon: string;
     id: number;
-    position?: Partial<{ -readonly [K in keyof DOMRect]: DOMRect[K] }>;
+    position?: Partial<{ -readonly [K in keyof DOMRect]: DOMRect[K] }> = {
+        // x: 0,
+        // y: 0,
+        // width: 0,
+        // height: 0,
+        // top: 50,
+        // left: 50
+    };
 
     options: Options = {
         focused: true,
