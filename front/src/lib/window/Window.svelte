@@ -32,8 +32,8 @@
         };
 
         if (window_.id <= 1) {
-            window_.position.top, dragTop = window.innerHeight / 2;
-            window_.position.left, dragLeft = window.innerWidth / 2;
+            window_.position.top = window.innerHeight / 2;
+            window_.position.left = window.innerWidth / 2;
             return `top: 50%; left: 50%;`;
         }
 
@@ -44,10 +44,6 @@
 
         const top = window_.position.top - window.innerHeight / 2;
         const left = window_.position.left - window.innerWidth / 2;
-
-        // this maths isn't right but it's close
-        dragTop = window.innerHeight / 2 + (window_.position.height! / 2) + 20;
-        dragLeft = window.innerWidth / 2 + (window_.position.width! / 2);
 
         return `top: calc(50% + ${top}px); left: calc(50% + ${left}px);`;
     };
@@ -61,8 +57,6 @@
     };
 
     // draggable navbar functions
-    let dragLeft: number;
-    let dragTop: number;
     let moving = false;
 
     const dragMouseDown = () => {
@@ -74,10 +68,8 @@
 
     const dragMouseMove = (e: MouseEvent) => {
         if (moving) {
-            dragLeft += e.movementX;
-            dragTop += e.movementY;
-
-            // offsetStyle = `top: ${dragTop}; left: ${dragLeft};`;
+            window_.position!.left! += e.movementX;
+            window_.position!.top! += e.movementY;
         }
     };
     // -----
@@ -101,7 +93,7 @@
 <section 
     class:draggable={!window_.options.maximised}
     class:focused={window_.options.focused}
-    style="left: {dragLeft}px; top: {dragTop}px;"
+    style="left: {window_.position?.left}px; top: {window_.position?.top}px;"
 >
     <div
         bind:this={windowElement}
