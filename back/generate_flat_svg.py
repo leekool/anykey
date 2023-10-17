@@ -1,4 +1,5 @@
 import json
+import uuid
 
 class KeyboardCap:
     def __init__(self, pos_x, pos_y, key_h, key_w, key_r, inner_pos_x, inner_pos_y, inner_key_h, inner_key_w, key_text_x, key_text_y, key_text_r, coord_multiplier):
@@ -29,29 +30,32 @@ def get_flat_keymap_svg(mapPath, fullLayout):
     svg_w = 0
     svg_h = 0
 
+    ## SVG Keycap dimensions
     kCap = KeyboardCap(10, 10, 60, 60, 0, 10, 10, 96, 96, 35, 35, 0, 60)
 
     with open('layout.svg', 'w') as file:
+        # we add the x because an ID needs to start with a letter
+        mapNameId = 'x' + uuid.uuid4().hex
         coords = getKeyboardCoords(mapPath)
 
         largest_x = max(coords, key=lambda x: x['x'])['x']
         largest_y = max(coords, key=lambda x: x['y'])['y']
         svg_w = ((largest_x) * kCap.coord_multiplier) + kCap.key_w
         svg_h = largest_y * kCap.coord_multiplier + (kCap.key_h * 2)
-        key_text_layer_x = [2.75, 20, 20, 3]
-        key_text_layer_y = [2.75, 5, 1.5, 1.155]
-        key_text_layer_alignment = ['dominant-baseline="middle" text-anchor="middle"','','','dominant-baseline="middle" text-anchor="middle"']
-        key_text_layer_cmyk = ['black','cyan','magenta','yellow']
+        key_text_layer_x = [2.75, 20, 20, 1.75, 1.75, 2.75]
+        key_text_layer_y = [2.75, 5, 1.5, 1.6, 5, 1.2]
+        key_text_layer_alignment = ['dominant-baseline="middle" text-anchor="middle"','','','dominant-baseline="right" text-anchor="right"', 'dominant-baseline="right" text-anchor="right"', 'dominant-baseline="middle" text-anchor="middle"']
+        key_text_layer_cmyk = ['black','cyan','magenta','yellow', 'red', 'green']
         
-        svg_string = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg">'
-
-        svg_string += '<style>svg {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
+        svg_string = '<svg viewBox="0 0 ' + str(svg_w) + ' ' + str(svg_h) + '" preserveAspectRatio="xMidYMid meet" version="1.1" xmlns="http://www.w3.org/2000/svg" id="{0}">'.format(
+            mapNameId)
+        svg_string += '<style>#' + mapNameId + ' {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
         svg_string += """
                     rect {transform-origin: center; transform-box: fill-box;}'
                     text {transform-origin: center; transform-box: fill-box;}
-                    .key-base {stroke: black; fill: #E0CFB3; stroke-width=1;}
-                    .key-cap {stroke: #9E9483; fill: #E1D6C3; stroke-width=0.5;}
-                    .key-text {fill=black; pointer-events: none;}
+                    .key-base {stroke: black; fill: #e3e3e3; stroke-width=1;}
+                    .key-cap {stroke: #b5b5b5; fill: #ebebeb; stroke-width=0.5;}
+                    .key-text {fill: black; pointer-events: none;}
                 </style>"""
         svg_string += '<rect fill="transparent" />'
 
@@ -66,8 +70,12 @@ def get_flat_keymap_svg(mapPath, fullLayout):
 
         for index, layer in enumerate(fullLayout):
             for idx, key_cap in enumerate(layer['keys']):
+                print_key = checkIfKeyOnPreviousLayerIsTheSame(key_cap, kCap, level, index, idx, fullLayout)
                 determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, key_text_layer_alignment, index)
                 fontSize = '12' if len(key_cap) > 2 else '14'
+                if (print_key):
+                    print('excluding:' + key_cap)
+                    key_cap = ''
                 svg_string += '<text class="key-text" {0} font-size="{1}" stroke="{2}" stroke-width="0.3" transform="translate({3}, {4}) rotate({5})">{6}</text>'.format(kCap.baseline_text, fontSize, key_text_layer_cmyk[index], kCap.key_text_x, kCap.key_text_y, kCap.key_text_r, key_cap)
 
                 resetKey(kCap)
@@ -108,3 +116,9 @@ def determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_l
         kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / key_text_layer_y[index]
         kCap.key_text_r = kCap.key_r
         kCap.baseline_text = key_text_layer_alignment[index]
+
+def checkIfKeyOnPreviousLayerIsTheSame(key_cap, kCap, level, index, idx, fullLayout):
+    if (index > 0 and (key_cap == fullLayout[index - 1]['keys'][idx] or key_cap == "")):
+        return True
+    else:
+        return False

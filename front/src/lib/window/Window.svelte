@@ -126,7 +126,6 @@
         font-family: "Tamzen", sans-serif;
         background-color: #d5d5d5;
         min-height: 100%;
-        max-width: 434px;
     }
 
     .minimised {
