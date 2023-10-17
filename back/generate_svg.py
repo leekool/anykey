@@ -57,8 +57,8 @@ def get_keymap_svg(mapPath, fullLayout):
         svg_string += """
                     rect {transform-origin: center; transform-box: fill-box;}'
                     text {transform-origin: center; transform-box: fill-box;}
-                    .key-base {stroke: black; fill: #E0CFB3; stroke-width=1;}
-                    .key-cap {stroke: #9E9483; fill: #E1D6C3; stroke-width=0.5;}
+                    .key-base {stroke: black; fill: #e3e3e3; stroke-width=1;}
+                    .key-cap {stroke: #b5b5b5; fill: #ebebeb; stroke-width=0.5;}
                     .key-text {fill=black; pointer-events: none;}
                 </style>"""
         svg_string += '<rect fill="transparent" />'
