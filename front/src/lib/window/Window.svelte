@@ -12,12 +12,12 @@
     export let name: string;
     export let options: Options = {};
 
-    let windowElement: HTMLElement;
+    let windowElement: Node;
     let window_: Window = createWindow(name, options);
 
     // it's not ideal that this depends on window_.id
     const getOffsetStyle = (): string | void => {
-        const windowRect: any = windowElement.getBoundingClientRect();
+        const windowRect: any = (windowElement as HTMLElement).getBoundingClientRect();
 
         // deep copy windowRect, maybe lodash time
         window_.position = {
@@ -72,6 +72,8 @@
     // -----
 
     onMount(async () => {
+        window_.element = windowElement;
+
         getOffsetStyle();
 
         for (let window of $windowStore) {

@@ -27,6 +27,7 @@ export class Window {
     name: string;
     icon: string;
     id: number;
+    element: Node = (null as any) as Node;
     position?: Partial<{ -readonly [K in keyof DOMRect]: DOMRect[K] }>;
 
     options: Options = {
@@ -152,6 +153,8 @@ export function killWindow(window: Window) {
     windowStore.update((store) => {
         return store.filter(x => x.id !== window.id);
     });
+
+    window.element.parentNode?.removeChild(window.element);
 }
 
 export const windowStore = writable<Window[]>([]);
