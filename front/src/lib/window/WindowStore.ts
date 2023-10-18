@@ -29,7 +29,7 @@ export class Window {
     id: number;
     element: Node = (null as any) as Node;
     position?: Partial<{ -readonly [K in keyof DOMRect]: DOMRect[K] }>;
-
+    // position: { top: number, left: number, height: number, width: number };
     options: Options = {
         focused: true,
         minimised: false,
@@ -54,7 +54,7 @@ export class Window {
         this.name = name;
         this.icon = (this.options.type?.includes('layout')) ? 'keymap-icon.png' : name + '-icon.png';
 
-        this.id = count;
+        this.id = count; // simple ID system for now
         count++
     }
 

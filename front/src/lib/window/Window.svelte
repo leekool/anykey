@@ -3,8 +3,8 @@
     import {
         windowStore,
         createWindow,
-        type Window,
         type Options,
+        type Window,
     } from "./WindowStore";
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
@@ -12,31 +12,23 @@
     export let name: string;
     export let options: Options = {};
 
-    let windowElement: Node;
     let window_: Window = createWindow(name, options);
 
     const getOffsetStyle = (): string | void => {
-        const windowRect: any = (windowElement as HTMLElement).getBoundingClientRect();
+        const getPosition = (e: HTMLElement) => {
+            const { height, width } = e.getBoundingClientRect();
+            return { height, width, top: window.innerHeight / 2, left: window.innerWidth / 2 };
+        }
+
+        window_.position = getPosition(window_.element as HTMLElement);
+
         const index = $windowStore.findIndex(w => w.id === window_.id);
-
-        // deep copy windowRect, maybe lodash time
-        window_.position = {
-            x: windowRect.x,
-            y: windowRect.y,
-            width: windowRect.width,
-            height: windowRect.height,
-            // top: windowRect.top,
-            // left: windowRect.left
-            top: window.innerHeight / 2,
-            left: window.innerWidth / 2
-        };
-
         if (index < 2) return; 
 
-        const prevPos = $windowStore[index - 1].position as DOMRect;
+        const prevPos = $windowStore[index - 1].position;
 
-        window_.position.top = prevPos.top + (window_.position.height! - prevPos.height) / 2 + 20;
-        window_.position.left = prevPos.left + (window_.position.width! - prevPos.width) / 2 + 20;
+        window_.position.top = prevPos!.top! + (window_.position.height! - prevPos!.height!) / 2 + 20;
+        window_.position.left = prevPos!.left! + (window_.position.width! - prevPos!.width!) / 2 + 20;
 
         dragTop = (window_.position.top / window.innerHeight) * 100;
         dragLeft = (window_.position.left / window.innerWidth) * 100;
@@ -70,8 +62,6 @@
     // -----
 
     onMount(async () => {
-        window_.element = windowElement;
-
         getOffsetStyle();
 
         for (let window of $windowStore) {
@@ -88,7 +78,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-    bind:this={windowElement}
+    bind:this={window_.element}
     class={window_.options.type}
     class:minimised={window_.options.minimised}
     class:maximised={window_.options.maximised}
