@@ -95,12 +95,12 @@ export class Window {
         }
     }
 
-    screenshotCanvas = async (): Promise<File | null> => {
+    async screenshotCanvas(): Promise<File | null> {
         const layout = this.options.layoutInfo?.svg;
         if (!layout) return null;
 
         // Get the id from the <svg> element
-        const svgId = layout.substring(layout.indexOf("id=") + 4, layout.indexOf("<style>") - 2)
+        const svgId = layout.substring(layout.indexOf("id=") + 4, layout.indexOf("<style>") - 2);
         const el: HTMLElement | null | undefined = document.getElementById(svgId)?.parentElement;
         const svgAssets = document.querySelectorAll('img');
         
@@ -112,7 +112,7 @@ export class Window {
                 imageTimeout: 0,
                 onclone: (doc) => {
                     svgAssets.forEach((asset) => {
-                        console.log('assets', asset, asset.width, asset.height)
+                        console.log('assets', asset, asset.width, asset.height);
                         const img = doc.createElement('img');
                         img.src = asset.src;
                         img.width = asset.width;
@@ -160,6 +160,10 @@ export function killWindow(window: Window) {
     });
 
     window.element.parentNode?.removeChild(window.element); // remove window from DOM
+}
+
+export function getNextWindow(window: Window) {
+
 }
 
 export const windowStore = writable<Window[]>([]);

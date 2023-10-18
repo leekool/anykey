@@ -15,9 +15,9 @@
     let windowElement: Node;
     let window_: Window = createWindow(name, options);
 
-    // it's not ideal that this depends on window_.id
     const getOffsetStyle = (): string | void => {
         const windowRect: any = (windowElement as HTMLElement).getBoundingClientRect();
+        const index = $windowStore.findIndex(w => w.id === window_.id);
 
         // deep copy windowRect, maybe lodash time
         window_.position = {
@@ -25,17 +25,15 @@
             y: windowRect.y,
             width: windowRect.width,
             height: windowRect.height,
-            top: windowRect.top,
-            left: windowRect.left
+            // top: windowRect.top,
+            // left: windowRect.left
+            top: window.innerHeight / 2,
+            left: window.innerWidth / 2
         };
 
-        if (window_.id <= 1) {
-            window_.position.top = window.innerHeight / 2;
-            window_.position.left = window.innerWidth / 2;
-            return;
-        }
+        if (index < 2) return; 
 
-        const prevPos = $windowStore[window_.id - 1].position as DOMRect;
+        const prevPos = $windowStore[index - 1].position as DOMRect;
 
         window_.position.top = prevPos.top + (window_.position.height! - prevPos.height) / 2 + 20;
         window_.position.left = prevPos.left + (window_.position.width! - prevPos.width) / 2 + 20;
