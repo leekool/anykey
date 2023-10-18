@@ -151,10 +151,8 @@ export function createWindow(name: string, options?: Options) {
 
 export function killWindow(window: Window) {
     windowStore.update((store) => {
-        store.forEach(w => {
-            if (w.id !== window.id - 1) return;
-            w.options.focused = true; // focus next window
-        });
+        const index = store.findIndex(w => w.id === window.id);
+        store[index - 1].options.focused = true; // focus next window
 
         return store.filter(w => w.id !== window.id); // remove window from store
     });
