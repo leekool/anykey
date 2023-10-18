@@ -151,10 +151,15 @@ export function createWindow(name: string, options?: Options) {
 
 export function killWindow(window: Window) {
     windowStore.update((store) => {
-        return store.filter(x => x.id !== window.id);
+        store.forEach(w => {
+            if (w.id !== window.id - 1) return;
+            w.options.focused = true; // focus next window
+        });
+
+        return store.filter(w => w.id !== window.id); // remove window from store
     });
 
-    window.element.parentNode?.removeChild(window.element);
+    window.element.parentNode?.removeChild(window.element); // remove window from DOM
 }
 
 export const windowStore = writable<Window[]>([]);
