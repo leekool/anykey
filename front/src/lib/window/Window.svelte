@@ -10,7 +10,7 @@
     import Footer from "./Footer.svelte";
 
     export let name: string;
-    export let options: Options = {};
+    export let options: Partial<Options> = {};
 
     let window_: Window = createWindow(name, options);
 

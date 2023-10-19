@@ -3,60 +3,31 @@ import html2canvas from "html2canvas";
 
 let count: number = 0;
 
-export interface Options {
-    focused?: boolean,
-    minimised?: boolean,
-    maximised?: boolean,
-    type?: string,
-    navbarMaximise?: boolean,
-    navbarMinimise?: boolean
-    navbarClose?: boolean,
-    navbarInfo?: boolean,
-    layoutInfo?: LayoutInfo
-}
-
-interface LayoutInfo {
-    svg: string,
-    name: string,
-    fileName: string,
-    filePath: string,
-    fileSize: string
-}
-
-export interface Position {
-    height: number,
-    width: number,
-    top: number,
-    left: number,
-    topPercent: number,
-    leftPercent: number
-}
-
-const defaultPosition: Position = {
-    height: 0,
-    width: 0,
-    top: 0,
-    left: 0,
-    topPercent: 50,
-    leftPercent: 50
-}
-
-const defaultOptions: Options = {
-    focused: true,
-    minimised: false,
-    maximised: false,
-    type: 'window-main',
-    navbarMaximise: false,
-    navbarMinimise: true,
-    navbarClose: false,
-    navbarInfo: false,
-    layoutInfo: {
-        svg: '',
-        name: '',
-        fileName: '',
-        filePath: '',
-        fileSize: ''
+export class Options {
+    focused = true;
+    minimised = false;
+    maximised = false;
+    type = "window-main";
+    navbarMaximise = false;
+    navbarMinimise = true;
+    navbarClose = false;
+    navbarInfo = false;
+    layoutInfo = {
+        name: "",
+        svg: "",
+        fileName: "",
+        filePath: "",
+        fileSize: ""
     }
+}
+
+export class Position {
+    height = 0;
+    width = 0;
+    top = 0;
+    left = 0;
+    topPercent = 50;
+    leftPercent = 50;
 }
 
 export class Window {
@@ -64,10 +35,11 @@ export class Window {
     icon: string;
     id: number;
     element: Node = (null as any) as Node;
-    position = defaultPosition;
-    options = defaultOptions;
+    position = new Position;
+    options = new Options;
 
-    constructor(name: string, options?: Options) {
+
+    constructor(name: string, options?: any) { // todo: fix any declaration
         this.options = { ...this.options, ...options };
 
         this.name = name;
@@ -160,7 +132,7 @@ export class Window {
     }
 }
 
-export function createWindow(name: string, options?: Options) {
+export function createWindow(name: string, options?: any) {
     const window = new Window(name, options);
 
     windowStore.update((store) => [...store, window]);
@@ -179,7 +151,9 @@ export function killWindow(window: Window) {
     window.element.parentNode?.removeChild(window.element); // remove window from DOM
 }
 
-export function getNextWindow(window: Window) {
+const focusList: { window: Window, value: number }[] = [];
+
+export function updateFocusList(window: Window) {
 
 }
 
