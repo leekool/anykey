@@ -23,30 +23,49 @@ interface LayoutInfo {
     fileSize: string
 }
 
+export interface Position {
+    height: number,
+    width: number,
+    top: number,
+    left: number,
+    topPercent: number,
+    leftPercent: number
+}
+
+const defaultPosition: Position = {
+    height: 0,
+    width: 0,
+    top: 0,
+    left: 0,
+    topPercent: 50,
+    leftPercent: 50
+}
+
+const defaultOptions: Options = {
+    focused: true,
+    minimised: false,
+    maximised: false,
+    type: 'window-main',
+    navbarMaximise: false,
+    navbarMinimise: true,
+    navbarClose: false,
+    navbarInfo: false,
+    layoutInfo: {
+        svg: '',
+        name: '',
+        fileName: '',
+        filePath: '',
+        fileSize: ''
+    }
+}
+
 export class Window {
     name: string;
     icon: string;
     id: number;
     element: Node = (null as any) as Node;
-    position?: Partial<{ -readonly [K in keyof DOMRect]: DOMRect[K] }>;
-    // position: { top: number, left: number, height: number, width: number };
-    options: Options = {
-        focused: true,
-        minimised: false,
-        maximised: false,
-        type: 'window-main',
-        navbarMaximise: false,
-        navbarMinimise: true,
-        navbarClose: false,
-        navbarInfo: false,
-        layoutInfo: {
-            svg: '',
-            name: '',
-            fileName: '',
-            filePath: '',
-            fileSize: ''
-        }
-    };
+    position = defaultPosition;
+    options = defaultOptions;
 
     constructor(name: string, options?: Options) {
         this.options = { ...this.options, ...options };

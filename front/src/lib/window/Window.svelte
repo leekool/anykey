@@ -20,7 +20,7 @@
             return { height, width, top: window.innerHeight / 2, left: window.innerWidth / 2 };
         }
 
-        window_.position = getPosition(window_.element as HTMLElement);
+        window_.position = Object.assign({}, window_.position, getPosition(window_.element as HTMLElement));
 
         const index = $windowStore.findIndex(w => w.id === window_.id);
         if (index < 2) return; 
@@ -30,8 +30,8 @@
         window_.position.top = prevPos!.top! + (window_.position.height! - prevPos!.height!) / 2 + 20;
         window_.position.left = prevPos!.left! + (window_.position.width! - prevPos!.width!) / 2 + 20;
 
-        dragTop = (window_.position.top / window.innerHeight) * 100;
-        dragLeft = (window_.position.left / window.innerWidth) * 100;
+        window_.position.topPercent = (window_.position.top / window.innerHeight) * 100;
+        window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
     };
 
     const windowClick = () => {
@@ -43,7 +43,6 @@
     };
 
     // draggable navbar functions
-    let dragTop = 50, dragLeft = 50 // start centred;
     let moving = false;
 
     const dragMouseDown = () => {
@@ -55,8 +54,8 @@
 
     const dragMouseMove = (e: MouseEvent) => {
         if (moving) {
-            dragTop = ((window_.position!.top! += e.movementY) / window.innerHeight) * 100;
-            dragLeft = ((window_.position!.left! += e.movementX) / window.innerWidth) * 100;
+            window_.position.topPercent = ((window_.position!.top! += e.movementY) / window.innerHeight) * 100;
+            window_.position.leftPercent = ((window_.position!.left! += e.movementX) / window.innerWidth) * 100;
         }
     };
     // -----
@@ -84,7 +83,7 @@
     class:maximised={window_.options.maximised}
     class:draggable={!window_.options.maximised}
     class:focused={window_.options.focused}
-    style="left: {dragLeft}%; top: {dragTop}%;"
+    style="left: {window_.position.leftPercent}%; top: {window_.position.topPercent}%;"
     on:click={() => windowClick()}
 >
     <div class="main pixel-corners">
