@@ -4,7 +4,7 @@ import html2canvas from "html2canvas";
 let count: number = 0;
 
 export class Options {
-    focused = true;
+    _focused = true;
     minimised = false;
     maximised = false;
     type = "window-main";
@@ -18,6 +18,14 @@ export class Options {
         fileName: "",
         filePath: "",
         fileSize: ""
+    }
+
+    set focused(value: boolean) {
+        this._focused = value;
+    }
+
+    get focused() {
+        return this._focused;
     }
 }
 
@@ -35,15 +43,17 @@ export class Window {
     icon: string;
     id: number;
     element: Node = (null as any) as Node;
-    position = new Position;
-    options = new Options;
+    position: Position;
+    options: Options;
 
 
-    constructor(name: string, options?: any) { // todo: fix any declaration
-        this.options = { ...this.options, ...options };
+    constructor(name: string, options?: any) {
+        this.options = new Options();
+        Object.assign(this.options, options);
 
         this.name = name;
         this.icon = (this.options.type?.includes('layout')) ? 'keymap-icon.png' : name + '-icon.png';
+        this.position = new Position();
 
         this.id = count; // simple ID system for now
         count++
