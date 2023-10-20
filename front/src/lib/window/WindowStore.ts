@@ -8,10 +8,12 @@ export class Options {
     minimised = false;
     maximised = false;
     type = "window-main";
-    navbarMaximise = false;
-    navbarMinimise = true;
-    navbarClose = false;
-    navbarInfo = false;
+    navbar = {
+        maximise: false,
+        minimise: true,
+        close: false,
+        info: false
+    }
     layoutInfo = {
         name: "",
         svg: "",
@@ -24,9 +26,7 @@ export class Options {
         this._focused = value;
     }
 
-    get focused() {
-        return this._focused;
-    }
+    get focused() { return this._focused; }
 }
 
 export class Position {

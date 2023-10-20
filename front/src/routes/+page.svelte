@@ -91,9 +91,12 @@
         name={layoutName}
         options={{ 
             type: "window-layout", 
-            navbarMaximise: true, 
-            navbarClose: true, 
-            navbarInfo: true, 
+            navbar: {
+                minimise: true,
+                maximise: true,
+                close: true,
+                info: true
+            },
             layoutInfo: {
                 svg: layout,
                 name: selectedItem.name,

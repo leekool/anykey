@@ -29,7 +29,6 @@
 
         window_.position.top = prevPos!.top! + (window_.position.height! - prevPos!.height!) / 2 + 20;
         window_.position.left = prevPos!.left! + (window_.position.width! - prevPos!.width!) / 2 + 20;
-
         window_.position.topPercent = (window_.position.top / window.innerHeight) * 100;
         window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
     };

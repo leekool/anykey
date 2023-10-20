@@ -11,7 +11,7 @@
     <div class="navbar-bg" style="width: 14px;" />
 
     <!-- info button -->
-    {#if window_.options.navbarInfo}
+    {#if window_.options.navbar.info}
         <div class="navbar-btn-base">
             <div
                 class="navbar-btn-inner info-btn"
@@ -53,7 +53,7 @@
     <div class="navbar-bg" />
 
     <!-- minimise button (left) -->
-    {#if window_.options.navbarMinimise}
+    {#if window_.options.navbar.minimise}
         <div class="navbar-btn-base">
             <div
                 class="navbar-btn-inner minimise-btn"
@@ -66,7 +66,7 @@
     {/if}
 
     <!-- maximise button (centre) -->
-    {#if window_.options.navbarMaximise}
+    {#if window_.options.navbar.maximise}
         <div class="navbar-btn-base">
             <div
                 class="navbar-btn-inner"
@@ -79,7 +79,7 @@
     {/if}
 
     <!-- close button (right) -->
-    {#if window_.options.navbarClose}
+    {#if window_.options.navbar.close}
         <div class="navbar-btn-base">
             <div
                 class="navbar-btn-inner close-btn"
