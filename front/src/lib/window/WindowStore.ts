@@ -180,11 +180,14 @@ export class Window {
     }
 
     kill() {
+        const index = Window.focusList.indexOf(this.id);
+        Window.focusList.splice(index, 1);
+
         Window.windowStore.update((store) => {
             const index = store.findIndex(w => w.id === this.id);
 
+            store[index].dropFocus(); // focus next window
             store = store.filter(w => w.id !== this.id); // remove window from store
-            store[index - 1].getFocus(); // focus next window
 
             return store;
         });
