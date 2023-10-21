@@ -209,6 +209,7 @@
 
     .info-layout-container {
         display: flex;
+        margin: 1px 0 0 4px;
     }
 
     .info-layout-column {
