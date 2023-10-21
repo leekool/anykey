@@ -54,6 +54,8 @@ export class Window {
     static focusChain: any = [];
 
     constructor(name: string, component: any, options?: Partial<Options>) {
+        Window.windowStore.update((store) => [...store, this]);
+
         this.component = component;
         this.options = new Options();
         Object.assign(this.options, options);
@@ -102,7 +104,8 @@ export class Window {
         for (let window of store) {
             if (this.id === window.id || window.options.minimised) continue;
 
-            window.options.focused = true;
+            // window.options.focused = true;
+            window.getFocus();
             break;
         }
     }
@@ -155,13 +158,13 @@ export class Window {
 
 // ---
 
-export function createWindow(name: string, component: any, options?: Partial<Options>) {
-    const window = new Window(name, component, options);
-
-    Window.windowStore.update((store) => [...store, window]);
-
-    return window;
-}
+// export function createWindow(name: string, component: any, options?: Partial<Options>) {
+//     const window = new Window(name, component, options);
+//
+//     Window.windowStore.update((store) => [...store, window]);
+//
+//     return window;
+// }
 
 export function killWindow(window: Window) {
     Window.windowStore.update((store) => {

@@ -3,9 +3,8 @@
     import { get_current_component } from "svelte/internal";
     import {
         windowStore,
-        createWindow,
+        Window,
         type Options,
-        type Window,
     } from "./WindowStore";
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
@@ -15,7 +14,8 @@
     export let name: string;
     export let options: Partial<Options> = {};
 
-    let window_: Window = createWindow(name, get_current_component(), options);
+    // let window_: Window = createWindow(name, get_current_component(), options);
+    let window_ = new Window(name, get_current_component(), options);
     let element: HTMLElement;
 
     const getOffsetStyle = (): string | void => {
