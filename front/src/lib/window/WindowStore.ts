@@ -102,11 +102,11 @@ export class Window {
         if (index !== -1) Window.focusList.splice(index, 1);
         Window.focusList.unshift(this.id);
 
+        // Window.updateZIndex();
+
         for (let window of store) {
             if (this.id !== window.id) window.dropFocus(false);
         }
-
-        Window.updateZIndex();
     }
 
     // unfocuses target window and focuses next unminimised window (if any)
@@ -128,9 +128,9 @@ export class Window {
 
         for (let window of store) {
             const index = Window.focusList.indexOf(window.id);
-            if (index === -1) return;
+            if (index === -1) continue;
 
-            window.zIndex = 50 + -index;
+            window.zIndex = 10 + -index;
         }
     }
 
