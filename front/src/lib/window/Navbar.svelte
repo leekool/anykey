@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Window, windowStore, killWindow } from "./WindowStore";
+    import { Window, windowStore } from "./WindowStore";
 
     export let window_: Window;
 </script>
@@ -84,7 +84,7 @@
             <div
                 class="navbar-btn-inner close-btn"
                 on:click={() => {
-                    killWindow(window_);
+                    window_.kill();
                     $windowStore = $windowStore; // tells svelte object changed
                 }}
             />

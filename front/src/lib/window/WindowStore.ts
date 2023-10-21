@@ -86,7 +86,7 @@ export class Window {
 
     // focuses target window and unfocuses all other windows
     getFocus(): void {
-        const store = get(windowStore);
+        const store = get(Window.windowStore);
 
         this.options.focused = true;
 
@@ -97,7 +97,7 @@ export class Window {
 
     // unfocuses target window and focuses next unminimised window (if any)
     dropFocus(): void {
-        const store = get(windowStore);
+        const store = get(Window.windowStore);
 
         this.options.focused = false;
 
@@ -154,30 +154,20 @@ export class Window {
         a.click();
         a.remove();
     }
-}
 
-// ---
+    kill() {
+        Window.windowStore.update((store) => {
+            const index = store.findIndex(w => w.id === this.id);
 
-// export function createWindow(name: string, component: any, options?: Partial<Options>) {
-//     const window = new Window(name, component, options);
-//
-//     Window.windowStore.update((store) => [...store, window]);
-//
-//     return window;
-// }
+            store = store.filter(w => w.id !== this.id); // remove window from store
 
-export function killWindow(window: Window) {
-    Window.windowStore.update((store) => {
-        const index = store.findIndex(w => w.id === window.id);
+            store[index - 1].getFocus(); // focus next window
 
-        store = store.filter(w => w.id !== window.id); // remove window from store
+            return store;
+        });
 
-        store[index - 1].getFocus(); // focus next window
-
-        return store;
-    });
-
-    window.component.$destroy(); // remove window from DOM
+        this.component.$destroy(); // remove window from DOM
+    }
 }
 
 // export const windowStore = writable<Window[]>([]);
