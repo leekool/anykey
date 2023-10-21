@@ -98,11 +98,10 @@ export class Window {
 
         this.options.focused = true;
 
+        // update focusList
         const index = Window.focusList.indexOf(this.id);
         if (index !== -1) Window.focusList.splice(index, 1);
         Window.focusList.unshift(this.id);
-
-        // Window.updateZIndex();
 
         for (let window of store) {
             if (this.id !== window.id) window.dropFocus(false);

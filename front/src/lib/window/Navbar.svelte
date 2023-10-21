@@ -163,7 +163,17 @@
     }
 
     .minimise-btn {
-        box-shadow: -2px -2px 0 0 #333366 inset, -6px -6px 0 0 #a4a4a4 inset,
+        box-shadow: 
+            -2px -2px 0 0 #333366 inset, 
+            -4px 0 0 0 #a4a4a4 inset,
+            2px 8px 0 0 #a4a4a4 inset,
+            0 10px 0 0 #333366 inset;
+    }
+
+    .close-btn {
+        box-shadow: 
+            -2px -2px 0 0 #333366 inset, 
+            -6px -6px 0 0 #a4a4a4 inset,
             -8px -8px 0 0 #333366 inset;
     }
 
