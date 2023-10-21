@@ -66,8 +66,6 @@
     onMount(async () => {
         getOffsetStyle();
 
-        window_.getFocus();
-
         $windowStore = $windowStore; // trigger svelte state management
     });
 

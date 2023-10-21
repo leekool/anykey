@@ -56,16 +56,18 @@ export class Window {
     constructor(name: string, component: any, options?: Partial<Options>) {
         Window.windowStore.update((store) => [...store, this]);
 
-        this.component = component;
         this.options = new Options();
         Object.assign(this.options, options);
 
+        this.component = component;
         this.name = name;
         this.icon = (this.options.type?.includes("layout")) ? "keymap-icon.png" : name + "-icon.png";
         this.position = new Position();
 
         this.id = count; // simple ID system for now
         count++
+
+        this.getFocus();
     }
 
     toggleMinimise(): void {
@@ -104,7 +106,6 @@ export class Window {
         for (let window of store) {
             if (this.id === window.id || window.options.minimised) continue;
 
-            // window.options.focused = true;
             window.getFocus();
             break;
         }
@@ -160,7 +161,6 @@ export class Window {
             const index = store.findIndex(w => w.id === this.id);
 
             store = store.filter(w => w.id !== this.id); // remove window from store
-
             store[index - 1].getFocus(); // focus next window
 
             return store;
