@@ -46,11 +46,11 @@ export class Window {
     name: string;
     icon: string;
     id: number;
-    // element: Node = (null as any) as Node;
     component: any;
     position: Position;
     options: Options;
 
+    static windowStore = writable<Window[]>([]);
     static focusChain: any = [];
 
     constructor(name: string, component: any, options?: Partial<Options>) {
@@ -59,7 +59,7 @@ export class Window {
         Object.assign(this.options, options);
 
         this.name = name;
-        this.icon = (this.options.type?.includes('layout')) ? 'keymap-icon.png' : name + '-icon.png';
+        this.icon = (this.options.type?.includes("layout")) ? "keymap-icon.png" : name + "-icon.png";
         this.position = new Position();
 
         this.id = count; // simple ID system for now
@@ -84,7 +84,6 @@ export class Window {
 
     // focuses target window and unfocuses all other windows
     getFocus(store: Window[]): void {
-        console.log("TEST!", this)
         this.options.focused = true;
 
         for (let window of store) {
@@ -111,7 +110,7 @@ export class Window {
         // Get the id from the <svg> element
         const svgId = layout.substring(layout.indexOf("id=") + 4, layout.indexOf("<style>") - 2);
         const el: HTMLElement | null | undefined = document.getElementById(svgId)?.parentElement;
-        const svgAssets = document.querySelectorAll('img');
+        const svgAssets = document.querySelectorAll("img");
         
         if (el) {
             const canvas = await html2canvas(el, {
@@ -121,8 +120,8 @@ export class Window {
                 imageTimeout: 0,
                 onclone: (doc) => {
                     svgAssets.forEach((asset) => {
-                        console.log('assets', asset, asset.width, asset.height);
-                        const img = doc.createElement('img');
+                        console.log("assets", asset, asset.width, asset.height);
+                        const img = doc.createElement("img");
                         img.src = asset.src;
                         img.width = asset.width;
                         img.height = asset.height;
@@ -133,7 +132,7 @@ export class Window {
 
             const blob = await new Promise((resolve) => canvas.toBlob(resolve));
             // TODO handle error if blob is null somehow
-            const file = new File([blob as BlobPart], 'thumbnail.png', { type: 'image/png' });
+            const file = new File([blob as BlobPart], "thumbnail.png", { type: "image/png" });
             this.downloadData(file, this.name);
             return file;
         }
@@ -155,13 +154,13 @@ export class Window {
 export function createWindow(name: string, component: any, options?: Partial<Options>) {
     const window = new Window(name, component, options);
 
-    windowStore.update((store) => [...store, window]);
+    Window.windowStore.update((store) => [...store, window]);
 
     return window;
 }
 
 export function killWindow(window: Window) {
-    windowStore.update((store) => {
+    Window.windowStore.update((store) => {
         const index = store.findIndex(w => w.id === window.id);
 
         store = store.filter(w => w.id !== window.id); // remove window from store
@@ -174,4 +173,5 @@ export function killWindow(window: Window) {
     window.component.$destroy(); // remove window from DOM
 }
 
-export const windowStore = writable<Window[]>([]);
+// export const windowStore = writable<Window[]>([]);
+export const windowStore = Window.windowStore;
