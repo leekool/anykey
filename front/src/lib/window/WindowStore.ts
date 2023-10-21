@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable, get } from "svelte/store";
 import html2canvas from "html2canvas";
 
 let count: number = 0;
@@ -66,24 +66,26 @@ export class Window {
         count++
     }
 
-    toggleMinimise(store: Window[]): void {
+    toggleMinimise(): void {
         this.options.minimised = !this.options.minimised;
 
-        this.options.minimised ? this.dropFocus(store) : this.getFocus(store);
+        this.options.minimised ? this.dropFocus() : this.getFocus();
     }
 
     toggleMaximise(): void {
         this.options.maximised = !this.options.maximised;
     }
 
-    taskbarClk(store: Window[]): void {
+    taskbarClk(): void {
         !this.options.focused && !this.options.minimised
-            ? this.getFocus(store)
-            : this.toggleMinimise(store);
+            ? this.getFocus()
+            : this.toggleMinimise();
     }
 
     // focuses target window and unfocuses all other windows
-    getFocus(store: Window[]): void {
+    getFocus(): void {
+        const store = get(windowStore);
+
         this.options.focused = true;
 
         for (let window of store) {
@@ -92,7 +94,9 @@ export class Window {
     }
 
     // unfocuses target window and focuses next unminimised window (if any)
-    dropFocus(store: Window[]): void {
+    dropFocus(): void {
+        const store = get(windowStore);
+
         this.options.focused = false;
 
         for (let window of store) {
@@ -165,7 +169,7 @@ export function killWindow(window: Window) {
 
         store = store.filter(w => w.id !== window.id); // remove window from store
 
-        store[index - 1].getFocus(store); // focus next window
+        store[index - 1].getFocus(); // focus next window
 
         return store;
     });

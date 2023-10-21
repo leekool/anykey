@@ -58,7 +58,7 @@
             <div
                 class="navbar-btn-inner minimise-btn"
                 on:click={() => {
-                    window_.toggleMinimise($windowStore);
+                    window_.toggleMinimise();
                     $windowStore = $windowStore; // tells svelte object changed
                 }}
             />

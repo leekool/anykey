@@ -40,7 +40,7 @@
     const windowClick = () => {
         if (window_.options.focused || window_.options.minimised) return;
 
-        window_.getFocus($windowStore);
+        window_.getFocus();
 
         $windowStore = $windowStore;
     };
@@ -66,7 +66,7 @@
     onMount(async () => {
         getOffsetStyle();
 
-        window_.getFocus($windowStore);
+        window_.getFocus();
 
         $windowStore = $windowStore; // trigger svelte state management
     });

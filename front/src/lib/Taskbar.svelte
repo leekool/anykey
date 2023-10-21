@@ -10,7 +10,7 @@
                 class="iconman-button"
                 class:active={window.options.focused}
                 on:click={() => {
-                    window.taskbarClk($windowStore);
+                    window.taskbarClk();
                     window = window; // tells svelte object changed
                 }}
             >
