@@ -166,8 +166,8 @@
         box-shadow: 
             -2px -2px 0 0 #333366 inset, 
             -4px 0 0 0 #a4a4a4 inset,
-            2px 8px 0 0 #a4a4a4 inset,
-            0 10px 0 0 #333366 inset;
+            2px 9px 0 0 #a4a4a4 inset,
+            0 11px 0 0 #333366 inset;
     }
 
     .close-btn {
