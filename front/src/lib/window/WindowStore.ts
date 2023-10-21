@@ -160,22 +160,18 @@ export function createWindow(name: string, component: any, options?: Partial<Opt
     return window;
 }
 
-export function killWindow(_window: Window) {
+export function killWindow(window: Window) {
     windowStore.update((store) => {
-        const index = store.findIndex(w => w.id === _window.id);
-        // store[index - 1].options.focused = true; // focus next window
-        store[index - 1].getFocus(store);
+        const index = store.findIndex(w => w.id === window.id);
 
-        return store.filter(w => w.id !== _window.id); // remove window from store
+        store = store.filter(w => w.id !== window.id); // remove window from store
+
+        store[index - 1].getFocus(store); // focus next window
+
+        return store;
     });
 
-    // window.element.parentNode?.removeChild(window.element); // remove window from DOM
-}
-
-// const focusList: { window: Window, value: number }[] = [];
-
-export function updateFocusList(window: Window) {
-
+    window.component.$destroy(); // remove window from DOM
 }
 
 export const windowStore = writable<Window[]>([]);
