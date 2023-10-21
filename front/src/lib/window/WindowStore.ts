@@ -33,7 +33,7 @@ export class Options {
 
     set focused(value: boolean) {
         // if (value === true && this._focused !== true) {
-        //     console.log("this", Window.focusChain)
+        //     console.log("this", Window.focusList)
         // }
 
         this._focused = value;
@@ -49,9 +49,10 @@ export class Window {
     component: any;
     position: Position;
     options: Options;
+    zIndex: number = 0;
 
     static windowStore = writable<Window[]>([]);
-    static focusChain: any = [];
+    static focusList: number[] = [];
 
     constructor(name: string, component: any, options?: Partial<Options>) {
         Window.windowStore.update((store) => [...store, this]);
@@ -73,6 +74,11 @@ export class Window {
     toggleMinimise(): void {
         this.options.minimised = !this.options.minimised;
 
+        if (this.options.minimised) {
+            const index = Window.focusList.indexOf(this.id);
+            Window.focusList.splice(index, 1);
+        }
+
         this.options.minimised ? this.dropFocus() : this.getFocus();
     }
 
@@ -92,22 +98,39 @@ export class Window {
 
         this.options.focused = true;
 
+        const index = Window.focusList.indexOf(this.id);
+        if (index !== -1) Window.focusList.splice(index, 1);
+        Window.focusList.unshift(this.id);
+
         for (let window of store) {
-            if (this.id !== window.id) window.options.focused = false;
+            if (this.id !== window.id) window.dropFocus(false);
         }
+
+        Window.updateZIndex();
     }
 
     // unfocuses target window and focuses next unminimised window (if any)
-    dropFocus(): void {
+    dropFocus(focusNext = true): void {
         const store = get(Window.windowStore);
 
         this.options.focused = false;
 
-        for (let window of store) {
-            if (this.id === window.id || window.options.minimised) continue;
+        Window.updateZIndex();
 
-            window.getFocus();
-            break;
+        if (!focusNext) return;
+
+        const index = store.findIndex(w => w.id === Window.focusList[0]);
+        if (index !== -1) store[index].getFocus();
+    }
+
+    static updateZIndex(): void {
+        const store = get(Window.windowStore);
+
+        for (let window of store) {
+            const index = Window.focusList.indexOf(window.id);
+            if (index === -1) return;
+
+            window.zIndex = 50 + -index;
         }
     }
 

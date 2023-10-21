@@ -14,7 +14,6 @@
     export let name: string;
     export let options: Partial<Options> = {};
 
-    // let window_: Window = createWindow(name, get_current_component(), options);
     let window_ = new Window(name, get_current_component(), options);
     let element: HTMLElement;
 
@@ -66,7 +65,7 @@
     onMount(async () => {
         getOffsetStyle();
 
-        $windowStore = $windowStore; // trigger svelte state management
+        // $windowStore = $windowStore; // trigger svelte state management
     });
 
     onDestroy( () => {
@@ -81,8 +80,7 @@
     class:minimised={window_.options.minimised}
     class:maximised={window_.options.maximised}
     class:draggable={!window_.options.maximised}
-    class:focused={window_.options.focused}
-    style="left: {window_.position.leftPercent}%; top: {window_.position.topPercent}%;"
+    style="z-index: {window_.zIndex}; left: {window_.position.leftPercent}%; top: {window_.position.topPercent}%;"
     on:click={() => windowClick()}
 >
     <div class="main pixel-corners">
@@ -119,7 +117,7 @@
     .minimised {
         display: none;
         visibility: hidden;
-        z-index: 0;
+        z-index: 0 !important;
     }
 
     .maximised {
@@ -133,9 +131,9 @@
         z-index: 1 !important;
     }
 
-    .focused {
-        z-index: 9 !important;
-    }
+    /* .focused { */
+    /*     z-index: 100 !important; */
+    /* } */
 
     .content {
         display: flex;

@@ -39,7 +39,7 @@
         background-repeat: repeat;
         border-top: 2px solid #222020;
         box-shadow: 2px 2px #fff inset, -2px -2px #a0a0a0 inset;
-        z-index: 10;
+        z-index: 100;
     }
 
     .taskbar span {
