@@ -3,6 +3,15 @@ import html2canvas from "html2canvas";
 
 let count: number = 0;
 
+class Position {
+    height = 0;
+    width = 0;
+    top = 0;
+    left = 0;
+    topPercent = 50;
+    leftPercent = 50;
+}
+
 export class Options {
     _focused = true;
     minimised = false;
@@ -23,31 +32,29 @@ export class Options {
     }
 
     set focused(value: boolean) {
+        // if (value === true && this._focused !== true) {
+        //     console.log("this", Window.focusChain)
+        // }
+
         this._focused = value;
     }
 
     get focused() { return this._focused; }
 }
 
-export class Position {
-    height = 0;
-    width = 0;
-    top = 0;
-    left = 0;
-    topPercent = 50;
-    leftPercent = 50;
-}
-
 export class Window {
     name: string;
     icon: string;
     id: number;
-    element: Node = (null as any) as Node;
+    // element: Node = (null as any) as Node;
+    component: any;
     position: Position;
     options: Options;
 
+    static focusChain: any = [];
 
-    constructor(name: string, options?: any) {
+    constructor(name: string, component: any, options?: Partial<Options>) {
+        this.component = component;
         this.options = new Options();
         Object.assign(this.options, options);
 
@@ -77,6 +84,7 @@ export class Window {
 
     // focuses target window and unfocuses all other windows
     getFocus(store: Window[]): void {
+        console.log("TEST!", this)
         this.options.focused = true;
 
         for (let window of store) {
@@ -142,26 +150,29 @@ export class Window {
     }
 }
 
-export function createWindow(name: string, options?: any) {
-    const window = new Window(name, options);
+// ---
+
+export function createWindow(name: string, component: any, options?: Partial<Options>) {
+    const window = new Window(name, component, options);
 
     windowStore.update((store) => [...store, window]);
 
     return window;
 }
 
-export function killWindow(window: Window) {
+export function killWindow(_window: Window) {
     windowStore.update((store) => {
-        const index = store.findIndex(w => w.id === window.id);
-        store[index - 1].options.focused = true; // focus next window
+        const index = store.findIndex(w => w.id === _window.id);
+        // store[index - 1].options.focused = true; // focus next window
+        store[index - 1].getFocus(store);
 
-        return store.filter(w => w.id !== window.id); // remove window from store
+        return store.filter(w => w.id !== _window.id); // remove window from store
     });
 
-    window.element.parentNode?.removeChild(window.element); // remove window from DOM
+    // window.element.parentNode?.removeChild(window.element); // remove window from DOM
 }
 
-const focusList: { window: Window, value: number }[] = [];
+// const focusList: { window: Window, value: number }[] = [];
 
 export function updateFocusList(window: Window) {
 

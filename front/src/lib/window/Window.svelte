@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
+    import { get_current_component } from "svelte/internal";
     import {
         windowStore,
         createWindow,
@@ -9,10 +10,13 @@
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
 
+    $: $windowStore, window_ = window_; // trigger svelte state management
+
     export let name: string;
     export let options: Partial<Options> = {};
 
-    let window_: Window = createWindow(name, options);
+    let window_: Window = createWindow(name, get_current_component(), options);
+    let element: HTMLElement;
 
     const getOffsetStyle = (): string | void => {
         const getPosition = (e: HTMLElement) => {
@@ -20,7 +24,7 @@
             return { height, width, top: window.innerHeight / 2, left: window.innerWidth / 2 };
         }
 
-        window_.position = Object.assign({}, window_.position, getPosition(window_.element as HTMLElement));
+        window_.position = Object.assign({}, window_.position, getPosition(element));
 
         const index = $windowStore.findIndex(w => w.id === window_.id);
         if (index < 2) return; 
@@ -62,21 +66,19 @@
     onMount(async () => {
         getOffsetStyle();
 
-        for (let window of $windowStore) {
-            if (window_.name === name) window.getFocus($windowStore);
-        }
+        window_.getFocus($windowStore);
 
         $windowStore = $windowStore; // trigger svelte state management
     });
 
-    /* trigger svelte state management
-       there has to be a way to not have to do this */
-    $: $windowStore, window_ = window_;
+    onDestroy( () => {
+        console.log("DESTROYED");
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-    bind:this={window_.element}
+    bind:this={element}
     class={window_.options.type}
     class:minimised={window_.options.minimised}
     class:maximised={window_.options.maximised}
