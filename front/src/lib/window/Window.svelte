@@ -128,7 +128,6 @@
         top: 0 !important;
         left: 0 !important;
         transform: none !important;
-        z-index: 1 !important;
     }
 
     /* .focused { */
