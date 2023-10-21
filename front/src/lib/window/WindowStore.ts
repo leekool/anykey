@@ -13,7 +13,7 @@ class Position {
 }
 
 export class Options {
-    _focused = true;
+    focused = true;
     minimised = false;
     maximised = false;
     type = "window-main";
@@ -30,16 +30,6 @@ export class Options {
         filePath: "",
         fileSize: ""
     }
-
-    set focused(value: boolean) {
-        // if (value === true && this._focused !== true) {
-        //     console.log("this", Window.focusList)
-        // }
-
-        this._focused = value;
-    }
-
-    get focused() { return this._focused; }
 }
 
 export class Window {
@@ -103,6 +93,7 @@ export class Window {
         if (index !== -1) Window.focusList.splice(index, 1);
         Window.focusList.unshift(this.id);
 
+        // drop focus of other windows
         for (let window of store) {
             if (this.id !== window.id) window.dropFocus(false);
         }
@@ -118,6 +109,7 @@ export class Window {
 
         if (!focusNext) return;
 
+        // focus next window
         const index = store.findIndex(w => w.id === Window.focusList[0]);
         if (index !== -1) store[index].getFocus();
     }

@@ -17,13 +17,13 @@
     let window_ = new Window(name, get_current_component(), options);
     let element: HTMLElement;
 
-    const getOffsetStyle = (): string | void => {
-        const getPosition = (e: HTMLElement) => {
+    const getPosition = (): string | void => {
+        const getSize = (e: HTMLElement) => {
             const { height, width } = e.getBoundingClientRect();
             return { height, width, top: window.innerHeight / 2, left: window.innerWidth / 2 };
         }
 
-        window_.position = Object.assign({}, window_.position, getPosition(element));
+        window_.position = Object.assign({}, window_.position, getSize(element));
 
         const index = $windowStore.findIndex(w => w.id === window_.id);
         if (index < 2) return; 
@@ -63,7 +63,7 @@
     // -----
 
     onMount(async () => {
-        getOffsetStyle();
+        getPosition();
 
         // $windowStore = $windowStore; // trigger svelte state management
     });
@@ -176,12 +176,6 @@
 
     .draggable {
         position: absolute;
-        /* height: 100%; */
-        /* width: 100%; */
-        /* top: 50%; */
-        /* left: 50%; */
-        /* -ms-transform: translate(-50%, -50%); */
-        /* transform: translate(-50%, -50%); */
         pointer-events: none;
     }
 
