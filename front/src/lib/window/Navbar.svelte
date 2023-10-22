@@ -187,17 +187,20 @@
     }
 
     .info-btn {
+        /* position: relative; */
         cursor: default;
     }
 
     .info-btn:after {
         content: "i";
+        display: flex;
         position: relative;
-        transform: translate(-50%, -50%);
-        left: 50%;
-        top: 8px;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        align-content: center;
         color: #333366;
-        font-weight: bold;
+        font-weight: 900;
         font-size: 14px;
         text-shadow: 0 1px #f5f5f5, 0 2px rgba(138, 134, 160, 0.7);
     }
@@ -207,8 +210,8 @@
     }
 
     .info-container {
-        /* display: block; */
-        display: none;
+        display: block;
+        /* display: none; */
         position: absolute;
         padding: 5px;
         top: 30px;
