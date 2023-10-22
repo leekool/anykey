@@ -153,10 +153,16 @@ def determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_l
     if 'r' in coords[idx]:
         kCap.key_r = coords[idx]['r']
 
+    kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 8
+    kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 14
+
+    if (kCap.key_h > 60):
+        kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 10
+        kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 10
+
     kCap.inner_key_h = kCap.key_h * 0.75
     kCap.inner_key_w = kCap.key_w * 0.75
-    kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 8
-    kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 18
+
     if (kCap.key_r != 0):
         negative = str(kCap.key_r).find("-") != -1
         kCap.key_text_r = kCap.key_r + 90 if negative else kCap.key_r - 90
