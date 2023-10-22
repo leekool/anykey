@@ -1,6 +1,7 @@
 import json
 import uuid
 
+
 class KeyboardCap:
     def __init__(self, pos_x, pos_y, key_h, key_w, key_r, inner_pos_x, inner_pos_y, inner_key_h, inner_key_w, key_text_x, key_text_y, key_text_r, coord_multiplier):
         self.pos_x = pos_x
@@ -24,13 +25,14 @@ def getKeyboardCoords(mapPath):
         print(next(iter(contents['layouts'])))
         return contents['layouts'][next(iter(contents['layouts']))]['layout']
 
+
 def get_flat_keymap_svg(mapPath, fullLayout):
 
     level = 10
     svg_w = 0
     svg_h = 0
 
-    ## SVG Keycap dimensions
+    # SVG Keycap dimensions
     kCap = KeyboardCap(10, 10, 60, 60, 0, 10, 10, 96, 96, 35, 35, 0, 60)
 
     with open('layout.svg', 'w') as file:
@@ -42,11 +44,58 @@ def get_flat_keymap_svg(mapPath, fullLayout):
         largest_y = max(coords, key=lambda x: x['y'])['y']
         svg_w = ((largest_x) * kCap.coord_multiplier) + kCap.key_w
         svg_h = largest_y * kCap.coord_multiplier + (kCap.key_h * 2)
-        key_text_layer_x = [2.75, 20, 20, 1.75, 1.75, 2.75]
+
+        # layers = [
+        #     {
+        #         "colour": "black",
+        #         "x": 2.75,
+        #         "y": 2.75,
+        #         "alignment": "dominant-baseline='middle' text-anchor='middle'"
+        #     },
+        #     {
+        #         "colour": "cyan",
+        #         "x": 20,
+        #         "y": 5,
+        #         "alignment": "dominant-baseline='start'"
+        #     },
+        #     {
+        #         "colour": "magenta",
+        #         "x": 20,
+        #         "y": 1.5,
+        #         "alignment": ""
+        #     },
+        #     {
+        #         "colour": "yellow",
+        #         "x": 1.75,
+        #         "y": 1.6,
+        #         "alignment": "dominant-baseline='start' text-anchor='end'"
+        #     },
+        #     {
+        #         "colour": "red",
+        #         "x": 1.75,
+        #         "y": 5,
+        #         "alignment": "dominant-baseline='start' text-anchor='end'"
+        #     },
+        #     {
+        #         "colour": "green",
+        #         "x": 2.75,
+        #         "y": 1.2,
+        #         "alignment": "dominant-baseline='middle' text-anchor='middle'"
+        #     }
+        # ]
+
+        key_text_layer_x = [2.75, 20, 20, 1.5, 1.5, 2.75]
         key_text_layer_y = [2.75, 5, 1.5, 1.6, 5, 1.2]
-        key_text_layer_alignment = ['dominant-baseline="middle" text-anchor="middle"','','','dominant-baseline="right" text-anchor="right"', 'dominant-baseline="right" text-anchor="right"', 'dominant-baseline="middle" text-anchor="middle"']
-        key_text_layer_cmyk = ['black','cyan','magenta','yellow', 'red', 'green']
-        
+        key_text_layer_cmyk = ['black', 'cyan', 'magenta', 'yellow', 'red', 'green']
+        key_text_layer_alignment = [
+                'dominant-baseline="middle" text-anchor="middle"',  # black
+                'dominant-baseline="start"',                        # cyan
+                '',                                                 # magenta
+                'dominant-baseline="start" text-anchor="end"',      # yellow
+                'dominant-baseline="start" text-anchor="end"',      # red
+                'dominant-baseline="middle" text-anchor="middle"'   # green
+        ]
+
         svg_string = '<svg viewBox="0 0 ' + str(svg_w) + ' ' + str(svg_h) + '" preserveAspectRatio="xMidYMid meet" version="1.1" xmlns="http://www.w3.org/2000/svg" id="{0}">'.format(
             mapNameId)
         svg_string += '<style>#' + mapNameId + ' {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
@@ -64,7 +113,7 @@ def get_flat_keymap_svg(mapPath, fullLayout):
             determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, key_text_layer_alignment, 0)
 
             svg_string += '<rect class="key-base" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="8" ry="8" />'.format(kCap.key_w, kCap.key_h, kCap.pos_x, kCap.pos_y, kCap.key_r)
-            svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format( kCap.inner_key_w, kCap.inner_key_h, kCap.inner_pos_x, kCap.inner_pos_y, kCap.key_r)
+            svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format(kCap.inner_key_w, kCap.inner_key_h, kCap.inner_pos_x, kCap.inner_pos_y, kCap.key_r)
 
             resetKey(kCap)
 
@@ -72,7 +121,8 @@ def get_flat_keymap_svg(mapPath, fullLayout):
             for idx, key_cap in enumerate(layer['keys']):
                 print_key = checkIfKeyOnPreviousLayerIsTheSame(key_cap, kCap, level, index, idx, fullLayout)
                 determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, key_text_layer_alignment, index)
-                fontSize = '12' if len(key_cap) > 2 else '14'
+                # fontSize = '12' if len(key_cap) > 2 else '14'
+                fontSize = '12'
                 if (print_key):
                     print('excluding:' + key_cap)
                     key_cap = ''
@@ -85,11 +135,13 @@ def get_flat_keymap_svg(mapPath, fullLayout):
 
         return svg_string
 
+
 def resetKey(kCap):
     kCap.key_h = 60
     kCap.key_w = 60
     kCap.key_r = 0
     kCap.key_text_r = 0
+
 
 def determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_layer_y, key_text_layer_alignment, index):
     kCap.pos_x = coords[idx]['x'] * kCap.coord_multiplier
@@ -116,6 +168,7 @@ def determineKeyPositions(level, kCap, coords, idx, key_text_layer_x, key_text_l
         kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / key_text_layer_y[index]
         kCap.key_text_r = kCap.key_r
         kCap.baseline_text = key_text_layer_alignment[index]
+
 
 def checkIfKeyOnPreviousLayerIsTheSame(key_cap, kCap, level, index, idx, fullLayout):
     if (index > 0 and (key_cap == fullLayout[index - 1]['keys'][idx] or key_cap == "")):
