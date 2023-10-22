@@ -5,6 +5,7 @@
         windowStore,
         Window,
         type Options,
+        type Position
     } from "./WindowStore";
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
@@ -17,8 +18,8 @@
     let window_ = new Window(name, get_current_component(), options);
     let element: HTMLElement;
 
-    const getPosition = (): string | void => {
-        const getSize = (e: HTMLElement) => {
+    const getPosition = (): void => {
+        const getSize = (e: HTMLElement): Partial<Position> => {
             const { height, width } = e.getBoundingClientRect();
             return { height, width, top: window.innerHeight / 2, left: window.innerWidth / 2 };
         }

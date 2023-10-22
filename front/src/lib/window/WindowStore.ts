@@ -3,7 +3,7 @@ import html2canvas from "html2canvas";
 
 let count: number = 0;
 
-class Position {
+export class Position {
     height = 0;
     width = 0;
     top = 0;
