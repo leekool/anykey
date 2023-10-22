@@ -1,0 +1,5 @@
+back/__pycache__/
+back/layout.svg
+
+front/.svelte-kit/
+front/node_modules/
