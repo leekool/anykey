@@ -36,11 +36,11 @@
 
         window_.position.top = prevPos.top + (window_.position.height - prevPos.height) / 2 + offset;
         window_.position.left = prevPos.left + (window_.position.width - prevPos.width) / 2 + offset;
-        window_.position.topPercent = (window_.position.top / window.innerHeight) * 100;
-        window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
+
+        getTopLeftPercent();
     };
 
-    const reposition = (): void => {
+    const getTopLeftPercent = (): void => {
         window_.position.topPercent = (window_.position.top / window.innerHeight) * 100;
         window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
     }
@@ -62,15 +62,17 @@
     const dragMouseMove = (e: MouseEvent) => {
         if (!moving) return;
 
-        window_.position.topPercent = ((window_.position.top += e.movementY) / window.innerHeight) * 100;
-        window_.position.leftPercent = ((window_.position.left += e.movementX) / window.innerWidth) * 100;
+        window_.position.top += e.movementY;
+        window_.position.left += e.movementX;
+
+        getTopLeftPercent();
     };
     // -----
 
     onMount(async () => {
         getPosition();
 
-        window.addEventListener("resize", () => reposition());
+        window.addEventListener("resize", () => getTopLeftPercent());
     });
 
     onDestroy( () => {
