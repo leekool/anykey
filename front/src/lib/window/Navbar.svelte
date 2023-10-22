@@ -70,7 +70,7 @@
     {#if window_.options.navbar.maximise}
         <div class="navbar-btn-base">
             <div
-                class="navbar-btn-inner"
+                class="navbar-btn-inner maximise-btn"
                 on:click={() => {
                     window_.toggleMaximise();
                     $windowStore = $windowStore; // tells svelte object changed
@@ -135,9 +135,11 @@
         color: #000;
         background-color: #d5d5d5;
         text-shadow: 0 1px rgba(138, 134, 160, 0.7);
+        pointer-events: none;
     }
 
     .navbar-btn-base {
+        /* position: relative; */
         display: flex;
         height: 22px;
         aspect-ratio: 1 / 1;
@@ -164,6 +166,7 @@
     }
 
     .minimise-btn {
+        position: relative;
         box-shadow: 
             -2px -2px 0 0 #333366 inset, 
             -4px 0 0 0 #a4a4a4 inset,
@@ -171,11 +174,20 @@
             0 12px 0 0 #333366 inset;
     }
 
+    .maximise-btn {
+        position: relative;
+    }
+
     .close-btn {
+        position: relative;
         box-shadow: 
             -2px -2px 0 0 #333366 inset, 
             -6px -6px 0 0 #a4a4a4 inset,
             -8px -8px 0 0 #333366 inset;
+    }
+
+    .info-btn {
+        cursor: default;
     }
 
     .info-btn:after {
@@ -228,8 +240,8 @@
     .info-container:after {
         content: "";
         position: absolute;
-        height: calc(100% + 50px);
-        width: calc(100% + 50px);
+        height: calc(100% + 15px);
+        width: calc(100% + 15px);
         transform: translate(-50%, -50%);
         left: 50%;
         top: 50%;

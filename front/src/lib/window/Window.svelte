@@ -67,6 +67,7 @@
 
         getTopLeftPercent();
     };
+
     // -----
 
     onMount(async () => {
@@ -91,9 +92,8 @@
     on:click={() => windowClick()}
 >
     <div class="main pixel-corners">
-        <div on:mousedown={dragMouseDown}>
-            <Navbar {window_} />
-        </div>
+        <div class="drag-bar" on:mousedown={dragMouseDown}></div>
+        <Navbar {window_} />
 
         <div class="content">
             <slot />
@@ -181,5 +181,11 @@
 
     .draggable > * {
         pointer-events: auto;
+    }
+
+    .drag-bar {
+        position: absolute;
+        width: 100%;
+        height: 34px;
     }
 </style>
