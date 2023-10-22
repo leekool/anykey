@@ -33,7 +33,7 @@ def get_keymap_svg(mapPath, fullLayout):
     svg_h = 0
     coord_multiplier = 60
 
-    ## SVG Keycap dimensions
+    # SVG Keycap dimensions
     kCap = KeyboardCap(10, 10, 60, 60, 0, 10, 10, 96, 96, 35, 35, 0, 60, '')
 
     with open('layout.svg', 'w') as file:
@@ -65,13 +65,14 @@ def get_keymap_svg(mapPath, fullLayout):
 
         for index, layer in enumerate(fullLayout):
             for idx, key_cap in enumerate(layer['keys']):
-                determineKeyPosition(
-                    level, coord_multiplier, kCap, coords, idx)
+                determineKeyPosition(level, coord_multiplier, kCap, coords, idx)
 
                 svg_string += '<rect class="key-base" fill="url(#RadialGradient1)" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="8" ry="8" />'.format(
                     kCap.key_w, kCap.key_h, kCap.pos_x, kCap.pos_y, kCap.key_r)
+
                 svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format(
                     kCap.inner_key_w, kCap.inner_key_h, kCap.inner_pos_x, kCap.inner_pos_y, kCap.key_r)
+
                 svg_string += '<text class="key-text" {0} transform="translate({1}, {2}) rotate({3})"><tspan font-weight="600">{4}</tspan></text>'.format(
                     kCap.baseline_text, kCap.key_text_x, kCap.key_text_y, kCap.key_text_r, key_cap)
 
@@ -89,6 +90,7 @@ def get_keymap_svg(mapPath, fullLayout):
 def determineKeyPosition(level, coord_multiplier, kCap, coords, idx):
     kCap.pos_x = coords[idx]['x'] * coord_multiplier
     kCap.pos_y = level + coords[idx]['y'] * coord_multiplier
+
     if 'h' in coords[idx]:
         kCap.key_h = coords[idx]['h'] * coord_multiplier
     if 'w' in coords[idx]:
@@ -98,11 +100,19 @@ def determineKeyPosition(level, coord_multiplier, kCap, coords, idx):
 
     kCap.inner_key_h = kCap.key_h * 0.75
     kCap.inner_key_w = kCap.key_w * 0.75
+
     if (kCap.key_r != 0):
-        kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 10
-        kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 10
+        kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 8
+        kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 14
+
+        if (kCap.key_h > 60):
+            kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 10
+            kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 10
+
         negative = str(kCap.key_r).find("-") != -1
+
         kCap.key_text_r = kCap.key_r + 90 if negative else kCap.key_r - 90
+
         kCap.key_text_x = kCap.inner_pos_x + kCap.key_w / \
             8 if negative else kCap.inner_pos_x + kCap.key_w / 5
         kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / \
@@ -110,7 +120,7 @@ def determineKeyPosition(level, coord_multiplier, kCap, coords, idx):
         kCap.baseline_text = ''
     else:
         kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 8
-        kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 18
+        kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 14
         kCap.key_text_x = kCap.inner_pos_x + kCap.inner_key_w / 2
         kCap.key_text_y = kCap.inner_pos_y + kCap.inner_key_h / 2
         kCap.key_text_r = kCap.key_r
