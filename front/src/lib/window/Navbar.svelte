@@ -210,8 +210,8 @@
     }
 
     .info-container {
-        display: block;
-        /* display: none; */
+        /* display: block; */
+        display: none;
         position: absolute;
         padding: 5px;
         top: 30px;
