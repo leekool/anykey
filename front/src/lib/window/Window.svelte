@@ -40,6 +40,11 @@
         window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
     };
 
+    const reposition = (): void => {
+        window_.position.topPercent = (window_.position.top / window.innerHeight) * 100;
+        window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
+    }
+
     const windowClick = () => {
         if (window_.options.focused || window_.options.minimised) return;
 
@@ -64,6 +69,8 @@
 
     onMount(async () => {
         getPosition();
+
+        window.addEventListener("resize", () => reposition());
     });
 
     onDestroy( () => {
