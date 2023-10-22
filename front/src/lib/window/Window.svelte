@@ -9,7 +9,7 @@
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
 
-    $: $windowStore, window_ = window_; // trigger svelte state management
+    $: $windowStore, window_ = window_; // trigger state management
 
     export let name: string;
     export let options: Partial<Options> = {};
@@ -25,13 +25,16 @@
 
         window_.position = Object.assign({}, window_.position, getSize(element));
 
-        const index = $windowStore.findIndex(w => w.id === window_.id);
-        if (index < 2) return; 
+        if ($windowStore.length <= 2) return;
 
-        const prevPos = $windowStore[index - 1].position;
+        const offset = 20;
 
-        window_.position.top = prevPos.top + (window_.position.height - prevPos.height) / 2 + 20;
-        window_.position.left = prevPos.left + (window_.position.width - prevPos.width) / 2 + 20;
+        const index = $windowStore.slice(0, -1).findLastIndex(w => w.options.type === window_.options.type);
+
+        const prevPos = $windowStore[index].position;
+
+        window_.position.top = prevPos.top + (window_.position.height - prevPos.height) / 2 + offset;
+        window_.position.left = prevPos.left + (window_.position.width - prevPos.width) / 2 + offset;
         window_.position.topPercent = (window_.position.top / window.innerHeight) * 100;
         window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
     };
@@ -47,29 +50,23 @@
     // draggable navbar functions
     let moving = false;
 
-    const dragMouseDown = () => {
-        moving = true;
-        windowClick();
-    };
-
+    const dragMouseDown = () => { moving = true; windowClick(); };
     const dragMouseUp = () => moving = false;
 
     const dragMouseMove = (e: MouseEvent) => {
-        if (moving) {
-            window_.position.topPercent = ((window_.position.top += e.movementY) / window.innerHeight) * 100;
-            window_.position.leftPercent = ((window_.position.left += e.movementX) / window.innerWidth) * 100;
-        }
+        if (!moving) return;
+
+        window_.position.topPercent = ((window_.position.top += e.movementY) / window.innerHeight) * 100;
+        window_.position.leftPercent = ((window_.position.left += e.movementX) / window.innerWidth) * 100;
     };
     // -----
 
     onMount(async () => {
         getPosition();
-
-        // $windowStore = $windowStore; // trigger svelte state management
     });
 
     onDestroy( () => {
-        console.log("DESTROYED");
+        console.log("destroyed: ", window_);
     });
 </script>
 
@@ -149,28 +146,22 @@
         display: flex;
         flex: 1 0 auto;
         position: absolute;
-        /* top: 50%; */
-        /* left: 50%; */
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         min-height: 300px;
         max-width: 438px;
         width: 80%;
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-        z-index: 5;
     }
 
     .window-layout {
         display: flex;
         flex: 1 0 auto;
         position: absolute;
-        /* top: 50%; */
-        /* left: 50%; */
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
         max-height: 80%;
-        z-index: 5;
     }
 
     .draggable {
