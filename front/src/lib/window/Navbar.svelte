@@ -167,11 +167,16 @@
 
     .minimise-btn {
         position: relative;
+        /* box-shadow:  */
+        /*     -2px -2px 0 0 #333366 inset,  */
+        /*     -4px 0 0 0 #a4a4a4 inset, */
+        /*     2px 10px 0 0 #a4a4a4 inset, */
+        /*     0 12px 0 0 #333366 inset; */
         box-shadow: 
-            -2px -2px 0 0 #333366 inset, 
+            -2px -2px 0 0 #55557b inset, 
             -4px 0 0 0 #a4a4a4 inset,
             2px 10px 0 0 #a4a4a4 inset,
-            0 12px 0 0 #333366 inset;
+            0 12px 0 0 #55557b inset;
     }
 
     .maximise-btn {

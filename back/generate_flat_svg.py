@@ -42,7 +42,7 @@ def get_flat_keymap_svg(mapPath, fullLayout):
 
         largest_x = max(coords, key=lambda x: x['x'])['x']
         largest_y = max(coords, key=lambda x: x['y'])['y']
-        svg_w = ((largest_x) * kCap.coord_multiplier) + kCap.key_w
+        svg_w = (largest_x * kCap.coord_multiplier) + kCap.key_w
         svg_h = largest_y * kCap.coord_multiplier + (kCap.key_h * 2)
 
         # layers = [
