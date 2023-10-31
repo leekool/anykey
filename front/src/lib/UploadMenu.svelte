@@ -6,16 +6,24 @@
     let mergeLayersSelected: boolean = false;
 
     const fileSizeKb = (file: File): string => {
-        const i = Math.floor(Math.log(file.size) / Math.log(1024));
-        return parseFloat((file.size / Math.pow(1024, i)).toFixed(1)) + "kB";
+        return (file.size / 1024).toFixed(0);
     };
 
     const onFileSelected = (e: { currentTarget: HTMLInputElement }): void => {
         if (!e.currentTarget.files) return;
 
         file = e.currentTarget.files[0];
+        if (Number(fileSizeKb(file)) > 1024) {
+            fileName = 'Max allowed file size is 1MB'
+            return;
+        }
+
+        if (file.type !== 'text/plain' || !file.type.endsWith(".c")) {
+            fileName = 'File type must be of type ".c"'
+            return;
+        }
         fileName = file.name;
-        fileSize = fileSizeKb(file);
+        fileSize = fileSizeKb(file) + "kB";
     };
 </script>
 
