@@ -53,11 +53,17 @@
         $windowStore = $windowStore;
     };
 
-    // draggable navbar functions
+    // --- draggable navbar functions for mouse events ---
     let moving = false;
 
-    const dragMouseDown = () => { moving = true; windowClick(); };
-    const dragMouseUp = () => moving = false;
+    const dragMouseDown = () => { 
+        moving = true; 
+        windowClick(); 
+    };
+
+    const dragMouseUp = () => {
+        moving = false;
+    }
 
     const dragMouseMove = (e: MouseEvent) => {
         if (!moving) return;
@@ -67,6 +73,36 @@
 
         getTopLeftPercent();
     };
+
+    // --- draggable navbar functions for touch events ---
+    let movingTouch: Touch | null = null;
+
+    const dragTouchStart = (e: TouchEvent) => {
+        moving = true;
+        movingTouch = e.touches[0];
+
+        windowClick();
+    }
+
+    const dragTouchEnd = () => {
+        moving = false;
+        movingTouch = null;
+    }
+
+    const dragTouchMove = (e: TouchEvent) => {
+        if (!moving) return;
+
+        const initialTouch = movingTouch;
+
+        if (initialTouch) {
+            window_.position.top += e.touches[0].clientY - initialTouch.clientY;
+            window_.position.left += e.touches[0].clientX - initialTouch.clientX;
+    
+            getTopLeftPercent();
+        }
+
+        movingTouch = e.touches[0];
+    }
 
     // -----
 
@@ -92,7 +128,11 @@
     on:click={() => windowClick()}
 >
     <div class="main pixel-corners">
-        <div class="drag-bar" on:mousedown={dragMouseDown}></div>
+        <div 
+            class="drag-bar" 
+            on:mousedown={dragMouseDown}
+            on:touchstart|preventDefault={dragTouchStart}
+        />
         <Navbar {window_} />
 
         <div class="content">
@@ -103,7 +143,12 @@
     </div>
 </div>
 
-<svelte:window on:mouseup={dragMouseUp} on:mousemove={dragMouseMove} />
+<svelte:window 
+    on:mouseup={dragMouseUp} 
+    on:touchend={dragTouchEnd}
+    on:mousemove={dragMouseMove} 
+    on:touchmove|preventDefault={dragTouchMove}
+/>
 
 <style>
     @import url("/pixel-corners.css");
