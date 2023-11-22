@@ -112,13 +112,18 @@ def determineKeyPosition(level, coord_multiplier, kCap, coords, idx):
 
         negative = str(kCap.key_r).find("-") != -1
 
-        kCap.key_text_r = kCap.key_r + 90 if negative else kCap.key_r - 90
+        # kCap.key_text_r = kCap.key_r + 90 if negative else kCap.key_r - 90
+        kCap.key_text_r = kCap.key_r
 
+        # kCap.key_text_x = kCap.inner_pos_x + kCap.key_w / \
+        #     8 if negative else kCap.inner_pos_x + kCap.key_w / 5
+        # kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / \
+        #     5 if negative else kCap.inner_pos_y + kCap.key_w / 1
+        # kCap.baseline_text = ''
         kCap.key_text_x = kCap.inner_pos_x + kCap.key_w / \
-            8 if negative else kCap.inner_pos_x + kCap.key_w / 5
-        kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / \
-            5 if negative else kCap.inner_pos_y + kCap.key_w / 1
-        kCap.baseline_text = ''
+            3 if negative else kCap.inner_pos_x + kCap.key_w / 3
+        kCap.key_text_y = kCap.inner_pos_y + kCap.key_h / 3
+
     else:
         kCap.inner_pos_x = kCap.pos_x + kCap.key_w / 8
         kCap.inner_pos_y = kCap.pos_y + kCap.key_h / 14
