@@ -3,3 +3,4 @@ back/layout.svg
 
 front/.svelte-kit/
 front/node_modules/
+front/build
