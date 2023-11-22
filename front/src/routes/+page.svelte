@@ -1,8 +1,8 @@
 <script lang="ts">
-    import KeyboardMenu from "../lib/KeyboardMenu.svelte";
-    import UploadMenu from "../lib/UploadMenu.svelte";
-    import Window from "../lib/window/Window.svelte";
-    import Taskbar from "../lib/Taskbar.svelte";
+    import KeyboardMenu from "$lib/KeyboardMenu.svelte";
+    import UploadMenu from "$lib/UploadMenu.svelte";
+    import Window from "$lib/window/Window.svelte";
+    import Taskbar from "$lib/Taskbar.svelte";
     import { onMount } from "svelte";
 
     // from UploadMenu
@@ -119,7 +119,7 @@
 <Taskbar />
 
 <style>
-    @import url("../../static/pixel-corners.css");
+    @import url("/pixel-corners.css");
 
     .bottom-container {
         display: flex;

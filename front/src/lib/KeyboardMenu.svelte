@@ -84,11 +84,12 @@
 
     .main {
         display: flex;
-        flex: 1 1 auto;
+        /* flex: 1 1 auto; */
         flex-direction: column;
         min-height: 200px;
         height: 100%;
         width: 100%;
+        max-width: 100%;
     }
 
     fieldset {
@@ -99,6 +100,7 @@
         font-weight: 800;
         margin: 6px 10px 10px 10px;
         height: 100%;
+        min-width: 0 !important; /* overwrite weird browser default */
     }
 
     legend {
@@ -111,8 +113,8 @@
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
-        box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
         height: 100%;
+        box-shadow: -2px -2px 0 0 #f5f5f5 inset, 2px 2px 0 0 #c2c2c2 inset;
         margin-top: 6px;
         background-color: #e0e0e0;
     }
@@ -122,8 +124,12 @@
         flex-direction: column;
         flex: 1 1 auto;
         height: 0;
+        width: 100%;
+        max-width: 100%;
         overflow-x: hidden;
         overflow-y: auto;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         scrollbar-width: none;
     }
 
@@ -136,7 +142,7 @@
     .link {
         display: flex;
         height: 19px;
-        /* width: 100%; */
+        max-width: 100%;
         padding: 0 8px;
         color: #000;
         text-decoration: none;
@@ -195,5 +201,11 @@
     /* show dropdown menu */
     .show {
         display: block;
+    }
+
+    @media screen and (max-width: 700px) {
+        /* fieldset { */
+        /*     max-width: 200px; */
+        /* } */
     }
 </style>

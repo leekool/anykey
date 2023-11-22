@@ -7,8 +7,8 @@
         type Options,
         type Position
     } from "./WindowStore";
-    import Navbar from "./Navbar.svelte";
-    import Footer from "./Footer.svelte";
+    import Navbar from "$lib/window/Navbar.svelte";
+    import Footer from "$lib/window/Footer.svelte";
 
     $: $windowStore, window_ = window_; // trigger state management
 
@@ -106,7 +106,7 @@
 <svelte:window on:mouseup={dragMouseUp} on:mousemove={dragMouseMove} />
 
 <style>
-    @import url("../../../static/pixel-corners.css");
+    @import url("/pixel-corners.css");
 
     *::-webkit-scrollbar {
         display: none;
@@ -119,6 +119,7 @@
         font-family: "Tamzen", sans-serif;
         background-color: #d5d5d5;
         min-height: 100%;
+        max-width: 100%;
     }
 
     .minimised {
@@ -144,11 +145,12 @@
     .content {
         display: flex;
         flex: 1 1 auto;
+        width: 100%;
+        /* max-width: 100%; */
         align-self: center;
         flex-direction: column;
         background-color: #d5d5d5;
         margin: 2px 4px;
-        width: 100%;
         overflow: scroll;
     }
 
@@ -159,8 +161,8 @@
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         min-height: 300px;
+        min-width: 438px;
         max-width: 438px;
-        width: 80%;
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
     }
 
@@ -187,5 +189,12 @@
         position: absolute;
         width: 100%;
         height: 34px;
+    }
+
+    @media screen and (max-width: 700px) {
+        .window-main {
+            min-width: 80%;
+            max-width: 80%;
+        }
     }
 </style>
