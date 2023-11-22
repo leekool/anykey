@@ -3,6 +3,7 @@
     import UploadMenu from "$lib/UploadMenu.svelte";
     import Window from "$lib/window/Window.svelte";
     import Taskbar from "$lib/Taskbar.svelte";
+    import ErrorPopup from "$lib/ErrorPopup.svelte";
     import { onMount } from "svelte";
 
     // from UploadMenu
@@ -20,6 +21,7 @@
     let layoutName: string = "";
     let submitDisabled: boolean = true;
     let submitState: string = "submit-invalid";
+    let errorMessage: string = "";
 
     // this is a watcher
     $: if (fileName && selectedItem.name !== "") {
@@ -85,6 +87,11 @@
             </label>
         </div>
     </div>
+</Window>
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<Window name="error_alert">
+    <ErrorPopup bind:errorMessage />
 </Window>
 
 <!-- SVG Window -->

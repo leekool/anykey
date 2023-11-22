@@ -18,7 +18,7 @@
             return;
         }
 
-        if (file.type !== 'text/plain' || !file.type.endsWith(".c")) {
+        if (file.type !== 'text/plain' || !file.name.endsWith(".c")) {
             fileName = 'File type must be of type ".c"'
             return;
         }
