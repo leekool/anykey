@@ -29,7 +29,8 @@
 
     onMount(async () => {
         // fetch data from the server when the component is mounted
-        const response = await fetch("http://localhost:5000/api/keyboards");
+        const response = await fetch("http://localhost:5000/api/keyboards"); // dev
+        // const response = await fetch("https://anykey.imre.al:5000/api/keyboards"); // prod
         menuItems = await response.json();
     });
 
@@ -49,7 +50,8 @@
         formData.append("mapPath", selectedItem.path);
         formData.append("mergeLayers", mergeLayers == true ? "true" : "false");
 
-        const response = await fetch("http://localhost:5000/api/layout", {
+        const response = await fetch("http://localhost:5000/api/layout", { // dev
+        // const response = await fetch("https://anykey.imre.al:5000/api/layout", { // prod
             method: "POST",
             body: formData,
         });
