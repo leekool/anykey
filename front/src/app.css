@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Tamzen';
-    src: url('fonts/Tamzen10x20r.ttf') format('truetype'),
-         url('fonts/Tamzen10x20r.eot') format('embedded-opentype');
+    src: url('/fonts/Tamzen10x20r.ttf') format('truetype'),
+         url('/fonts/Tamzen10x20r.eot') format('embedded-opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -12,7 +12,7 @@
 
 body {
     margin: 0;
-    background-image: url('images/bg.svg');
+    background-image: url('/images/bg.svg');
     background-color: #888cb1;
     background-repeat: repeat-x;
     background-size: 16px;

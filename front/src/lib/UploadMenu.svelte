@@ -61,8 +61,8 @@
 </div>
 
 <style>
-    @import url("../../static/fonts/real-icons.css");
-    @import url("../../static/pixel-corners.css");
+    @import url("/fonts/real-icons.css");
+    @import url("/pixel-corners.css");
 
     .main {
         display: flex;

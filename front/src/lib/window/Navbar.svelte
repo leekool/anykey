@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Window, windowStore } from "./WindowStore";
+    import { Window, windowStore } from "$lib/window/WindowStore";
 
     export let window_: Window;
 </script>
@@ -96,7 +96,7 @@
 </div>
 
 <style>
-    @import url("../../../static/pixel-corners.css");
+    @import url("/pixel-corners.css");
 
     .navbar {
         display: flex;
@@ -287,7 +287,7 @@
     .download-btn-icon {
         height: 70%;
         width: 70%;
-        content: url("images/left-arrow.svg");
+        content: url("/images/left-arrow.svg");
         transform: rotate(270deg);
     }
 

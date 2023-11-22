@@ -76,7 +76,7 @@
 </div>
 
 <style>
-    @import url("../../static/pixel-corners.css");
+    @import url("/pixel-corners.css");
 
     *::-webkit-scrollbar {
         display: none;
@@ -183,7 +183,7 @@
         background-color: #ebebeb;
         box-shadow: 2px 0 0 0 #c2c2c2 inset, -2px 0 0 0 #f5f5f5 inset,
             0 -2px 0 0 #ebebeb inset, 0 2px 0 0 #ebebeb inset;
-        background-image: url("images/keyboard-tile.svg");
+        background-image: url("/images/keyboard-tile.svg");
     }
 
     .search-input:focus,

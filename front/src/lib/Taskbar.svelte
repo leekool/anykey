@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { windowStore } from "./window/WindowStore";
+    import { windowStore } from "$lib/window/WindowStore";
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -35,7 +35,7 @@
         font-size: 16px;
         font-weight: bold;
         color: #222020;
-        background-image: url("images/footer-tile.svg");
+        background-image: url("/images/footer-tile.svg");
         background-repeat: repeat;
         border-top: 2px solid #222020;
         box-shadow: 2px 2px #fff inset, -2px -2px #a0a0a0 inset;
@@ -82,7 +82,7 @@
 
     .active {
         color: #fff;
-        background-image: url("images/iconman-tile.svg");
+        background-image: url("/images/iconman-tile.svg");
         /* background-size: 8%; */
         background-color: #aaa;
         box-shadow: -2px -2px #ccccff inset, 2px 2px #9c9cd3 inset;

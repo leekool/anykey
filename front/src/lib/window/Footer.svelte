@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Window } from "./WindowStore";
+    import type { Window } from "$lib/window/WindowStore";
 
     export let window_: Window;
 </script>
@@ -72,14 +72,14 @@
     .footer-bg {
         height: calc(100% - 2px);
         width: 100%;
-        background-image: url("images/footer-tile.svg");
+        background-image: url("/images/footer-tile.svg");
     }
 
     .scroll-img {
         display: flex;
         height: 70%;
         width: 70%;
-        content: url("images/footer-scroll.svg");
+        content: url("/images/footer-scroll.svg");
         border-left: 1px solid #a3a3d7;
         margin-right: 1px;
     }
@@ -88,14 +88,14 @@
         display: flex;
         height: 80%;
         width: 80%;
-        content: url("images/left-arrow.svg");
+        content: url("/images/left-arrow.svg");
         /* filter: saturate(0%) brightness(100%) contrast(80%); */
     }
 
     .right-arrow {
         height: 80%;
         width: 80%;
-        content: url("images/left-arrow.svg");
+        content: url("/images/left-arrow.svg");
         transform: rotate(180deg);
     }
 
