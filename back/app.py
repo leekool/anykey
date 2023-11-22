@@ -10,6 +10,7 @@ from generate_flat_svg import get_flat_keymap_svg
 app = Flask(__name__)
 CORS(app)
 
+
 # Gets the SVG based on chosen keyboard and uploaded map
 @app.route('/api/layout', methods=['POST'])
 def get_data():
@@ -17,16 +18,16 @@ def get_data():
     def add_header(response):
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
-    
+
     if 'file' not in request.files:
         return 'No file found'
-    
+
     if 'mapPath' not in request.form:
         return 'No map found'
-    
+
     if 'mergeLayers' not in request.form:
         return 'No Merge Layer found'
-    
+
     fileData = request.files['file']
     mapPath = request.form['mapPath']
     mergeLayers = request.form['mergeLayers']
@@ -39,16 +40,19 @@ def get_data():
 
     return jsonify({'message': svg_string})
 
+
 # Gets the List<String, String> of keyboard we have
 @app.route('/api/keyboards', methods=['GET'])
 def get_keyboards():
     fileNames = []
-    for fileName_absolute in glob.glob('./keymap_layouts/**/*.json',recursive=True):
+    for fileName_absolute in glob.glob('./keymap_layouts/**/*.json', recursive=True):
         # filename, filename path
         fileNames.append({'name': os.path.basename(fileName_absolute).replace('.json', ''), 'path': fileName_absolute})
 
     fileNames.sort(key=lambda x: x['name'])
     return fileNames
 
+
 if __name__ == "__main__":
     app.run(debug=True, host='localhost', port=5000)
+    # app.run(ssl_context=('fakecertpath/cert.pem', 'fakecertpath/privkey.pem'), host='anykey.imre.al', port=5000)  # makeshift way to get it to run in prod (for burt's eyes only)
