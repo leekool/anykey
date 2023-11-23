@@ -6,6 +6,8 @@
     // import ErrorPopup from "$lib/ErrorPopup.svelte";
     import { onMount } from "svelte";
 
+    let isMobile = false;
+
     // from UploadMenu
     let file: File;
     let fileName: string = "";
@@ -30,6 +32,8 @@
     }
 
     onMount(async () => {
+        isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
+
         // fetch data from the server when the component is mounted
         const response = await fetch("http://localhost:5000/api/keyboards"); // dev
         // const response = await fetch("https://anykey.imre.al:5000/api/keyboards"); // prod
@@ -99,9 +103,10 @@
         name={layoutName}
         options={{ 
             type: "window-layout", 
+            maximised: isMobile,
             navbar: {
                 minimise: true,
-                maximise: true,
+                maximise: !isMobile,
                 close: true,
                 info: true
             },
