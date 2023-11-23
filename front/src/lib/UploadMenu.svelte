@@ -13,15 +13,20 @@
         if (!e.currentTarget.files) return;
 
         file = e.currentTarget.files[0];
+
+        console.log("FILE!", file)
+
         if (Number(fileSizeKb(file)) > 1024) {
-            fileName = 'Max allowed file size is 1MB'
+            fileName = "Max allowed file size is 1MB"
             return;
         }
 
-        if (file.type !== 'text/plain' || !file.name.endsWith(".c")) {
-            fileName = 'File type must be of type ".c"'
+        // if (file.type !== "text/plain" || !file.name.endsWith(".c")) {
+        if (!/plain|x-csrc/.test(file.type) || !file.name.endsWith(".c")) {
+            fileName = "File type must be of type \".c\""
             return;
         }
+
         fileName = file.name;
         fileSize = fileSizeKb(file) + "kB";
     };

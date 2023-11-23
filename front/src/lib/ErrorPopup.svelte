@@ -2,7 +2,7 @@
     export let errorMessage: string;
 
     const submitForm = (event: Event) => {
-        console.log('clicked ok')
+        console.log("clicked ok")
     };
 </script>
 
@@ -19,7 +19,7 @@
         >
         <label>
             <input class="" type="submit" />
-            Ok
+            OK
         </label>
     </div>
     </fieldset>
