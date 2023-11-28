@@ -5,6 +5,7 @@
     import Taskbar from "$lib/Taskbar.svelte";
     // import ErrorPopup from "$lib/ErrorPopup.svelte";
     import { onMount } from "svelte";
+    import { PUBLIC_BASE_URL } from "$env/static/public";
 
     let isMobile = false;
 
@@ -34,8 +35,7 @@
         isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
 
         // fetch data from the server when the component is mounted
-        // const response = await fetch("http://localhost:5000/api/keyboards"); // dev
-        const response = await fetch("https://anykey.imre.al:5000/api/keyboards"); // prod
+        const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/keyboards`);
         menuItems = await response.json();
     });
 
@@ -55,8 +55,7 @@
         formData.append("mapPath", selectedItem.path);
         formData.append("mergeLayers", mergeLayers == true ? "true" : "false");
 
-        // const response = await fetch("http://localhost:5000/api/layout", { // dev
-        const response = await fetch("https://anykey.imre.al:5000/api/layout", { // prod
+        const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/layout`, {
             method: "POST",
             body: formData,
         });
