@@ -23,7 +23,7 @@
     let layoutName: string = "";
     let submitDisabled: boolean = true;
     let submitState: string = "submit-invalid";
-    // let errorMessage: string = "";
+    let errorMessage: string = "";
 
     $: if (fileName && selectedItem.name !== "") {
         submitState = "submit-valid";
