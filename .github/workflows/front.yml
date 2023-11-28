@@ -52,5 +52,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          source: ./front/build/*
+          source: ./*
           target: ${{ secrets.FRONT_DIR }}
