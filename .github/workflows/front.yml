@@ -30,3 +30,25 @@ jobs:
         with:
           name: build-folder
           path: ./front/build
+
+  deploy:
+    name: front-deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: download artifact
+        with:
+          name: build-folder
+          path: ./front/build
+        
+      - name: copy build to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: ./front/build*
+          target: /home/lee/imre.al/anykey
