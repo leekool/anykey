@@ -25,7 +25,6 @@
     let submitState: string = "submit-invalid";
     let errorMessage: string = "";
 
-    // this is a watcher
     $: if (fileName && selectedItem.name !== "") {
         submitState = "submit-valid";
         submitDisabled = false;
@@ -48,7 +47,7 @@
         postLayout();
     };
 
-    // Get keyboard SVG Image
+    // get keyboard SVG Image
     async function postLayout() {
         formData = new FormData();
 
