@@ -18,13 +18,15 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: install dependencies
-        uses: bahmutov/npm-install@v1
+        working-directory: ./front
+        run: npm install
 
       - name: build
+        working-directory: ./front
         run: npm run build
 
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-folder
-          path: front/build
+          path: ./front/build
