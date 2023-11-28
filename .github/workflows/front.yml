@@ -1,0 +1,30 @@
+name: front-deploy
+
+on:
+  push:  
+    paths:
+      - front/**
+
+jobs:
+  build:
+    name: front-build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v3
+
+      - name: install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: build
+        run: npm run build
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-folder
+          path: front/build
