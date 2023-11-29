@@ -1,0 +1,38 @@
+name: back-deploy
+
+on:
+  push:  
+    paths:
+      - back/**
+      
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: copy build to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: ./back/*
+          target: ${{ secrets.BACK_DIR }}
+          rm: true
+          strip_components: 1
+          
+      - name: run deployment script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: cd ${{ secrets.BACK_DIR }} && sh ./deploy.sh
+        
+      
+
+      
