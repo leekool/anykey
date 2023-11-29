@@ -1,7 +1,7 @@
 import glob
 import os
 from flask import Flask, after_this_request, jsonify, request
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 from parse_keys import parse_map
 from generate_svg import get_keymap_svg
@@ -9,6 +9,10 @@ from generate_flat_svg import get_flat_keymap_svg
 
 app = Flask(__name__)
 CORS(app)
+
+url = os.environ.get('ANYKEY_URL', 'localhost')
+cert = os.environ.get('CERT')
+key = os.environ.get('KEY')
 
 
 # Gets the SVG based on chosen keyboard and uploaded map
@@ -54,5 +58,7 @@ def get_keyboards():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='localhost', port=5000)
-    # app.run(ssl_context=('fakecertpath/cert.pem', 'fakecertpath/privkey.pem'), host='anykey.imre.al', port=5000)  # makeshift way to get it to run in prod (for burt's eyes only)
+    if url == 'localhost':
+        app.run(debug=True, host=url, port=5000)
+    else:
+        app.run(ssl_context=(cert, key), host=url, port=5000)
