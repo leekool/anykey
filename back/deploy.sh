@@ -4,8 +4,7 @@
 if kill $(pgrep -f "python3 app.py"); then
     echo "Existing process killed successfully."
 else
-    echo "Error: Unable to kill existing process."
-    exit 1
+    echo "No existing process found."
 fi
 
 nohup python3 app.py > /dev/null 2>&1 &
