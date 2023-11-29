@@ -6,7 +6,7 @@
 #include <string.h>
 #include "lib/lib8tion/lib8tion.h"
 
-#define ENT_CTL LCTL_T(KC_ENT)        // enter / left ctrl
+#define ENT_CTL LCTL_T(KC_ENT)
 #define SPC_CTL RCTL_T(KC_SPC)
 
 /* home row mods */
