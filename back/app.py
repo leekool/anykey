@@ -10,9 +10,9 @@ from generate_flat_svg import get_flat_keymap_svg
 app = Flask(__name__)
 CORS(app)
 
-url = os.environ.get('ANYKEY_URL', 'localhost')
-cert = os.environ.get('CERT')
-key = os.environ.get('KEY')
+API_URL = os.environ.get('ANYKEY_URL', 'localhost')
+CERT_PATH = os.environ.get('CERT_PATH')
+KEY_PATH = os.environ.get('KEY_PATH')
 
 
 # Gets the SVG based on chosen keyboard and uploaded map
@@ -58,7 +58,7 @@ def get_keyboards():
 
 
 if __name__ == "__main__":
-    if url == 'localhost':
-        app.run(debug=True, host=url, port=5000)
+    if API_URL == 'localhost':
+        app.run(debug=True, host=API_URL, port=5000)
     else:
-        app.run(ssl_context=(cert, key), host=url, port=5000)
+        app.run(ssl_context=(CERT_PATH, KEY_PATH), host=API_URL, port=5000)
