@@ -1,6 +1,6 @@
 import json
 import uuid
-
+import requests
 
 class KeyboardCap:
     def __init__(self, pos_x, pos_y, key_h, key_w, key_r, inner_pos_x, inner_pos_y, inner_key_h, inner_key_w, key_text_x, key_text_y, key_text_r, coord_multiplier, baseline_text):
@@ -19,15 +19,13 @@ class KeyboardCap:
         self.coord_multiplier = coord_multiplier
         self.baseline_text = baseline_text
 
+def getKeyboardCoords(keyboardName):
+    response = requests.get(f"https://keyboards.qmk.fm/v1/keyboards/" + keyboardName + "/info.json")
+    keyboardJson = json.loads(response.content)
+    layoutName = next(iter(keyboardJson['keyboards'][keyboardName]['layouts']))
+    return keyboardJson['keyboards'][keyboardName]['layouts'][layoutName]['layout']
 
-def getKeyboardCoords(mapPath):
-    with open(mapPath, 'r') as j:
-        contents = json.loads(j.read())
-        print(next(iter(contents['layouts'])))
-        return contents['layouts'][next(iter(contents['layouts']))]['layout']
-
-
-def get_keymap_svg(mapPath, fullLayout):
+def get_keymap_svg(keyboardName, fullLayout):
     level = 10
     svg_w = 0
     svg_h = 0
@@ -39,7 +37,8 @@ def get_keymap_svg(mapPath, fullLayout):
     with open('layout.svg', 'w') as file:
         # we add the x because an ID needs to start with a letter
         mapNameId = 'x' + uuid.uuid4().hex
-        coords = getKeyboardCoords(mapPath)
+        coords = getKeyboardCoords(keyboardName)
+        print(coords)
 
         largest_x = max(coords, key=lambda x: x['x'])['x']
         largest_y = max(coords, key=lambda x: x['y'])['y']
@@ -86,7 +85,6 @@ def get_keymap_svg(mapPath, fullLayout):
         file.write(svg_string)
 
         return svg_string
-
 
 def determineKeyPosition(level, coord_multiplier, kCap, coords, idx):
     kCap.pos_x = coords[idx]['x'] * coord_multiplier

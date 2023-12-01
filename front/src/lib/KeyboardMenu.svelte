@@ -1,17 +1,17 @@
 <script lang="ts">
     export let selectedItem: any;
-    export let menuItems: { name: string; path: string }[] = [];
+    export let menuItems: string[] = [];
 
     let inputEl: HTMLElement;
     let inputValue: string = "";
-    let filteredItems: { name: string; path: string }[] = [];
+    let filteredItems: string[] = [];
 
-    const handleClick = (item: { name: string; path: string }) =>
+    const handleClick = (item: string) =>
         (selectedItem = item);
 
     const handleInput = () => {
         return (filteredItems = menuItems.filter((item) =>
-            item.name.toLowerCase().match(inputValue.toLowerCase())
+            item.toLowerCase().match(inputValue.toLowerCase())
         ));
     };
 
@@ -19,13 +19,13 @@
         if (event.code !== "Enter") return;
 
         const matchedItem = menuItems.find(
-            (item) => item.name.toLowerCase() === inputValue.toLowerCase()
+            (item) => item.toLowerCase() === inputValue.toLowerCase()
         );
 
         matchedItem
             ? (selectedItem = matchedItem)
             : (selectedItem =
-                  filteredItems.length > 0 ? filteredItems[0] : { name: "" });
+                  filteredItems.length > 0 ? filteredItems[0] : null);
     };
 </script>
 
@@ -49,23 +49,23 @@
                 {#if filteredItems.length > 0}
                     {#each filteredItems as item}
                         <div
-                            class={item.name == selectedItem.name
+                            class={item == selectedItem
                                 ? "link link-selected"
                                 : "link"}
                             on:click={() => handleClick(item)}
                         >
-                            {item.name}
+                            {item}
                         </div>
                     {/each}
                 {:else}
                     {#each menuItems as item}
                         <div
-                            class={item.name == selectedItem.name
+                            class={item == selectedItem
                                 ? "link link-selected"
                                 : "link"}
                             on:click={() => handleClick(item)}
                         >
-                            {item.name}
+                            {item}
                         </div>
                     {/each}
                 {/if}

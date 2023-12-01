@@ -16,8 +16,8 @@
     let mergeLayers: boolean = false;
 
     // from KeyboardMenu
-    let menuItems: { name: string; path: string }[] = [];
-    let selectedItem: { name: string; path: string } = { name: "", path: "" };
+    let menuItems: string[] = [];
+    let selectedItem: string = "";
 
     let formData = new FormData();
     let layoutResponse: string[] = [];
@@ -26,7 +26,7 @@
     let submitState: string = "submit-invalid";
     // let errorMessage: string = "";
 
-    $: if (fileName && selectedItem.name !== "") {
+    $: if (fileName && selectedItem !== "") {
         submitState = "submit-valid";
         submitDisabled = false;
     }
@@ -42,7 +42,7 @@
     const submitForm = (event: Event) => {
         if (submitState == "submit-invalid") return;
 
-        layoutName = `${selectedItem.name.toLowerCase()} layout`;
+        layoutName = `${selectedItem.toLowerCase()} layout`;
 
         postLayout();
     };
@@ -52,7 +52,7 @@
         formData = new FormData();
 
         formData.append("file", file);
-        formData.append("mapPath", selectedItem.path);
+        formData.append("keyboardName", selectedItem);
         formData.append("mergeLayers", mergeLayers == true ? "true" : "false");
 
         const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/layout`, {
@@ -75,7 +75,7 @@
     <div class="bottom-container">
         <div class="info">
             <span>
-                {fileName ? selectedItem.name + " - " : selectedItem.name}
+                {fileName ? selectedItem + " - " : selectedItem}
             </span>
             <span>{fileName} {fileSize}</span>
         </div>
@@ -110,9 +110,9 @@
             },
             layoutInfo: {
                 svg: layout,
-                name: selectedItem.name,
+                name: selectedItem,
                 fileName: fileName,
-                filePath: selectedItem.path,
+                filePath: selectedItem,
                 fileSize: fileSize
             }
         }}

@@ -1,5 +1,7 @@
 import glob
 import os
+import requests
+import json
 from flask import Flask, after_this_request, jsonify, request
 from flask_cors import CORS
 
@@ -26,35 +28,35 @@ def get_data():
     if 'file' not in request.files:
         return 'No file found'
 
-    if 'mapPath' not in request.form:
+    if 'keyboardName' not in request.form:
         return 'No map found'
 
     if 'mergeLayers' not in request.form:
         return 'No Merge Layer found'
 
     fileData = request.files['file']
-    mapPath = request.form['mapPath']
+    keyboardName = request.form['keyboardName']
     mergeLayers = request.form['mergeLayers']
     fullLayout = parse_map(fileData)
 
     if (mergeLayers == 'true'):
-        svg_string = get_flat_keymap_svg(mapPath, fullLayout)
+        svg_string = get_flat_keymap_svg(keyboardName, fullLayout)
     else:
-        svg_string = get_keymap_svg(mapPath, fullLayout)
+        svg_string = get_keymap_svg(keyboardName, fullLayout)
 
     return jsonify({'message': svg_string})
 
-
-# Gets the List<String, String> of keyboard we have
 @app.route('/api/keyboards', methods=['GET'])
 def get_keyboards():
     fileNames = []
-    for fileName_absolute in glob.glob('./keymap_layouts/**/*.json', recursive=True):
-        # filename, filename path
-        fileNames.append({'name': os.path.basename(fileName_absolute).replace('.json', ''), 'path': fileName_absolute})
 
-    fileNames.sort(key=lambda x: x['name'])
-    return fileNames
+    print('boutta geddit')
+    response = requests.get(f"https://api.qmk.fm/v1/keyboards")
+    keyboardList = json.loads(response.content)
+
+    print(keyboardList)
+
+    return keyboardList
 
 
 if __name__ == "__main__":
