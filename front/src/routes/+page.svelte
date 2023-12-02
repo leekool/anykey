@@ -1,9 +1,11 @@
 <script lang="ts">
     import KeyboardMenu from "$lib/KeyboardMenu.svelte";
     import UploadMenu from "$lib/UploadMenu.svelte";
-    import Window from "$lib/window/Window.svelte";
+    import WindowComp from "$lib/window/Window.svelte";
+    import { Window, windowStore } from "$lib/window/WindowStore";
     import Taskbar from "$lib/Taskbar.svelte";
     // import ErrorPopup from "$lib/ErrorPopup.svelte";
+
     import { onMount } from "svelte";
     import { PUBLIC_BASE_URL } from "$env/static/public";
 
@@ -32,7 +34,7 @@
     }
 
     onMount(async () => {
-        isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
+        Window.isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
 
         // fetch data from the server when the component is mounted
         const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/keyboards`);
@@ -68,7 +70,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<Window name="layout_gen">
+<WindowComp name="layout_gen">
     <KeyboardMenu bind:selectedItem bind:menuItems />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 
@@ -89,7 +91,7 @@
             </label>
         </div>
     </div>
-</Window>
+</WindowComp>
 
 <!-- <Window name="alert"> -->
 <!--     <ErrorPopup bind:errorMessage /> -->
@@ -97,14 +99,14 @@
 
 <!-- SVG Window -->
 {#each layoutResponse as layout}
-    <Window
+    <WindowComp
         name={layoutName}
         options={{ 
-            type: "window-layout", 
-            maximised: isMobile,
+            type: "layout", 
+            maximised: Window.isMobile,
             navbar: {
                 minimise: true,
-                maximise: !isMobile,
+                maximise: !Window.isMobile,
                 close: true,
                 info: true
             },
@@ -122,7 +124,7 @@
                 {@html layout}
             </viewBox>
         </div>
-    </Window>
+    </WindowComp>
 {/each}
 
 <Taskbar />

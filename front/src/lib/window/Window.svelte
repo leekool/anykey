@@ -14,14 +14,21 @@
 
     export let name: string;
     export let options: Partial<Options> = {};
+    export let position: Partial<Position> = {}
+    // export let slot: any;
 
-    let window_ = new Window(name, get_current_component(), options);
+    let window_ = new Window(name, get_current_component(), options, position);
     let element: HTMLElement;
 
     const getPosition = (): void => {
         const getSize = (e: HTMLElement): Partial<Position> => {
             const { height, width } = e.getBoundingClientRect();
-            return { height, width, top: window.innerHeight / 2, left: window.innerWidth / 2 };
+            return { 
+                height, 
+                width, 
+                top: (window_.position.topPercent / 100) * window.innerHeight,
+                left: (window_.position.leftPercent / 100) * window.innerWidth
+            };
         }
 
         window_.position = Object.assign({}, window_.position, getSize(element));
@@ -52,6 +59,11 @@
 
         $windowStore = $windowStore;
     };
+
+    const clickNavbar = (): void => {
+        // if (!window_.options.focusEle) return;
+        // window_.options.focusEle.focus();
+    }
 
     // --- draggable navbar functions for mouse events ---
     let moving = false;
@@ -112,7 +124,7 @@
         window.addEventListener("resize", () => getTopLeftPercent());
     });
 
-    onDestroy( () => {
+    onDestroy(() => {
         console.log("destroyed: ", window_);
     });
 </script>
@@ -120,7 +132,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
     bind:this={element}
-    class={window_.options.type}
+    class={"window-" + window_.options.type}
     class:minimised={window_.options.minimised}
     class:maximised={window_.options.maximised}
     class:draggable={!window_.options.maximised}
@@ -132,6 +144,7 @@
             class="drag-bar" 
             on:mousedown={dragMouseDown}
             on:touchstart|preventDefault={dragTouchStart}
+            on:click={() => clickNavbar()}
         />
         <Navbar {window_} />
 
