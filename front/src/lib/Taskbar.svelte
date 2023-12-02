@@ -35,8 +35,8 @@
         font-size: 16px;
         font-weight: bold;
         color: #222020;
-        background-image: url("/images/footer-tile.svg");
-        background-size: 2%;
+        background-image: url("/images/taskbar-tile.svg");
+        background-size: contain;
         background-repeat: repeat;
         border-top: 2px solid #222020;
         box-shadow: 2px 2px #fff inset, -2px -2px #a0a0a0 inset;
