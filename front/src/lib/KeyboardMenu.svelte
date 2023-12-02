@@ -90,7 +90,6 @@
         min-height: 200px;
         height: 100%;
         width: 100%;
-        max-width: 100%;
     }
 
     fieldset {
@@ -125,8 +124,8 @@
         flex-direction: column;
         flex: 1 1 auto;
         height: 0;
-        width: 100%;
-        max-width: 100%;
+        /* width: 100%; */
+        /* max-width: 100%; */
         overflow-x: hidden;
         overflow-y: auto;
         white-space: nowrap;
