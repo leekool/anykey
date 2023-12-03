@@ -7,6 +7,7 @@
     import { Keymap, keymapStore } from "$lib/keymap/KeymapStore";
     import KeymapComponent from "$lib/keymap/Keymap.svelte";
 
+    let isMobile = false;
     let desktopIcons: any[]  = [];
 
     const toggleHighlight = (icon: any) => {
@@ -66,11 +67,11 @@
             options: {
                 type: "keymap",
                 layout: keymap.layout,
-                maximised: Window.isMobile,
+                maximised: isMobile,
                 highlight: false,
                 navbar: {
                     minimise: true,
-                    maximise: !Window.isMobile,
+                    maximise: !isMobile,
                     close: true,
                     info: true
                 }
@@ -90,6 +91,8 @@
     }
 
     onMount(() => {
+        isMobile = (window.innerWidth <= 600 && window.innerHeight <= 900); 
+
         $keymapStore.forEach(k => initProgram(k));
 
         desktopIcons = desktopIcons; // trigger change detection

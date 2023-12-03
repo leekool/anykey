@@ -1,5 +1,6 @@
 <script lang="ts">
     import { PUBLIC_BASE_URL } from "$env/static/public";
+    import { onMount } from "svelte";
 
     import WindowComponent from "$lib/window/Window.svelte";
     import { Window } from "$lib/window/WindowStore";
@@ -8,6 +9,8 @@
 
     import KeyboardMenu from "$lib/layout_gen/KeyboardMenu.svelte";
     import UploadMenu from "$lib/layout_gen/UploadMenu.svelte";
+
+    let isMobile = false;
 
     // from UploadMenu
     let file: File;
@@ -20,9 +23,6 @@
 
     let formData = new FormData();
 
-    let layoutResponse: string[] = [];
-    let layoutName: string = "";
-
     let submitDisabled: boolean = true;
     let submitState: string = "submit-invalid";
 
@@ -33,8 +33,6 @@
 
     const submitForm = () => {
         if (submitState == "submit-invalid") return;
-
-        layoutName = `${selectedItem.toLowerCase()} layout`;
 
         postLayout();
     };
@@ -59,8 +57,6 @@
         formData.append("keyboardName", selectedItem);
         formData.append("mergeLayers", mergeLayers == true ? "true" : "false");
 
-        console.log("TEST!", formData)
-
         const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/layout`, {
             method: "POST",
             body: formData,
@@ -68,8 +64,6 @@
 
         const json = await response.json();
         const layout = json.message
-
-        layoutResponse.push(json.message);
 
         // i will refactor this bigly
         const keymapInfo = {
@@ -85,10 +79,10 @@
             options: {
                 type: "keymap",
                 layout,
-                maximised: Window.isMobile,
+                maximised: isMobile,
                 navbar: {
                     minimise: true,
-                    maximise: !Window.isMobile,
+                    maximise: !isMobile,
                     close: true,
                     info: true,
                 }
@@ -101,9 +95,11 @@
                 }
             }
         });
-
-        console.log(layout)
     }
+
+    onMount(() => {
+        isMobile = (window.innerWidth <= 600 && window.innerHeight <= 900); 
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

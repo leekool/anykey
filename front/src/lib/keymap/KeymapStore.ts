@@ -1,7 +1,6 @@
 import { writable, get } from "svelte/store";
 import exampleJson from "$lib/keymap/example.json?raw";
 import html2canvas from "html2canvas";
-import { PUBLIC_BASE_URL } from "$env/static/public";
 
 interface KeymapInfo {
     fileName: string,

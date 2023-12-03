@@ -43,7 +43,6 @@ export class Window {
 
     static windowStore = writable<Window[]>([]);
     static focusList: number[] = [];
-    static isMobile = false;
 
     constructor(name: string, component: WindowComponent, options?: Partial<Options>, position?: Partial<Position>) {
         this.options = new Options();
@@ -108,10 +107,10 @@ export class Window {
 
         this.options.focused = true;
 
-        if (!Window.isMobile) {
-            // focus element (after 100ms to account for opening windows)
-            // setTimeout(() => this.options.focusEle?.focus(), 100);
-        }
+        // if (!isMobile) {
+        //     focus element (after 100ms to account for opening windows)
+        //     setTimeout(() => this.options.focusEle?.focus(), 100);
+        // }
 
         // update focusList
         const index = Window.focusList.indexOf(this.id);
