@@ -14,13 +14,11 @@ const config = {
 			fallback: undefined,
 			precompress: false,
 			strict: true
-		})
-	},
-
-    onwarn: (warning, handler) => {
-        if (warning.pluginCode === 'a11y-click-events-have-key-events') return;
-        handler(warning);
-    },
+		}),
+		prerender: {
+			handleHttpError: 'warn'
+		}
+	}
 };
 
 export default config;
