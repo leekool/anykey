@@ -137,6 +137,7 @@
         height: 100vh;
         font-family: "Tamzen", sans-serif;
         font-size: 15px;
+        font-weight: 600;
     }
 
     .icon-container {

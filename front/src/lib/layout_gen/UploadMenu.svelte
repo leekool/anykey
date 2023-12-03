@@ -80,7 +80,7 @@
         flex-direction: column;
         box-sizing: border-box;
         border: 2px solid #000;
-        font-weight: 800;
+        font-weight: 600;
         margin: 0 10px 0px 10px;
         height: 100%;
     }

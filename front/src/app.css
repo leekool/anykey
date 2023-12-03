@@ -8,6 +8,8 @@
 
 * {
     scrollbar-width: none !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    -webkit-font-smoothing: antialiased !important; 
 }
 
 body {
