@@ -6,11 +6,14 @@
     import Taskbar from "$lib/Taskbar.svelte";
 
     import { onMount } from "svelte";
+    import Desktop from "$lib/Desktop.svelte";
 
     onMount(async () => {
         Window.isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
     });
 </script>
+
+<Desktop />
 
 <WindowComp 
     name="layout_gen"

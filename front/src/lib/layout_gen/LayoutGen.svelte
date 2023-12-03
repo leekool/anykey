@@ -1,12 +1,13 @@
 <script lang="ts">
     import { PUBLIC_BASE_URL } from "$env/static/public";
 
-    import KeyboardMenu from "$lib/layout_gen/KeyboardMenu.svelte";
-    import UploadMenu from "$lib/layout_gen/UploadMenu.svelte";
     import WindowComponent from "$lib/window/Window.svelte";
     import { Window } from "$lib/window/WindowStore";
     import KeymapComponent from "$lib/keymap/Keymap.svelte";
     import { Keymap } from "$lib/keymap/KeymapStore";
+
+    import KeyboardMenu from "$lib/layout_gen/KeyboardMenu.svelte";
+    import UploadMenu from "$lib/layout_gen/UploadMenu.svelte";
 
     // from UploadMenu
     let file: File;
@@ -58,6 +59,8 @@
         formData.append("keyboardName", selectedItem);
         formData.append("mergeLayers", mergeLayers == true ? "true" : "false");
 
+        console.log("TEST!", formData)
+
         const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/layout`, {
             method: "POST",
             body: formData,
@@ -98,6 +101,8 @@
                 }
             }
         });
+
+        console.log(layout)
     }
 </script>
 

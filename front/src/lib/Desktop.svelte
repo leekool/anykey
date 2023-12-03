@@ -3,21 +3,22 @@
     import { assets } from "$app/paths";
 
     import { windowStore, Window } from "$lib/window/WindowStore";
-    import { Program, programStore } from "$lib/program/ProgramStore";
     import WindowComponent from "$lib/window/Window.svelte";
+    import { Keymap, keymapStore } from "$lib/keymap/KeymapStore";
+    import KeymapComponent from "$lib/keymap/Keymap.svelte";
 
-    // export let desktopIcons = $windowStore;
-    export let desktopIcons = $programStore;
+    let desktopIcons: any[]  = [];
 
-    const toggleHighlight = (w: Program) => {
-        w.options.highlight = !w.options.highlight;
+    const toggleHighlight = (icon: any) => {
+        icon.options.highlight = !icon.options.highlight;
         desktopIcons = desktopIcons; // trigger change detection
+
         $windowStore = $windowStore;
     }
 
     const clearHighlight = () => {
-        $programStore.forEach((w: Program) => {
-            w.options.highlight = false;
+        desktopIcons.forEach((icon: any) => {
+            icon.options.highlight = false;
         });
 
         desktopIcons = desktopIcons; // trigger change detection
@@ -25,10 +26,10 @@
 
     let clickCount = 0;
 
-    const handleClick = (w: Program) => {
+    const handleClick = (icon: any) => {
         let clickTimer: ReturnType<typeof setTimeout>;
 
-        toggleHighlight(w);
+        toggleHighlight(icon);
 
         clickCount++;
 
@@ -38,16 +39,16 @@
                 clearTimeout(clickTimer);
             }, 200);
         } else if (clickCount === 2) {
-            const windowMatch = $windowStore.find(window => window.name === w.name);
+            const windowMatch = $windowStore.find(window => window.name === icon.name);
 
-            if (!windowMatch) return openWindow(w);
+            if (!windowMatch) return openWindow(icon);
 
             if (windowMatch.options.minimised) windowMatch.toggleMinimise();
             else if (!windowMatch.options.focused) windowMatch.getFocus();
         }
     }
 
-    const openWindow = (w: Program) => {
+    const openWindow = (icon: any) => {
         // find the highest level div ("contents") and create a child div as the target
         const contentDiv = document.querySelector("div[style='display: contents']")!;
         const target = document.createElement("div"); 
@@ -55,22 +56,53 @@
 
         new WindowComponent({
             target,
-            props: w
+            props: icon
+        });
+    }
+
+    const initProgram = (keymap: Keymap) => {
+         desktopIcons.push({
+            name: keymap.info.fileName,
+            options: {
+                type: "keymap",
+                layout: keymap.layout,
+                maximised: Window.isMobile,
+                highlight: false,
+                navbar: {
+                    minimise: true,
+                    maximise: !Window.isMobile,
+                    close: true,
+                    info: true
+                }
+            },
+            slot: {
+                component: KeymapComponent,
+                props: {
+                    layout: keymap.layout,
+                    info: {
+                        fileName: keymap.info.fileName,
+                        filePath: keymap.info.filePath,
+                        fileSize: keymap.info.fileSize,
+                    }
+                }
+            }
         });
     }
 
     onMount(() => {
-        desktopIcons = $programStore;
+        $keymapStore.forEach(k => initProgram(k));
+
+        desktopIcons = desktopIcons; // trigger change detection
     });
 </script>
 
-<!-- preload highlighted icons -->
-<svelte:head>
-   {#each desktopIcons as window}
-        <link rel="preload" as="image" href={`${assets}/images/icons/${window.name}-icon-desktop-highlight.png`} />
-        <link rel="preload" as="image" href={`${assets}/images/icons/${window.name}-icon-desktop.png`} />
-   {/each}
-</svelte:head>
+<!-- preload icons -->
+<!-- <svelte:head> -->
+<!--    {#each desktopIcons as icon} -->
+<!--         <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-highlight.png`} /> -->
+<!--         <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon.png`} /> -->
+<!--    {/each} -->
+<!-- </svelte:head> -->
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="desktop" on:click={() => clearHighlight()}>
@@ -81,10 +113,10 @@
                 on:click|stopPropagation={() => handleClick(icon)}
             >
             {#if !icon.options.highlight}
-                <img src={`${assets}/images/icons/${icon.name}-icon-desktop.png`} alt={icon.name} />
+                <img src={`${assets}/images/icons/keymap-icon.png`} alt={icon.name} />
             {/if}
             {#if icon.options.highlight}
-                <img src={`${assets}/images/icons/${icon.name}-icon-desktop-highlight.png`} alt={icon.name} />
+                <img src={`${assets}/images/icons/keymap-icon-highlight.png`} alt={icon.name} />
             {/if}
                 <span class:desktop-icon-highlight={icon.options.highlight}>
                     {icon.name}
@@ -98,6 +130,7 @@
     .desktop {
         display: flex;
         width: 100%;
+        height: 100vh;
         font-family: "Tamzen", sans-serif;
         font-size: 15px;
     }
@@ -105,6 +138,7 @@
     .icon-container {
         margin: 30px 0 0 20px;
         max-width: 100px;
+        height: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -124,7 +158,7 @@
     }
 
     .desktop-icon img {
-        max-width: 80%;
+        /* max-width: 80%; */
         /* height: 72px; */
         /* image-rendering: pixelated; */
     }

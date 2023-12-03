@@ -10,8 +10,6 @@
         $keymapStore.forEach(k => {
             if (k.layout === window_.options.layout) keymap = k;
         });
-
-        console.log("TEST", keymap);
     };
 
     onMount(() => {

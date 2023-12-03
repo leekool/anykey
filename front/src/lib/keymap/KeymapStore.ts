@@ -1,14 +1,7 @@
 import { writable, get } from "svelte/store";
+import exampleLayoutC from "../../../static/example.c?raw";
 import html2canvas from "html2canvas";
-
-function downloadData(blob: Blob, name: string) {
-    let a = document.createElement("a");
-    document.body.append(a);
-    a.download = name;
-    a.href = URL.createObjectURL(blob);
-    a.click();
-    a.remove();
-};
+import { PUBLIC_BASE_URL } from "$env/static/public";
 
 interface KeymapInfo {
     fileName: string,
@@ -23,6 +16,7 @@ export class Keymap {
     static store = writable<Keymap[]>([]);
 
     constructor(layout: string, info: KeymapInfo) {
+        getExampleLayout()
         this.layout = layout;
         this.info = info;
 
@@ -31,8 +25,6 @@ export class Keymap {
             const keymapExists = s.some(item => item.info.fileName === this.info.fileName);
             return keymapExists ? s : [...s, this];
         });
-
-        console.log("keymapStore: ", get(Keymap.store));
     }
 
     static screenshotCanvas = async (keymap: Keymap): Promise<File | null> => {
@@ -72,4 +64,42 @@ export class Keymap {
     };
 }
 
+function downloadData(blob: Blob, name: string) {
+    let a = document.createElement("a");
+    document.body.append(a);
+    a.download = name;
+    a.href = URL.createObjectURL(blob);
+    a.click();
+    a.remove();
+};
+
+async function getExampleLayout() {
+        const blob = new Blob([exampleLayoutC], { type: "text/plain" });
+        const file = new File([blob], "example.c", { type: "text/plain" });
+            
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("keyboardName", "ferris/sweep");
+        formData.append("mergeLayers", "false");
+        
+        const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/layout`, {
+            method: "POST",
+            body: formData
+        });
+
+        const json = await response.json();
+        return json.message;
+}
+
 export const keymapStore = Keymap.store; 
+
+// example keymap
+const exampleKeymap = new Keymap(
+    await getExampleLayout(), 
+    {
+        fileName: "example.c",
+        filePath: "ferris/sweep",
+        fileSize: "15kB",
+    }
+);
+
