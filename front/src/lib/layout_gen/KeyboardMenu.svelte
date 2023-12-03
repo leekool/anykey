@@ -111,7 +111,6 @@
         flex-direction: column;
         box-sizing: border-box;
         border: 2px solid #000;
-        font-weight: 600;
         margin: 6px 10px 10px 10px;
         height: calc(100% - 20px); /* 100% - margin */
         min-width: 0 !important; /* overwrite weird browser default */

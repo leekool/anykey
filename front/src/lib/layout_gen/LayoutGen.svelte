@@ -147,7 +147,6 @@
         align-items: center;
         box-sizing: border-box;
         margin: 2px 10px;
-        /* font-weight: 600; */
     }
 
     .submit-btn {

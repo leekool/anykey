@@ -144,7 +144,6 @@
         padding: 0 12px;
         left: 50%;
         transform: translate(-50%);
-        font-weight: 600;
         color: #000;
         background-color: #d5d5d5;
         text-shadow: 0 1px rgba(138, 134, 160, 0.7);
@@ -218,7 +217,6 @@
         justify-content: center;
         align-content: center;
         color: #333366;
-        font-weight: 600;
         font-size: 14px;
         text-shadow: 0 1px #f5f5f5, 0 2px rgba(138, 134, 160, 0.7);
     }

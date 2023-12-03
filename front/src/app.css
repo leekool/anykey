@@ -1,7 +1,8 @@
 @font-face {
     font-family: 'Tamzen';
-    src: url('/fonts/Tamzen10x20r.ttf') format('truetype'),
-         url('/fonts/Tamzen10x20r.eot') format('embedded-opentype');
+    src: url('/fonts/Tamzen10x20r.ttf') format('truetype');
+    /* src: url('/fonts/Tamzen10x20b.woff') format('woff'), */
+    /*      url('/fonts/Tamzen10x20b.ttf') format('truetype'); */
     font-weight: normal;
     font-style: normal;
 }
