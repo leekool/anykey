@@ -97,11 +97,11 @@
 
     .main {
         display: flex;
-        /* flex: 1 1 auto; */
+        flex: 1 1 auto;
         flex-direction: column;
         /* min-height: 200px; */
         min-height: 200px;
-        height: 100%;
+        /* height: 100%; */
         width: 100%;
     }
 
@@ -113,7 +113,7 @@
         border: 2px solid #000;
         font-weight: 800;
         margin: 6px 10px 10px 10px;
-        height: 100%;
+        height: calc(100% - 20px); /* 100% - margin */
         min-width: 0 !important; /* overwrite weird browser default */
     }
 
@@ -125,6 +125,7 @@
 
     .list-container {
         display: flex;
+        flex: 1 1 auto;
         flex-direction: column;
         box-sizing: border-box;
         height: 100%;

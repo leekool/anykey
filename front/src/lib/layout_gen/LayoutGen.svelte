@@ -107,7 +107,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div>
+<div class="main">
     <KeyboardMenu bind:selectedItem />
     <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
 
@@ -132,6 +132,16 @@
 
 <style>
     @import url("/pixel-corners.css");
+
+    .main {
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: column;
+        /* min-height: 200px; */
+        min-height: 200px;
+        /* height: 100%; */
+        width: 100%;
+    }
 
     .bottom-container {
         display: flex;
