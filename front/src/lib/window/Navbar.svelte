@@ -1,7 +1,22 @@
 <script lang="ts">
     import { Window, windowStore } from "$lib/window/WindowStore";
+    import { Keymap, keymapStore } from "$lib/keymap/KeymapStore";
+    import { onMount } from "svelte";
 
     export let window_: Window;
+    let keymap: any;
+
+    const matchKeymap = () => {
+        $keymapStore.forEach(k => {
+            if (k.layout === window_.options.layout) keymap = k;
+        });
+
+        console.log("TEST", keymap);
+    };
+
+    onMount(() => {
+        if (window_.options.type === "keymap") matchKeymap();
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -20,7 +35,7 @@
                 {#if window_.options.focused}
                     <div class="info-container">
 
-                        {#if window_.options.type?.includes("layout")}
+                        {#if window_.options.type?.includes("keymap")}
                             <div class="info-layout-container">
                                 <div class="info-layout-column" style="width: 35%;">
                                     <div class="info-layout-item">board:</div>
@@ -28,9 +43,9 @@
                                     <div class="info-layout-item">size:</div>
                                 </div>
                                 <div class="info-layout-column">
-                                    <div class="info-layout-item" style="font-style: italic;">{window_.options.layoutInfo?.name}</div>
-                                    <div class="info-layout-item" style="font-style: italic;">{window_.options.layoutInfo?.fileName}</div>
-                                    <div class="info-layout-item" style="font-style: italic;">{window_.options.layoutInfo?.fileSize}</div>
+                                    <div class="info-layout-item" style="font-style: italic;">{keymap?.info.filePath}</div>
+                                    <div class="info-layout-item" style="font-style: italic;">{keymap?.info.fileName}</div>
+                                    <div class="info-layout-item" style="font-style: italic;">{keymap?.info.fileSize}</div>
                                 </div>
                             </div>
                             <div style="min-height: 30px;"></div>
@@ -38,7 +53,7 @@
                                 class="download-btn pixel-corners"
                                 title="Download"
                                 on:click={() => {
-                                    window_.screenshotCanvas();
+                                    Keymap.screenshotCanvas(keymap);
                                 }}
                             >
                                 <div class="download-btn-icon" />
@@ -221,7 +236,8 @@
         padding: 5px;
         top: 30px;
         left: 17px;
-        max-width: 180px;
+        /* max-width: 180px; */
+        max-width: 280px;
         background-color: #e4e4e4;
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
@@ -236,7 +252,7 @@
     .info-layout-column {
         display: flex;
         flex-wrap: wrap;
-        width: 50%;
+        /* width: 50%; */
     }
 
     .info-layout-item {

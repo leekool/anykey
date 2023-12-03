@@ -1,131 +1,56 @@
 <script lang="ts">
-    import KeyboardMenu from "$lib/KeyboardMenu.svelte";
-    import UploadMenu from "$lib/UploadMenu.svelte";
     import WindowComp from "$lib/window/Window.svelte";
     import { Window, windowStore } from "$lib/window/WindowStore";
+
+    import LayoutGen from "$lib/layout_gen/LayoutGen.svelte";
     import Taskbar from "$lib/Taskbar.svelte";
-    // import ErrorPopup from "$lib/ErrorPopup.svelte";
 
     import { onMount } from "svelte";
-    import { PUBLIC_BASE_URL } from "$env/static/public";
 
-    let isMobile = false;
-
-    // from UploadMenu
-    let file: File;
-    let fileName: string = "";
-    let fileSize: string = "";
-    let mergeLayers: boolean = false;
-
-    // from KeyboardMenu
-    let menuItems: string[] = [];
-    let selectedItem: string = "";
-
-    let formData = new FormData();
-    let layoutResponse: string[] = [];
-    let layoutName: string = "";
-    let submitDisabled: boolean = true;
-    let submitState: string = "submit-invalid";
-    // let errorMessage: string = "";
-
-    $: if (fileName && selectedItem !== "") {
-        submitState = "submit-valid";
-        submitDisabled = false;
-    }
+    // from LayoutGen
 
     onMount(async () => {
         Window.isMobile = (window.innerWidth <= 600 && window.innerHeight <= 800); 
-
-        // fetch data from the server when the component is mounted
-        const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/keyboards`);
-        menuItems = await response.json();
     });
-
-    const submitForm = (event: Event) => {
-        if (submitState == "submit-invalid") return;
-
-        layoutName = `${selectedItem.toLowerCase()} layout`;
-
-        postLayout();
-    };
-
-    // get keyboard SVG Image
-    async function postLayout() {
-        formData = new FormData();
-
-        formData.append("file", file);
-        formData.append("keyboardName", selectedItem);
-        formData.append("mergeLayers", mergeLayers == true ? "true" : "false");
-
-        const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/layout`, {
-            method: "POST",
-            body: formData,
-        });
-
-        const json = await response.json();
-
-        layoutResponse.push(json.message);
-        layoutResponse = layoutResponse; // trigger svelte state management
-    }
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<WindowComp name="layout_gen">
-    <KeyboardMenu bind:selectedItem bind:menuItems />
-    <UploadMenu bind:file bind:fileName bind:mergeLayers bind:fileSize />
-
-    <div class="bottom-container">
-        <div class="info">
-            <span>
-                {fileName ? selectedItem + " - " : selectedItem}
-            </span>
-            <span>{fileName} {fileSize}</span>
-        </div>
-        <div
-            class="{submitState} submit-btn pixel-corners"
-            on:click|preventDefault={(e) => submitForm(e)}
-        >
-            <label>
-                <input class="" type="submit" disabled={submitDisabled} />
-                submit
-            </label>
-        </div>
-    </div>
-</WindowComp>
-
-<!-- <Window name="alert"> -->
-<!--     <ErrorPopup bind:errorMessage /> -->
-<!-- </Window> -->
+<WindowComp 
+    name="layout_gen"
+    slot={{
+        component: LayoutGen,
+        props: null
+    }}
+/>
 
 <!-- SVG Window -->
-{#each layoutResponse as layout}
-    <WindowComp
-        name={layoutName}
-        options={{ 
-            type: "layout", 
-            maximised: Window.isMobile,
-            navbar: {
-                minimise: true,
-                maximise: !Window.isMobile,
-                close: true,
-                info: true
-            },
-            layoutInfo: {
-                svg: layout,
-                name: selectedItem,
-                fileName: fileName,
-                filePath: selectedItem,
-                fileSize: fileSize
-            }
-        }}
-    >
-        <div class="map-svg" id="canvas">
-            <viewBox>
-                {@html layout}
-            </viewBox>
-        </div>
-    </WindowComp>
-{/each}
+<!-- {#each layoutResponse as layout} -->
+<!--     <WindowComp -->
+<!--         name={layoutName} -->
+<!--         options={{  -->
+<!--             type: "keymap",  -->
+<!--             maximised: Window.isMobile, -->
+<!--             navbar: { -->
+<!--                 minimise: true, -->
+<!--                 maximise: !Window.isMobile, -->
+<!--                 close: true, -->
+<!--                 info: true -->
+<!--             }, -->
+<!--             layoutInfo: { -->
+<!--                 svg: layout, -->
+<!--                 name: selectedItem, -->
+<!--                 fileName: fileName, -->
+<!--                 filePath: selectedItem, -->
+<!--                 fileSize: fileSize -->
+<!--             } -->
+<!--         }} -->
+<!--     > -->
+<!--         <div class="map-svg" id="canvas"> -->
+<!--             <viewBox> -->
+<!--                 {@html layout} -->
+<!--             </viewBox> -->
+<!--         </div> -->
+<!--     </WindowComp> -->
+<!-- {/each} -->
 
 <Taskbar />
 

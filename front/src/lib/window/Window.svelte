@@ -15,7 +15,13 @@
     export let name: string;
     export let options: Partial<Options> = {};
     export let position: Partial<Position> = {}
-    // export let slot: any;
+    export let slot: {
+        component: any,
+        props: any
+    } = {
+        component: null,
+        props: null
+    };
 
     let window_ = new Window(name, get_current_component(), options, position);
     let element: HTMLElement;
@@ -149,7 +155,7 @@
         <Navbar {window_} />
 
         <div class="content">
-            <slot />
+            <svelte:component this={slot.component} {...slot.props} />
         </div>
 
         <Footer {window_} />
@@ -224,7 +230,7 @@
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
     }
 
-    .window-layout {
+    .window-keymap {
         display: flex;
         flex: 1 0 auto;
         position: absolute;

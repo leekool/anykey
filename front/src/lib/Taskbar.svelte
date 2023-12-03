@@ -1,4 +1,5 @@
-<script lang="ts">
+<script lang="ts">    
+    import { assets } from "$app/paths";
     import { windowStore } from "$lib/window/WindowStore";
 </script>
 
@@ -14,7 +15,10 @@
                     window = window; // tells svelte object changed
                 }}
             >
-                <img src={"images/" + window.icon} alt={window.name} />
+                <img
+                    src={`${assets}/images/icons/${window.options.type}-icon-small.png`}
+                    alt={window.name}
+                />
                 <span>{window.name}</span>
             </div>
         {/each}

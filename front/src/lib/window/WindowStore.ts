@@ -1,6 +1,5 @@
 import { writable, get } from "svelte/store";
 import type WindowComponent from "$lib/window/Window.svelte";
-import html2canvas from "html2canvas";
 
 let count: number = 0;
 
@@ -22,25 +21,20 @@ export class Options {
     focused = true;
     minimised = false;
     maximised = false;
+    highlight = false;
     type = "main"; // probably redundant
+    layout = ""; // for keymaps
     navbar = {
         maximise: false,
         minimise: true,
         close: false,
         info: false
     }
-    layoutInfo = {
-        name: "",
-        svg: "",
-        fileName: "",
-        filePath: "",
-        fileSize: ""
-    }
+    focusEle: HTMLElement | null = null; // unused at the moment
 }
 
 export class Window {
     name: string;
-    icon: string;
     id: number;
     component: any;
     position: Position;
@@ -52,15 +46,12 @@ export class Window {
     static isMobile = false;
 
     constructor(name: string, component: WindowComponent, options?: Partial<Options>, position?: Partial<Position>) {
-        // Window.windowStore.update((store) => [...store, this]);
-
         this.options = new Options();
         Object.assign(this.options, options);
 
         this.component = component;
         this.name = name;
 
-        this.icon = (this.options.type?.includes("layout")) ? "keymap-icon.png" : name + "-icon.png";
         this.position = new Position(position?.topPercent || 50, position?.leftPercent || 50);
 
         this.id = count; // simple ID system for now
@@ -162,51 +153,6 @@ export class Window {
         });
 
         this.component.$destroy(); // remove window from DOM
-    }
-
-    async screenshotCanvas(): Promise<File | null> {
-        const layout = this.options.layoutInfo?.svg;
-        if (!layout) return null;
-
-        // Get the id from the <svg> element
-        const svgId = layout.substring(layout.indexOf("id=") + 4, layout.indexOf("<style>") - 2);
-        const el: HTMLElement | null | undefined = document.getElementById(svgId)?.parentElement;
-        const svgAssets = document.querySelectorAll("img");
-        
-        if (el) {
-            const canvas = await html2canvas(el, {
-                allowTaint: true,
-                useCORS: true,
-                logging: true,
-                imageTimeout: 0,
-                onclone: (doc) => {
-                    svgAssets.forEach((asset) => {
-                        console.log("assets", asset, asset.width, asset.height);
-                        const img = doc.createElement("img");
-                        img.src = asset.src;
-                        img.width = asset.width;
-                        img.height = asset.height;
-                        doc.body.appendChild(img);
-                    });
-                }
-            });
-
-            const blob = await new Promise((resolve) => canvas.toBlob(resolve));
-            // TODO handle error if blob is null somehow
-            const file = new File([blob as BlobPart], "thumbnail.png", { type: "image/png" });
-            this.downloadData(file, this.name);
-            return file;
-        }
-        return null;
-    }
-
-    downloadData(blob: Blob, name: string) {
-        let a = document.createElement("a");
-        document.body.append(a);
-        a.download = name;
-        a.href = URL.createObjectURL(blob);
-        a.click();
-        a.remove();
     }
 }
 

@@ -1,6 +1,9 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+    import { PUBLIC_BASE_URL } from "$env/static/public";
+
     export let selectedItem: any;
-    export let menuItems: string[] = [];
+    let menuItems: string[] = [];
 
     let inputEl: HTMLElement;
     let inputValue: string = "";
@@ -27,6 +30,15 @@
             : (selectedItem =
                   filteredItems.length > 0 ? filteredItems[0] : null);
     };
+
+    const getMenuItems = async () => {
+        const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/keyboards`);
+        return await response.json();
+    };
+
+    onMount(async () => {
+        menuItems = await getMenuItems();
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -87,6 +99,7 @@
         display: flex;
         /* flex: 1 1 auto; */
         flex-direction: column;
+        /* min-height: 200px; */
         min-height: 200px;
         height: 100%;
         width: 100%;
@@ -94,6 +107,7 @@
 
     fieldset {
         display: flex;
+        flex: 1 0 auto;
         flex-direction: column;
         box-sizing: border-box;
         border: 2px solid #000;

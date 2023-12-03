@@ -13,15 +13,13 @@
         if (!e.currentTarget.files) return;
 
         file = e.currentTarget.files[0];
-
-        console.log("FILE!", file)
+        console.log("file: ", file);
 
         if (Number(fileSizeKb(file)) > 1024) {
             fileName = "Max allowed file size is 1MB"
             return;
         }
 
-        // if (file.type !== "text/plain" || !file.name.endsWith(".c")) {
         if (!/plain|x-csrc/.test(file.type) || !file.name.endsWith(".c")) {
             fileName = "File type must be of type \".c\""
             return;
@@ -51,8 +49,7 @@
                 <input
                     type="checkbox"
                     bind:checked={mergeLayers}
-                    on:click={() =>
-                        (mergeLayersSelected = !mergeLayersSelected)}
+                    on:click={() => mergeLayersSelected = !mergeLayersSelected}
                 />
                 <span
                     class={mergeLayersSelected
