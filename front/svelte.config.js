@@ -15,9 +15,6 @@ const config = {
 			precompress: false,
 			strict: true
 		}),
-		prerender: {
-			handleHttpError: 'warn'
-		}
 	}
 };
 

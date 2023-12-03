@@ -1,5 +1,5 @@
 import { writable, get } from "svelte/store";
-import exampleLayoutC from "../../../static/example.c?raw";
+import exampleJson from "$lib/keymap/example.json?raw";
 import html2canvas from "html2canvas";
 import { PUBLIC_BASE_URL } from "$env/static/public";
 
@@ -16,7 +16,6 @@ export class Keymap {
     static store = writable<Keymap[]>([]);
 
     constructor(layout: string, info: KeymapInfo) {
-        getExampleLayout()
         this.layout = layout;
         this.info = info;
 
@@ -73,29 +72,11 @@ function downloadData(blob: Blob, name: string) {
     a.remove();
 };
 
-async function getExampleLayout() {
-        const blob = new Blob([exampleLayoutC], { type: "text/plain" });
-        const file = new File([blob], "example.c", { type: "text/plain" });
-            
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("keyboardName", "ferris/sweep");
-        formData.append("mergeLayers", "false");
-        
-        const response = await fetch(`${PUBLIC_BASE_URL}:5000/api/layout`, {
-            method: "POST",
-            body: formData
-        });
-
-        const json = await response.json();
-        return json.message;
-}
-
 export const keymapStore = Keymap.store; 
 
 // example keymap
 const exampleKeymap = new Keymap(
-    await getExampleLayout(), 
+    JSON.parse(exampleJson).message,
     {
         fileName: "example.c",
         filePath: "ferris/sweep",

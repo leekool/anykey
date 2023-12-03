@@ -97,12 +97,13 @@
 </script>
 
 <!-- preload icons -->
-<!-- <svelte:head> -->
-<!--    {#each desktopIcons as icon} -->
-<!--         <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-highlight.png`} /> -->
-<!--         <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon.png`} /> -->
-<!--    {/each} -->
-<!-- </svelte:head> -->
+<svelte:head>
+   <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-highlight.png`} />
+   <!-- {#each desktopIcons as icon} -->
+   <!--      <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-highlight.png`} /> -->
+   <!--      <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon.png`} /> -->
+   <!-- {/each} -->
+</svelte:head>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="desktop" on:click={() => clearHighlight()}>
