@@ -97,6 +97,14 @@
         });
     }
 
+    let infoString = "";
+
+    $: {
+        infoString = selectedItem;
+        if (fileName) infoString = `${fileName} ${fileSize}`; 
+        if (fileName && selectedItem) infoString = `${selectedItem} - ${fileName} ${fileSize}`;
+    }
+
     onMount(() => {
         isMobile = (window.innerWidth <= 600 && window.innerHeight <= 900); 
     });
@@ -109,10 +117,7 @@
 
     <div class="bottom-container">
         <div class="info">
-            <span>
-                {fileName ? selectedItem + " - " : selectedItem}
-            </span>
-            <span>{fileName} {fileSize}</span>
+            <span>{infoString}</span>
         </div>
         <div
             class="{submitState} submit-btn pixel-corners"
