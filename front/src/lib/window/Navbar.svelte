@@ -188,14 +188,14 @@
 
     .maximise-btn {
         position: relative;
-    }
-
-    .close-btn {
-        position: relative;
         box-shadow: 
             -2px -2px 0 0 #333366 inset, 
             -6px -6px 0 0 #a4a4a4 inset,
             -8px -8px 0 0 #333366 inset;
+    }
+
+    .close-btn {
+        position: relative;
     }
 
     .info-btn {
@@ -323,7 +323,7 @@
             -8px -8px 0 0 #454545 inset;
     }
 
-    .inactive .close-btn {
+    .inactive .maximise-btn {
         box-shadow: 
             -2px -2px 0 0 #454545 inset, 
             -6px -6px 0 0 #a4a4a4 inset,

@@ -2,6 +2,7 @@ import json
 import uuid
 import requests
 
+
 class KeyboardCap:
     def __init__(self, pos_x, pos_y, key_h, key_w, key_r, inner_pos_x, inner_pos_y, inner_key_h, inner_key_w, key_text_x, key_text_y, key_text_r, coord_multiplier, baseline_text):
         self.pos_x = pos_x
@@ -19,11 +20,13 @@ class KeyboardCap:
         self.coord_multiplier = coord_multiplier
         self.baseline_text = baseline_text
 
+
 def getKeyboardCoords(keyboardName):
     response = requests.get(f"https://keyboards.qmk.fm/v1/keyboards/" + keyboardName + "/info.json")
     keyboardJson = json.loads(response.content)
     layoutName = next(iter(keyboardJson['keyboards'][keyboardName]['layouts']))
     return keyboardJson['keyboards'][keyboardName]['layouts'][layoutName]['layout']
+
 
 def get_keymap_svg(keyboardName, fullLayout):
     level = 10
@@ -85,6 +88,7 @@ def get_keymap_svg(keyboardName, fullLayout):
         file.write(svg_string)
 
         return svg_string
+
 
 def determineKeyPosition(level, coord_multiplier, kCap, coords, idx):
     kCap.pos_x = coords[idx]['x'] * coord_multiplier
