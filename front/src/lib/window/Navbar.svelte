@@ -35,12 +35,12 @@
 
                         {#if window_.options.type?.includes("keymap")}
                             <div class="info-layout-container">
-                                <div class="info-layout-column" style="width: 35%;">
+                                <div class="info-layout-column" style="padding-right: 10px;">
                                     <div class="info-layout-item">board:</div>
                                     <div class="info-layout-item">file:</div>
                                     <div class="info-layout-item">size:</div>
                                 </div>
-                                <div class="info-layout-column">
+                                <div class="info-layout-column" style="padding-right: 32px;">
                                     <div class="info-layout-item" style="font-style: italic;">{keymap?.info.filePath}</div>
                                     <div class="info-layout-item" style="font-style: italic;">{keymap?.info.fileName}</div>
                                     <div class="info-layout-item" style="font-style: italic;">{keymap?.info.fileSize}</div>
@@ -219,18 +219,17 @@
     }
 
     .info-btn:hover .info-container {
-        display: block;
+        display: flex;
     }
 
     .info-container {
-        /* display: block; */
+        /* display: flex; */
         display: none;
+        flex: 1 1 auto;
         position: absolute;
         padding: 5px;
         top: 30px;
         left: 17px;
-        /* max-width: 180px; */
-        max-width: 280px;
         background-color: #e4e4e4;
         border: 2px solid #000;
         box-shadow: -2px -2px 0 0 #c2c2c2 inset, 2px 2px 0 0 #f5f5f5 inset;
@@ -239,18 +238,20 @@
 
     .info-layout-container {
         display: flex;
+        flex: 1 1 auto;
         margin: 1px 0 0 4px;
     }
 
     .info-layout-column {
         display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
         flex-wrap: wrap;
-        /* width: 50%; */
     }
 
     .info-layout-item {
         display: flex;
-        width: 100%;
+        /* width: 100%; */
     }
 
     /* to add padding without affecting .info-container's border/box shadow */
