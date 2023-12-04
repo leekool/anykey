@@ -23,7 +23,7 @@
 
     @media screen and (max-width: 700px) {
         #canvas {
-            height: 100%;
+            /* height: 100%; */
         }
 
         .map-svg {

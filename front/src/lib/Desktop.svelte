@@ -1,13 +1,10 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import { assets } from "$app/paths";
 
     import { windowStore, Window } from "$lib/window/WindowStore";
     import WindowComponent from "$lib/window/Window.svelte";
     import { Keymap, keymapStore } from "$lib/keymap/KeymapStore";
     import KeymapComponent from "$lib/keymap/Keymap.svelte";
-
-    let isMobile = false;
 
     let desktopIcons: any[] = [];
 
@@ -77,11 +74,11 @@
             options: {
                 type: "keymap",
                 layout: keymap.layout,
-                maximised: isMobile,
+                maximised: false,
                 highlight: false,
                 navbar: {
                     minimise: true,
-                    maximise: !isMobile,
+                    maximise: true,
                     close: true,
                     info: true
                 }
@@ -99,10 +96,6 @@
             }
         });
     }
-
-    onMount(() => {
-        isMobile = (window.innerWidth <= 600 && window.innerHeight <= 900); 
-    });
 </script>
 
 <!-- preload icons -->

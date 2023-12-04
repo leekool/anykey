@@ -193,8 +193,9 @@
 
     .maximised {
         position: absolute;
-        width: 100%;
-        height: calc(100% - 38px);
+        width: 100% !important;
+        max-width: 100% !important;
+        height: calc(100% - 38px) !important;
         max-height: calc(100% - 38px) !important;
         top: 0 !important;
         left: 0 !important;
@@ -258,6 +259,11 @@
         .window-main {
             min-width: 80%;
             max-width: 80%;
+        }
+
+        .window-keymap {
+            min-width: 95%;
+            max-width: 95%;
         }
     }
 </style>

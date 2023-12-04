@@ -1,6 +1,5 @@
 <script lang="ts">
     import { PUBLIC_BASE_URL } from "$env/static/public";
-    import { onMount } from "svelte";
 
     import WindowComponent from "$lib/window/Window.svelte";
     import { Window } from "$lib/window/WindowStore";
@@ -9,8 +8,6 @@
 
     import KeyboardMenu from "$lib/layout_gen/KeyboardMenu.svelte";
     import UploadMenu from "$lib/layout_gen/UploadMenu.svelte";
-
-    let isMobile = false;
 
     // from UploadMenu
     let file: File;
@@ -79,10 +76,10 @@
             options: {
                 type: "keymap",
                 layout,
-                maximised: isMobile,
+                maximised: false,
                 navbar: {
                     minimise: true,
-                    maximise: !isMobile,
+                    maximise: true,
                     close: true,
                     info: true,
                 }
@@ -104,10 +101,6 @@
         if (fileName) infoString = `${fileName} ${fileSize}`; 
         if (fileName && selectedItem) infoString = `${selectedItem} - ${fileName} ${fileSize}`;
     }
-
-    onMount(() => {
-        isMobile = (window.innerWidth <= 600 && window.innerHeight <= 900); 
-    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
