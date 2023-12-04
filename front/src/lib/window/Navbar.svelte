@@ -179,16 +179,11 @@
 
     .minimise-btn {
         position: relative;
-        /* box-shadow:  */
-        /*     -2px -2px 0 0 #333366 inset,  */
-        /*     -4px 0 0 0 #a4a4a4 inset, */
-        /*     2px 10px 0 0 #a4a4a4 inset, */
-        /*     0 12px 0 0 #333366 inset; */
         box-shadow: 
-            -2px -2px 0 0 #55557b inset, 
+            -2px -2px 0 0 #333366 inset, 
             -4px 0 0 0 #a4a4a4 inset,
             2px 10px 0 0 #a4a4a4 inset,
-            0 12px 0 0 #55557b inset;
+            0 12px 0 0 #333366 inset;
     }
 
     .maximise-btn {
@@ -309,6 +304,10 @@
         border-color: #d0d0d0 #a7a7a7 #a7a7a7 #d0d0d0;
     }
 
+    .inactive * {
+        cursor: default;
+    }
+
     .inactive .navbar-btn-base {
         background-color: #d0d0d0;
         box-shadow: 2px 2px 0 0 #454545 inset;
@@ -321,5 +320,20 @@
     .inactive .navbar-btn-right {
         box-shadow: -2px -2px 0 0 #454545 inset, -6px -6px 0 0 #a4a4a4 inset,
             -8px -8px 0 0 #454545 inset;
+    }
+
+    .inactive .close-btn {
+        box-shadow: 
+            -2px -2px 0 0 #454545 inset, 
+            -6px -6px 0 0 #a4a4a4 inset,
+            -8px -8px 0 0 #454545 inset;
+    }
+
+    .inactive .minimise-btn {
+        box-shadow: 
+            -2px -2px 0 0 #454545 inset, 
+            -4px 0 0 0 #a4a4a4 inset,
+            2px 10px 0 0 #a4a4a4 inset,
+            0 12px 0 0 #454545 inset;
     }
 </style>
