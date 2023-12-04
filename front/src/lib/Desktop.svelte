@@ -14,13 +14,8 @@
     $: $keymapStore, checkKeymaps();
 
     const checkKeymaps = () => {
-        for (const item of $keymapStore) {
-            for (const icon of desktopIcons) {
-                if (item.info.fileName !== icon.slot.props.info.fileName) {
-                    initProgram(item);
-                }
-            }
-        }
+        const newKeymaps = $keymapStore.filter(keymap => !desktopIcons.some(d => d.slot.props.info.fileName === keymap.info.fileName));
+        newKeymaps.forEach(keymap => initProgram(keymap));
 
         desktopIcons = desktopIcons;
     };
@@ -107,10 +102,6 @@
 
     onMount(() => {
         isMobile = (window.innerWidth <= 600 && window.innerHeight <= 900); 
-
-        $keymapStore.forEach(k => initProgram(k));
-
-        desktopIcons = desktopIcons; // trigger change detection
     });
 </script>
 
