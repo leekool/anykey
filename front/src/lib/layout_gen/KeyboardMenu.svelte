@@ -171,7 +171,6 @@
     .search-input {
         display: flex;
         box-sizing: border-box;
-        font-family: "Tamzen", sans-serif;
         font-size: 15px;
         cursor: pointer;
         padding: 2px 8px;

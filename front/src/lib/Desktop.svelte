@@ -101,7 +101,7 @@
 
 <!-- preload icons -->
 <svelte:head>
-   <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-highlight.png`} />
+   <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-56-highlight.png`} />
    <!-- {#each desktopIcons as icon} -->
    <!--      <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-highlight.png`} /> -->
    <!--      <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon.png`} /> -->
@@ -117,10 +117,10 @@
                 on:click|stopPropagation={() => handleClick(icon)}
             >
             {#if !icon.options.highlight}
-                <img src={`${assets}/images/icons/keymap-icon.png`} alt={icon.name} />
+                <img src={`${assets}/images/icons/keymap-icon-56.png`} alt={icon.name} />
             {/if}
             {#if icon.options.highlight}
-                <img src={`${assets}/images/icons/keymap-icon-highlight.png`} alt={icon.name} />
+                <img src={`${assets}/images/icons/keymap-icon-56-highlight.png`} alt={icon.name} />
             {/if}
                 <span class:desktop-icon-highlight={icon.options.highlight}>
                     {icon.name}
@@ -135,7 +135,6 @@
         display: flex;
         width: 100%;
         height: 100vh;
-        font-family: "Tamzen", sans-serif;
         font-size: 15px;
     }
 

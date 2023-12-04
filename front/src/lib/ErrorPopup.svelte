@@ -81,7 +81,6 @@
         display: flex;
         align-items: center;
         box-sizing: border-box;
-        font-family: "Tamzen", sans-serif;
         height: 27px;
         font-size: 15px;
         cursor: pointer;

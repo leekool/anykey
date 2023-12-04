@@ -17,7 +17,6 @@
         padding: 20px;
         justify-content: center;
         align-items: center;
-        font-family: "Tamzen", sans-serif;
         font-size: 15px;
         letter-spacing: -0.5px;
     }

@@ -1,13 +1,20 @@
 @font-face {
     font-family: 'Tamzen';
-    src: url('/fonts/Tamzen10x20r.ttf') format('truetype');
-    /* src: url('/fonts/Tamzen10x20b.woff') format('woff'), */
-    /*      url('/fonts/Tamzen10x20b.ttf') format('truetype'); */
-    font-weight: normal;
+    src: url('/fonts/TamzenMed.ttf') format('truetype');
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Tamzen';
+    src: url('/fonts/Tamzen10x20b.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+
 * {
+    font-family: 'Tamzen';
+    font-weight: 500 !important;
     scrollbar-width: none !important;
     -moz-osx-font-smoothing: grayscale !important;
     -webkit-font-smoothing: antialiased !important; 

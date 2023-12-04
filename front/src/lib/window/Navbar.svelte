@@ -214,10 +214,12 @@
         position: relative;
         height: 100%;
         width: 100%;
+        left: -1px;
         justify-content: center;
         align-content: center;
         color: #333366;
         font-size: 14px;
+        font-weight: 600;
         text-shadow: 0 1px #f5f5f5, 0 2px rgba(138, 134, 160, 0.7);
     }
 
@@ -277,7 +279,6 @@
         bottom: 6px;
         align-items: center;
         justify-content: center;
-        font-family: "Tamzen", sans-serif;
         font-size: 15px;
         background-color: #e0e0e0;
         box-sizing: border-box;

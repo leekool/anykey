@@ -35,7 +35,6 @@
         left: 50%;
         bottom: 0;
         margin-left: -50%;
-        font-family: "Tamzen", sans-serif;
         font-size: 16px;
         color: #222020;
         background-image: url("/images/taskbar-tile.svg");

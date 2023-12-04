@@ -180,7 +180,6 @@
         display: flex;
         flex: 1 0 auto;
         flex-direction: column;
-        font-family: "Tamzen", sans-serif;
         background-color: #d5d5d5;
         min-height: 100%;
         max-width: calc(100% - 4px); /* 4px to account for pixel-corners */
