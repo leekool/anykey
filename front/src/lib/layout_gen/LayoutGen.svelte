@@ -34,10 +34,10 @@
     const submitForm = () => {
         if (submitState == "submit-invalid") return;
 
-        postLayout();
+        postKeymap();
     };
 
-    const createLayout = (props: any) => {
+    const createKeymap = (props: any) => {
         // find the highest level div ("contents") and create a child div as the target
         const contentDiv = document.querySelector("div[style='display: contents']")!;
         const target = document.createElement("div");
@@ -50,7 +50,7 @@
     };
 
     // get keyboard SVG Image
-    async function postLayout() {
+    async function postKeymap() {
         formData = new FormData();
 
         formData.append("file", file);
@@ -74,7 +74,7 @@
 
         new Keymap(layout, keymapInfo);
 
-        createLayout({
+        createKeymap({
             name: fileName,
             options: {
                 type: "keymap",

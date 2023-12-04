@@ -8,7 +8,22 @@
     import KeymapComponent from "$lib/keymap/Keymap.svelte";
 
     let isMobile = false;
-    let desktopIcons: any[]  = [];
+
+    let desktopIcons: any[] = [];
+
+    $: $keymapStore, checkKeymaps();
+
+    const checkKeymaps = () => {
+        for (const item of $keymapStore) {
+            for (const icon of desktopIcons) {
+                if (item.info.fileName !== icon.slot.props.info.fileName) {
+                    initProgram(item);
+                }
+            }
+        }
+
+        desktopIcons = desktopIcons;
+    };
 
     const toggleHighlight = (icon: any) => {
         icon.options.highlight = !icon.options.highlight;
@@ -139,10 +154,11 @@
     }
 
     .icon-container {
+        display: flex;
+        gap: 20px;
         margin: 30px 0 0 20px;
         max-width: 100px;
         height: 0;
-        display: flex;
         flex-direction: column;
         align-items: center;
         image-rendering: pixelated;
