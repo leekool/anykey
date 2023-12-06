@@ -45,18 +45,16 @@ def get_keymap_svg(keyboardName, fullLayout):
 
         largest_x = max(coords, key=lambda x: x['x'])['x']
         largest_y = max(coords, key=lambda x: x['y'])['y']
+
         svg_w = (largest_x * coord_multiplier) + kCap.key_w
-        svg_h = ((largest_y * coord_multiplier) + kCap.key_h * 1.6) * len(fullLayout)
+        svg_h = ((largest_y * coord_multiplier) + kCap.key_h * 1.8) * len(fullLayout)
 
-        # step1 = largest_y * coord_multiplier
-        # step2 = step1 + kCap.key_h
-        # step3 = step2 * len(fullLayout)
-        # svg_h = step3 + kCap.key_h * len(fullLayout)
+        svg_string = '<svg viewBox="{0} {1} {2} {3}" preserveAspectRatio="xMidYMin meet" version="1.1" xmlns="http://www.w3.org/2000/svg" id="{4}">'.format(
+            0, 0, svg_w, svg_h, mapNameId)
 
-        svg_string = '<svg viewBox="0 0 ' + str(svg_w) + ' ' + str(svg_h) + '" preserveAspectRatio="xMidYMid meet" version="1.1" xmlns="http://www.w3.org/2000/svg" id="{0}">'.format(
-            mapNameId)
         svg_string += '<style>#' + mapNameId + \
             ' {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
+
         svg_string += """
                     rect {transform-origin: center; transform-box: fill-box;}'
                     text {transform-origin: center; transform-box: fill-box;}
@@ -64,6 +62,7 @@ def get_keymap_svg(keyboardName, fullLayout):
                     .key-cap {stroke: #b5b5b5; fill: #ebebeb; stroke-width=0.5;}
                     .key-text {fill=black; pointer-events: none;}
                 </style>"""
+
         svg_string += '<rect fill="transparent" />'
 
         for index, layer in enumerate(fullLayout):

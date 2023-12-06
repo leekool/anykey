@@ -54,7 +54,7 @@ def get_keyboards():
     response = requests.get(f"https://api.qmk.fm/v1/keyboards")
     keyboardList = json.loads(response.content)
 
-    print(keyboardList)
+    # print(keyboardList)
 
     return keyboardList
 
