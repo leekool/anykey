@@ -91,10 +91,6 @@
 <style>
     @import url("/pixel-corners.css");
 
-    *::-webkit-scrollbar {
-        display: none;
-    }
-
     .main {
         display: flex;
         flex: 1 1 auto;

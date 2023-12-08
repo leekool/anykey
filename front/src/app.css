@@ -20,6 +20,10 @@
     -webkit-font-smoothing: antialiased !important; 
 }
 
+*::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     margin: 0;
     background-image: url('/images/bg.svg');
