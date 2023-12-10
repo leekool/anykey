@@ -34,35 +34,34 @@ export class Keymap {
         const el: HTMLElement | null | undefined = document.getElementById(svgId)?.parentElement;
         const svgAssets = document.querySelectorAll("img");
 
-        if (el) {
-            const canvas = await html2canvas(el, {
-                allowTaint: true,
-                useCORS: true,
-                logging: true,
-                imageTimeout: 0,
-                onclone: (doc) => {
-                    svgAssets.forEach((asset) => {
-                        console.log("assets", asset, asset.width, asset.height);
-                        const img = doc.createElement("img");
-                        img.src = asset.src;
-                        img.width = asset.width;
-                        img.height = asset.height;
-                        doc.body.appendChild(img);
-                    });
-                }
-            });
+        if (!el) return null; 
 
-            const blob = await new Promise((resolve) => canvas.toBlob(resolve));
-            // TODO handle error if blob is null somehow
-            const file = new File([blob as BlobPart], "thumbnail.png", { type: "image/png" });
-            downloadData(file, this.name);
-            return file;
-        }
-        return null;
+        const canvas = await html2canvas(el, {
+            allowTaint: true,
+            useCORS: true,
+            logging: true,
+            imageTimeout: 0,
+            onclone: (doc) => {
+                svgAssets.forEach((asset) => {
+                    console.log("assets", asset, asset.width, asset.height);
+                    const img = doc.createElement("img");
+                    img.src = asset.src;
+                    img.width = asset.width;
+                    img.height = asset.height;
+                    doc.body.appendChild(img);
+                });
+            }
+        });
+
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve));
+        // TODO handle error if blob is null somehow
+        const file = new File([blob as BlobPart], "thumbnail.png", { type: "image/png" });
+        downloadData(file, this.name);
+        return file;
     };
 }
 
-function downloadData(blob: Blob, name: string) {
+const downloadData = (blob: Blob, name: string) => {
     let a = document.createElement("a");
     document.body.append(a);
     a.download = name;
