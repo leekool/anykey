@@ -237,7 +237,7 @@
         -ms-transform: translate(-50%, -52.5%);
         transform: translate(-50%, -52.5%);
         box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-        min-width: 80%;
+        /* min-width: 80%; */
         max-height: 80%;
     }
 
