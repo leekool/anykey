@@ -1,8 +1,7 @@
-import glob
 import os
 import requests
 import json
-from flask import Flask, after_this_request, jsonify, request
+from flask import Flask, after_this_request, request
 from flask_cors import CORS
 
 from parse_keys import parse_map
@@ -44,7 +43,9 @@ def get_data():
     else:
         svg_string = get_keymap_svg(keyboardName, fullLayout)
 
-    return jsonify({'message': svg_string})
+    print('svg_string')
+    print(svg_string)
+    return {'message': str(svg_string)}
 
 @app.route('/api/keyboards', methods=['GET'])
 def get_keyboards():

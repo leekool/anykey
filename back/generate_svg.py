@@ -1,6 +1,7 @@
 import json
 import uuid
 import requests
+import svg
 
 
 class KeyboardCap:
@@ -29,64 +30,58 @@ def getKeyboardCoords(keyboardName):
 
 
 def get_keymap_svg(keyboardName, fullLayout):
+    # we add the x because an ID needs to start with a letter
+    mapNameId = 'x' + uuid.uuid4().hex
+    coords = getKeyboardCoords(keyboardName)
+    kCap = KeyboardCap(10, 10, 60, 60, 0, 10, 10, 96, 96, 35, 35, 0, 60, '')
     level = 10
     svg_w = 0
     svg_h = 0
     coord_multiplier = 60
 
-    # SVG Keycap dimensions
-    kCap = KeyboardCap(10, 10, 60, 60, 0, 10, 10, 96, 96, 35, 35, 0, 60, '')
+    largest_x = max(coords, key=lambda x: x['x'])['x']
+    largest_y = max(coords, key=lambda x: x['y'])['y']
 
-    with open('layout.svg', 'w') as file:
-        # we add the x because an ID needs to start with a letter
-        mapNameId = 'x' + uuid.uuid4().hex
-        coords = getKeyboardCoords(keyboardName)
-        print(coords)
+    svg_w = (largest_x * coord_multiplier) + kCap.key_w
+    svg_h = ((largest_y * coord_multiplier) + kCap.key_h * 1.8) * len(fullLayout)
 
-        largest_x = max(coords, key=lambda x: x['x'])['x']
-        largest_y = max(coords, key=lambda x: x['y'])['y']
+    canvas = svg.SVG(style='transform-origin: center; transform-box: fill-box;', width = svg_w, height = svg_h, id = mapNameId, viewBox= svg.ViewBoxSpec(0, 0, svg_w, svg_h))
+    elements = []
 
-        svg_w = (largest_x * coord_multiplier) + kCap.key_w
-        svg_h = ((largest_y * coord_multiplier) + kCap.key_h * 1.8) * len(fullLayout)
+    for index, layer in enumerate(fullLayout):
+        for idx, key_cap in enumerate(layer['keys']):
+            determineKeyPosition(level, coord_multiplier, kCap, coords, idx)
+            keybase = svg.Rect(transform = [svg.Rotate(kCap.key_r), svg.Translate(kCap.pos_x, kCap.pos_y)],
+                                width = kCap.key_w,
+                                height = kCap.key_h,
+                                fill = 'url(#RadialGradient1)',
+                                rx = 8,
+                                ry = 8,
+                                style = 'stroke: black; fill: #e3e3e3; stroke-width=1;')
+            keycap = svg.Rect(transform = [svg.Rotate(kCap.key_r), svg.Translate(kCap.inner_pos_x,kCap.inner_pos_y)],
+                                width = kCap.inner_key_w, 
+                                height = kCap.inner_key_h,
+                                rx = 3,
+                                ry = 3,
+                                style = 'stroke: #b5b5b5; fill: #ebebeb; stroke-width=0.5;')
+            keytext = svg.Text(transform=[svg.Rotate(kCap.key_text_r),svg.Translate(kCap.key_text_x, kCap.key_text_y)],
+                                text = key_cap, 
+                                font_weight = 600,
+                                dominant_baseline='middle',
+                                text_anchor='middle',
+                                style = 'fill=black; pointer-events: none;')
 
-        svg_string = '<svg viewBox="{0} {1} {2} {3}" preserveAspectRatio="xMidYMin meet" version="1.1" xmlns="http://www.w3.org/2000/svg" id="{4}">'.format(
-            0, 0, svg_w, svg_h, mapNameId)
+            elements.extend([keybase, keycap, keytext])
 
-        svg_string += '<style>#' + mapNameId + \
-            ' {width:' + str(svg_w) + 'px; height:' + str(svg_h) + 'px;}'
+            kCap.key_h = 60
+            kCap.key_w = 60
+            kCap.key_r = 0
+            kCap.key_text_r = 0
+        level = kCap.pos_y + 100
 
-        svg_string += """
-                    rect {transform-origin: center; transform-box: fill-box;}'
-                    text {transform-origin: center; transform-box: fill-box;}
-                    .key-base {stroke: black; fill: #e3e3e3; stroke-width=1;}
-                    .key-cap {stroke: #b5b5b5; fill: #ebebeb; stroke-width=0.5;}
-                    .key-text {fill=black; pointer-events: none;}
-                </style>"""
 
-        svg_string += '<rect fill="transparent" />'
-
-        for index, layer in enumerate(fullLayout):
-            for idx, key_cap in enumerate(layer['keys']):
-                determineKeyPosition(level, coord_multiplier, kCap, coords, idx)
-
-                svg_string += '<rect class="key-base" fill="url(#RadialGradient1)" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="8" ry="8" />'.format(
-                    kCap.key_w, kCap.key_h, kCap.pos_x, kCap.pos_y, kCap.key_r)
-
-                svg_string += '<rect class="key-cap" width="{0}" height="{1}" transform="translate({2}, {3}) rotate({4})" rx="3" ry="3" />'.format(
-                    kCap.inner_key_w, kCap.inner_key_h, kCap.inner_pos_x, kCap.inner_pos_y, kCap.key_r)
-
-                svg_string += '<text class="key-text" {0} transform="translate({1}, {2}) rotate({3})"><tspan font-weight="600">{4}</tspan></text>'.format(
-                    kCap.baseline_text, kCap.key_text_x, kCap.key_text_y, kCap.key_text_r, key_cap)
-
-                kCap.key_h = 60
-                kCap.key_w = 60
-                kCap.key_r = 0
-                kCap.key_text_r = 0
-            level = kCap.pos_y + 100
-        svg_string += '</svg>'
-        file.write(svg_string)
-
-        return svg_string
+    canvas.elements = elements
+    return canvas
 
 
 def determineKeyPosition(level, coord_multiplier, kCap, coords, idx):

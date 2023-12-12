@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+  import { svg_element } from "svelte/internal";
 
     export let layout = ""; // at the moment this is a string containg svg markup
     export let info = {
@@ -19,7 +20,7 @@
 
 <div class="map-svg" id="canvas">
     <div class="layout">
-        {@html layout} 
+        {@html layout}
     </div>
 </div>
 
