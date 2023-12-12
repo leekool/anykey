@@ -6,12 +6,24 @@
     import { Keymap, keymapStore } from "$lib/keymap/KeymapStore";
     import KeymapComponent from "$lib/keymap/Keymap.svelte";
 
-    let desktopIcons: any[] = [];
+    // TODO: 
+    //    - refactor desktopIcons to not necessarily have to be keymaps
+    //    - types for icons
+
+    let desktopIcons: any[] = [
+        {
+            name: "github",
+            options: {
+                type: "github",
+                highlight: false
+            }
+        }
+    ];
 
     $: $keymapStore, checkKeymaps();
 
     const checkKeymaps = () => {
-        const newKeymaps = $keymapStore.filter(keymap => !desktopIcons.some(d => d.slot.props.info.fileName === keymap.info.fileName));
+        const newKeymaps = $keymapStore.filter(keymap => !desktopIcons.slice(0, -1).some(d => d.slot.props.info.fileName === keymap.info.fileName));
         newKeymaps.forEach(keymap => initProgram(keymap));
 
         desktopIcons = desktopIcons;
@@ -47,6 +59,10 @@
                 clearTimeout(clickTimer);
             }, 200);
         } else if (clickCount === 2) {
+            if (icon.options.type === "github") {
+                return window.open("https://github.com/leekool/layout_generator");
+            }
+
             const windowMatch = $windowStore.find(window => window.name === icon.name);
 
             if (!windowMatch) return openWindow(icon);
@@ -101,6 +117,7 @@
 <!-- preload icons -->
 <svelte:head>
    <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-56-highlight.png`} />
+   <link rel="preload" as="image" href={`${assets}/images/icons/github-icon-56-highlight.png`} />
    <!-- {#each desktopIcons as icon} -->
    <!--      <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-highlight.png`} /> -->
    <!--      <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon.png`} /> -->
@@ -116,10 +133,10 @@
                 on:click|stopPropagation={() => handleClick(icon)}
             >
             {#if !icon.options.highlight}
-                <img src={`${assets}/images/icons/keymap-icon-56.png`} alt={icon.name} />
+                <img src={`${assets}/images/icons/${icon.options.type}-icon-56.png`} alt={icon.name} />
             {/if}
             {#if icon.options.highlight}
-                <img src={`${assets}/images/icons/keymap-icon-56-highlight.png`} alt={icon.name} />
+                <img src={`${assets}/images/icons/${icon.options.type}-icon-56-highlight.png`} alt={icon.name} />
             {/if}
                 <span class:desktop-icon-highlight={icon.options.highlight}>
                     {icon.name}
@@ -127,6 +144,7 @@
             </div>
         {/each}
     </div>
+
 </div>
 
 <style>
@@ -135,6 +153,13 @@
         width: 100%;
         height: 100vh;
         font-size: 15px;
+    }
+
+    .git-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: 0 20px 30px 0;
     }
 
     .icon-container {
@@ -147,7 +172,7 @@
         align-items: center;
         image-rendering: pixelated;
     }
-
+    
     .desktop-icon {
         display: flex;
         height: 102px;
