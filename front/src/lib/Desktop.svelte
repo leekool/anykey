@@ -23,7 +23,7 @@
     $: $keymapStore, checkKeymaps();
 
     const checkKeymaps = () => {
-        const newKeymaps = $keymapStore.filter(keymap => !desktopIcons.slice(0, -1).some(d => d.slot.props.info.fileName === keymap.info.fileName));
+        const newKeymaps = $keymapStore.filter(keymap => !desktopIcons.slice(1).some(d => d.slot.props.info.fileName === keymap.info.fileName));
         newKeymaps.forEach(keymap => initProgram(keymap));
 
         desktopIcons = desktopIcons;
