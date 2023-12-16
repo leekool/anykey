@@ -72,5 +72,5 @@ def parse_map(keymap):
             if 'KC_' in layer['keys'][switch_idx]:
                 layer['keys'][switch_idx] = switch.replace('KC_', '')
 
-    pprint(layers, sort_dicts=False)
+    # pprint(layers, sort_dicts=False)
     return layers

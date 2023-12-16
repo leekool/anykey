@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+import logging
 from flask import Flask, after_this_request, request
 from flask_cors import CORS
 
@@ -8,12 +9,16 @@ from parse_keys import parse_map
 from generate_svg import get_keymap_svg
 from generate_flat_svg import get_flat_keymap_svg
 
-app = Flask(__name__)
-CORS(app)
-
 API_URL = os.environ.get('ANYKEY_URL', 'localhost')
 CERT_PATH = os.environ.get('CERT_PATH')
 KEY_PATH = os.environ.get('KEY_PATH')
+
+app = Flask(__name__)
+CORS(app)
+
+logger = logging.getLogger('werkzeug')
+handler = logging.FileHandler('app.log')
+logger.addHandler(handler)
 
 
 # Gets the SVG based on chosen keyboard and uploaded map
@@ -43,19 +48,14 @@ def get_data():
     else:
         svg_string = get_keymap_svg(keyboardName, fullLayout)
 
-    print('svg_string')
-    print(svg_string)
+    # print('svg_string', svg_string)
     return {'message': str(svg_string)}
+
 
 @app.route('/api/keyboards', methods=['GET'])
 def get_keyboards():
-    fileNames = []
-
-    print('boutta geddit')
-    response = requests.get(f"https://api.qmk.fm/v1/keyboards")
+    response = requests.get('https://api.qmk.fm/v1/keyboards')
     keyboardList = json.loads(response.content)
-
-    # print(keyboardList)
 
     return keyboardList
 

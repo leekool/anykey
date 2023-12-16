@@ -1,0 +1,12 @@
+ * Debugger is active!
+ * Debugger PIN: 643-294-870
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 643-294-870
+ * Detected change in '/home/lee/clone/layout_generator/back/app.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 643-294-870
