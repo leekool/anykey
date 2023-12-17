@@ -116,12 +116,8 @@
 
 <!-- preload icons -->
 <svelte:head>
-   <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-56-highlight.png`} />
-   <link rel="preload" as="image" href={`${assets}/images/icons/github-icon-56-highlight.png`} />
-   <!-- {#each desktopIcons as icon} -->
-   <!--      <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-highlight.png`} /> -->
-   <!--      <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon.png`} /> -->
-   <!-- {/each} -->
+   <!-- <link rel="preload" as="image" href={`${assets}/images/icons/keymap-icon-56-highlight.png`} /> -->
+   <!-- <link rel="preload" as="image" href={`${assets}/images/icons/github-icon-56-highlight.png`} /> -->
 </svelte:head>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -132,12 +128,13 @@
                 class="desktop-icon"
                 on:click|stopPropagation={() => handleClick(icon)}
             >
-            {#if !icon.options.highlight}
-                <img src={`${assets}/images/icons/${icon.options.type}-icon-56.png`} alt={icon.name} />
-            {/if}
-            {#if icon.options.highlight}
-                <img src={`${assets}/images/icons/${icon.options.type}-icon-56-highlight.png`} alt={icon.name} />
-            {/if}
+                {#if !icon.options.highlight}
+                    <img src={`${assets}/images/icons/${icon.options.type}-icon-56.png`} alt={icon.name} />
+                {/if}
+                {#if icon.options.highlight}
+                    <img class="highlight" src={`${assets}/images/icons/${icon.options.type}-icon-56.png`} alt={icon.name} />
+                    <!-- <img src={`${assets}/images/icons/${icon.options.type}-icon-56-highlight.png`} alt={icon.name} /> -->
+                {/if}
                 <span class:desktop-icon-highlight={icon.options.highlight}>
                     {icon.name}
                 </span>
@@ -153,6 +150,12 @@
         width: 100%;
         height: 100vh;
         font-size: 15px;
+    }
+
+    .highlight {
+        filter: saturate(3) hue-rotate(8deg) contrast(110%);
+        mix-blend-mode: overlay;
+        /* mix-blend-mode: hard-light; */
     }
 
     .git-icon {
