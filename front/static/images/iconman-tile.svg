@@ -1,6 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><defs><pattern id="pppixelate-pattern" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="translate(0 0) scale(81) rotate(0)" shape-rendering="crispEdges">
-    <rect width="1" height="1" x="0" y="0" fill="#aaa"></rect>
-    <rect width="1" height="1" x="1" y="0" fill="#aaa"></rect>
-    <rect width="1" height="1" x="0" y="1" fill="#aaa"></rect>
+    <!-- <rect width="1" height="1" x="0" y="0" fill="#aaa"></rect> -->
+    <!-- <rect width="1" height="1" x="1" y="0" fill="#aaa"></rect> -->
+    <!-- <rect width="1" height="1" x="0" y="1" fill="#aaa"></rect> -->
+    <!-- <rect width="1" height="1" x="1" y="1" fill="#a3a3ad"></rect> -->
+    <rect width="1" height="1" x="0" y="0" fill="#aeaeb9"></rect>
+    <rect width="1" height="1" x="1" y="0" fill="#aeaeb9"></rect>
+    <rect width="1" height="1" x="0" y="1" fill="#aeaeb9"></rect>
     <rect width="1" height="1" x="1" y="1" fill="#a3a3ad"></rect>
   </pattern></defs><rect width="100%" height="100%" fill="url(#pppixelate-pattern)"></rect></svg>

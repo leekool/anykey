@@ -88,6 +88,7 @@
         background-image: url("/images/iconman-tile.svg");
         /* background-size: 8%; */
         background-color: #aaa;
+        /* background-color: #c1c0ff; */
         box-shadow: -2px -2px #ccccff inset, 2px 2px #9c9cd3 inset;
     }
 
