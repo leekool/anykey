@@ -14,14 +14,17 @@
         const id = "#" + layout.match(/"([^"]*)"/)?.[1];
         const svg = document.querySelector(id)!;
 
+        const height = +svg.getAttribute("height")!;
         const rects = svg.getElementsByTagName("rect");
 
         const firstKey = rects[0].getBoundingClientRect();
         const lastKey = rects[rects.length - 1].getBoundingClientRect();
 
-        const verticalDistance = Math.abs(firstKey.top - lastKey.bottom);
+        const verticalDistance = Math.abs(firstKey.top - lastKey.bottom) + 40;
 
-        svg.setAttribute("height", String(verticalDistance));
+        const finalHeight = height <= 400 ? height : verticalDistance;
+
+        svg.setAttribute("height", String(finalHeight));
     });
 </script>
 

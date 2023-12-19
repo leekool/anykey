@@ -64,7 +64,7 @@ def get_flat_keymap_svg(keyboardName, fullLayout):
             'middle'   # green
     ]
 
-    canvas = svg.SVG(style='transform-origin: center; transform-box: fill-box;', width = svg_w, height = svg_h, id = mapNameId, viewBox= svg.ViewBoxSpec(0, 0, svg_w, svg_h))
+    canvas = svg.SVG(style='transform-origin: center; transform-box: fill-box;', preserveAspectRatio = 'xMidYMin meet', width = svg_w, height = svg_h, id = mapNameId, viewBox= svg.ViewBoxSpec(0, 0, svg_w, svg_h))
     elements = []
 
     firstLayer = fullLayout[0]
