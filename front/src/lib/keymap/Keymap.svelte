@@ -11,7 +11,8 @@
 
     onMount(() => {
         // calculate vertical distance between first and last key to set svg height
-        const svg = document.querySelector("svg")!;
+        const id = "#" + layout.match(/"([^"]*)"/)?.[1];
+        const svg = document.querySelector(id)!;
 
         const rects = svg.getElementsByTagName("rect");
 
