@@ -1,7 +1,7 @@
-back/app.log
-back/__pycache__/
-back/layout.svg
+/back/app.log
+/back/__pycache__/
+/back/layout.svg
 
-front/.svelte-kit/
-front/node_modules/
-front/build
+/front/.svelte-kit/
+/front/node_modules/
+/front/build

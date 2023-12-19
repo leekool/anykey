@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-  import { svg_element } from "svelte/internal";
+    // import { svg_element } from "svelte/internal";
 
     export let layout = ""; // at the moment this is a string containg svg markup
     export let info = {
@@ -10,11 +10,17 @@
     };
 
     onMount(() => {
-        // const svg = document.querySelector("svg")!;
+        // calculate vertical distance between first and last key to set svg height
+        const svg = document.querySelector("svg")!;
 
-        // const viewBox = svg.getAttribute("viewBox")!.split(" ");
+        const rects = svg.getElementsByTagName("rect");
 
-        // svg.setAttribute("viewBox", "0 0 " + viewBox[2] + " " + window.innerHeight); 
+        const firstKey = rects[0].getBoundingClientRect();
+        const lastKey = rects[rects.length - 1].getBoundingClientRect();
+
+        const verticalDistance = Math.abs(firstKey.top - lastKey.bottom);
+
+        svg.setAttribute("height", String(verticalDistance));
     });
 </script>
 

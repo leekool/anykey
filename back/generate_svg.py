@@ -45,7 +45,7 @@ def get_keymap_svg(keyboardName, fullLayout):
     svg_w = (largest_x * coord_multiplier) + kCap.key_w
     svg_h = ((largest_y * coord_multiplier) + kCap.key_h * 1.8) * len(fullLayout)
 
-    canvas = svg.SVG(style='transform-origin: center; transform-box: fill-box;', width = svg_w, height = svg_h, id = mapNameId, viewBox= svg.ViewBoxSpec(0, 0, svg_w, svg_h))
+    canvas = svg.SVG(style='transform-origin: center; transform-box: fill-box;', preserveAspectRatio = 'xMidYMin meet' ,width = svg_w, height = svg_h, id = mapNameId, viewBox= svg.ViewBoxSpec(0, 0, svg_w, svg_h))
     elements = []
 
     for index, layer in enumerate(fullLayout):
