@@ -19,8 +19,8 @@ export class Keymap {
         this.info = info;
 
         Keymap.store.update(s => {
-            // this check will need to be more detailed soon
             const keymapExists = s.some(item => item.info.fileName === this.info.fileName);
+            // const keymapExists = s.some(item => item.layout === this.layout);
             return keymapExists ? s : [...s, this];
         });
     }

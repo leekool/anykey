@@ -23,10 +23,17 @@
     $: $keymapStore, checkKeymaps();
 
     const checkKeymaps = () => {
-        const newKeymaps = $keymapStore.filter(keymap => !desktopIcons.slice(1).some(d => d.slot.props.info.fileName === keymap.info.fileName));
-        newKeymaps.forEach(keymap => initProgram(keymap));
+        const githubIcon = {
+            name: "github",
+            options: {
+                type: "github",
+                highlight: false
+            }
+        };
 
-        desktopIcons = desktopIcons;
+        const keymaps = $keymapStore.map(keymap => initKeymapIcon(keymap));
+
+        desktopIcons = [githubIcon, ...keymaps];
     };
 
     const toggleHighlight = (icon: any) => {
@@ -84,8 +91,8 @@
         });
     }
 
-    const initProgram = (keymap: Keymap) => {
-         desktopIcons.push({
+    const initKeymapIcon = (keymap: Keymap) => {
+         return {
             name: keymap.info.fileName,
             options: {
                 type: "keymap",
@@ -110,7 +117,7 @@
                     }
                 }
             }
-        });
+        };
     }
 </script>
 
