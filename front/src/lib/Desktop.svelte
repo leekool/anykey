@@ -7,8 +7,8 @@
     import KeymapComponent from "$lib/keymap/Keymap.svelte";
 
     // TODO: 
-    //    - refactor desktopIcons to not necessarily have to be keymaps
-    //    - types for icons
+    //    - refactor desktopIcons to easily not necessarily have to be keymaps
+    //    - type for icons
 
     let desktopIcons: any[] = [
         {
@@ -44,7 +44,7 @@
     }
 
     const clearHighlight = () => {
-        desktopIcons.forEach((icon: any) => {
+        desktopIcons.forEach((icon) => {
             icon.options.highlight = false;
         });
 
@@ -165,13 +165,6 @@
         /* mix-blend-mode: hard-light; */
     }
 
-    .git-icon {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        margin: 0 20px 30px 0;
-    }
-
     .icon-container {
         display: flex;
         gap: 20px;
@@ -195,11 +188,11 @@
         user-select: none;
     }
 
-    .desktop-icon img {
+    /* .desktop-icon img { */
         /* max-width: 80%; */
         /* height: 72px; */
         /* image-rendering: pixelated; */
-    }
+    /* } */
 
     .desktop-icon span {
         padding: 2px 4px 0 4px;

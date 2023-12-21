@@ -10,17 +10,21 @@
     };
 
     onMount(() => {
-        // calculate vertical distance between first and last key to set svg height
+        // calculate vertical distance between highest and lowest key to set svg height
         const id = "#" + layout.match(/"([^"]*)"/)?.[1];
         const svg = document.querySelector(id)!;
 
         const height = +svg.getAttribute("height")!;
         const rects = svg.getElementsByTagName("rect");
 
-        const firstKey = rects[0].getBoundingClientRect();
-        const lastKey = rects[rects.length - 1].getBoundingClientRect();
+        const highestKey = Math.min(...Array.from(rects).map(rect => rect.getBoundingClientRect().top));
+        const lowestKey = Math.max(...Array.from(rects).map(rect => rect.getBoundingClientRect().bottom));
 
-        const verticalDistance = Math.abs(firstKey.top - lastKey.bottom) + 40;
+        // const firstKey = rects[0].getBoundingClientRect();
+        // const lastKey = rects[rects.length - 1].getBoundingClientRect();
+
+        // const verticalDistance = Math.abs(firstKey.top - lastKey.bottom) + 40;
+        const verticalDistance = Math.abs(highestKey - lowestKey);
 
         const finalHeight = height <= 400 ? height : verticalDistance;
 
