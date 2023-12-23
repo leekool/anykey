@@ -19,8 +19,12 @@ export class Keymap {
         this.info = info;
 
         Keymap.store.update(s => {
-            const keymapExists = s.some(item => item.info.fileName === this.info.fileName);
-            // const keymapExists = s.some(item => item.layout === this.layout);
+            const removeId = (l: string) => { // removes ID in ```<svg id="">```
+                const id = l.match(/"([^"]*)"/)?.[1] as string;
+                return l.replace(id, "");
+            };
+
+            const keymapExists = s.some(item => removeId(item.layout) === removeId(this.layout));
             return keymapExists ? s : [...s, this];
         });
     }
