@@ -1,4 +1,4 @@
-* layout generator
+* anykey
 ** [[https://anykey.imre.al]]
 application that takes a QMK keymap.c file and returns a graphical representation of the keymap (png/jpeg/svg)
 
@@ -16,6 +16,3 @@ back: python
 - function to parse combos
 - function to parse tap holds
 - function to parse encoders
-*** front:
-- separate window components
-- modular navbar
