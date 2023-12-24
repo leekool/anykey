@@ -26,7 +26,7 @@ logger.addHandler(handler)
 def get_data():
     @after_this_request
     def add_header(response):
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Origin', API_URL)
         return response
 
     if 'file' not in request.files:
