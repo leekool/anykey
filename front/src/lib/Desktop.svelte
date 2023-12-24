@@ -67,7 +67,7 @@
             }, 200);
         } else if (clickCount === 2) {
             if (icon.options.type === "github") {
-                return window.open("https://github.com/leekool/layout_generator");
+                return window.open("https://github.com/leekool/anykey");
             }
 
             const windowMatch = $windowStore.find(window => window.name === icon.name);
