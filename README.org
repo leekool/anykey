@@ -1,9 +1,12 @@
 * anykey
 ** [[https://anykey.imre.al]]
-application that takes a QMK keymap.c file and returns a graphical representation of the keymap (png/jpeg/svg)
+render graphical representation of the QMK .c keymaps (png/jpeg/svg)
 
 front: svelte
-back: python
+back: python (flask)
+
+[[./screenshot.png]]
+[[./screenshot2.png]]
 
 ** build/run:
 - npm install
@@ -11,7 +14,7 @@ back: python
 - https://localhost:5173
 
 ** todo (no priority):
-*** parser:
+*** parser: 
 - extensive key dictionary
 - function to parse combos
 - function to parse tap holds
