@@ -31,4 +31,5 @@ body {
     background-repeat: repeat-x;
     background-size: 16px;
     background-attachment: fixed;
+    overflow: hidden;
 }

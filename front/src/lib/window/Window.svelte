@@ -61,19 +61,29 @@
     };
 
     /* move window back into viewport if dragged off-screen
-        right now it only checks top and left sides, as dragging right and bottom 
-        off-screen on DESKTOP causes the viewport to expand, which needs to be fixed */
+        left/right work well, top/bottom are scuffed - consider adding x, y to Position */
     const checkOffScreen = () => {
-        const topPercentEdge = ((window_.position.top - (window_.position.height / 2)) / window.innerHeight) * 100;
+        const topPercentEdge = Math.max(0, ((window_.position.top - (window_.position.height / 2)) / window.innerHeight) * 100);
         const leftPercentEdge = ((window_.position.left + (window_.position.width / 2)) / window.innerWidth) * 100;
+        const rightPercentEdge = ((window_.position.left - (window_.position.width / 2)) / window.innerWidth) * 100;
 
-        if (topPercentEdge < 0) {
+        if (topPercentEdge < 1) {
             window_.position.topPercent = ((window_.position.height / 2) / window.innerHeight) * 100;
+            getDimensions();
+        }
+
+        if (topPercentEdge > 96) { // accounting for taskbar
+            window_.position.topPercent = ((window.innerHeight - (window_.position.height / 2) + (window_.position.height - 40)) / window.innerHeight) * 100;
             getDimensions();
         }
 
         if (leftPercentEdge < 0) {
             window_.position.leftPercent = (((window_.position.width / 2) - (window_.position.width - 10)) / window.innerWidth) * 100;
+            getDimensions();
+        }
+
+        if (rightPercentEdge > 100) {
+            window_.position.leftPercent = ((window.innerWidth - 10 + (window_.position.width / 2)) / window.innerWidth) * 100;
             getDimensions();
         }
     }
