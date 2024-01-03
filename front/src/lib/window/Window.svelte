@@ -26,18 +26,25 @@
     let window_ = new Window(name, get_current_component(), options, position);
     let element: HTMLElement;
 
-    const getPosition = (): void => {
-        const getSize = (e: HTMLElement): Partial<Position> => {
-            const { height, width } = e.getBoundingClientRect();
-            return { 
-                height, 
-                width, 
-                top: (window_.position.topPercent / 100) * window.innerHeight,
-                left: (window_.position.leftPercent / 100) * window.innerWidth
-            };
-        }
+    const getDimensions = (): void => {
+        const { height, width } = element.getBoundingClientRect();
+        const dimensions: Partial<Position> = { 
+            height, 
+            width, 
+            top: (window_.position.topPercent / 100) * window.innerHeight,
+            left: (window_.position.leftPercent / 100) * window.innerWidth
+        };
 
-        window_.position = Object.assign({}, window_.position, getSize(element));
+        window_.position = Object.assign({}, window_.position, dimensions);
+    }
+
+    const getTopLeftPercent = (): void => {
+        window_.position.topPercent = (window_.position.top / window.innerHeight) * 100;
+        window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
+    }
+
+    const getLoadPosition = (): void => {
+        getDimensions();
 
         if ($windowStore.length <= 2) return;
 
@@ -53,9 +60,22 @@
         getTopLeftPercent();
     };
 
-    const getTopLeftPercent = (): void => {
-        window_.position.topPercent = (window_.position.top / window.innerHeight) * 100;
-        window_.position.leftPercent = (window_.position.left / window.innerWidth) * 100;
+    /* move window back into viewport if dragged off-screen
+        right now it only checks top and left sides, as dragging right and bottom 
+        off-screen on DESKTOP causes the viewport to expand, which needs to be fixed */
+    const checkOffScreen = () => {
+        const topPercentEdge = ((window_.position.top - (window_.position.height / 2)) / window.innerHeight) * 100;
+        const leftPercentEdge = ((window_.position.left + (window_.position.width / 2)) / window.innerWidth) * 100;
+
+        if (topPercentEdge < 0) {
+            window_.position.topPercent = ((window_.position.height / 2) / window.innerHeight) * 100;
+            getDimensions();
+        }
+
+        if (leftPercentEdge < 0) {
+            window_.position.leftPercent = (((window_.position.width / 2) - (window_.position.width - 10)) / window.innerWidth) * 100;
+            getDimensions();
+        }
     }
 
     const windowClick = () => {
@@ -81,6 +101,7 @@
 
     const dragMouseUp = () => {
         moving = false;
+        checkOffScreen();
     }
 
     const dragMouseMove = (e: MouseEvent) => {
@@ -88,7 +109,6 @@
 
         window_.position.top += e.movementY;
         window_.position.left += e.movementX;
-
         getTopLeftPercent();
     };
 
@@ -105,6 +125,7 @@
     const dragTouchEnd = () => {
         moving = false;
         movingTouch = null;
+        checkOffScreen();
     }
 
     const dragTouchMove = (e: TouchEvent) => {
@@ -125,13 +146,17 @@
     // -----
 
     onMount(async () => {
-        getPosition();
+        getLoadPosition();
+
+        // console.log(
+        //     ((window_.position.left + (window_.position.width / 2)) / window.innerWidth) * 100
+        // );
 
         window.addEventListener("resize", () => getTopLeftPercent());
     });
 
     onDestroy(() => {
-        console.log("destroyed: ", window_);
+        // console.log("destroyed: ", window_);
     });
 </script>
 
