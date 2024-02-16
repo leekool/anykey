@@ -1,5 +1,6 @@
 /back/app.log
 /back/__pycache__/
+/back/venv/
 /back/layout.svg
 
 /front/.svelte-kit/

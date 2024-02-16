@@ -7,4 +7,5 @@ else
     echo "No existing process found."
 fi
 
-nohup python3 app.py > /dev/null 2>&1 &
+# nohup python3 app.py > /dev/null 2>&1 &
+gunicorn -w 4 -b 0:0:0:0:5000 app:app
