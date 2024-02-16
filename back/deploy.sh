@@ -8,4 +8,4 @@ else
 fi
 
 # nohup python3 app.py > /dev/null 2>&1 &
-gunicorn -w 4 -b 0:0:0:0:5000 app:app
+gunicorn -w 4 -b 0:0:0:0:5000 --certfile "$CERT_PATH" --keyfile "$KEY_PATH" app:app &
