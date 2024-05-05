@@ -11,7 +11,7 @@
 <Desktop />
 
 <WindowComp 
-    name="layout_gen"
+    name="anykey"
     slot={{
         component: LayoutGen,
         props: null
